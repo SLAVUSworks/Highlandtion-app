@@ -29,6 +29,32 @@ class Registrasi extends Model
     public function ruangan()
     {
         return $this->belongsTo(Ruangan::class);
-    }  
+    }
 
+    protected static function booted()
+    {
+        static::saved(function ($registrasi) {
+            // Update kuota menu
+            if ($registrasi->menu) {
+                $registrasi->menu->updateKuotaNow();
+            }
+
+            // Update kuota ruangan (jika ada)
+            if ($registrasi->ruangan) {
+                $registrasi->ruangan->updateKuotaNow();
+            }
+        });
+
+        static::deleted(function ($registrasi) {
+            // Update kuota menu
+            if ($registrasi->menu) {
+                $registrasi->menu->updateKuotaNow();
+            }
+
+            // Update kuota ruangan (jika ada)
+            if ($registrasi->ruangan) {
+                $registrasi->ruangan->updateKuotaNow();
+            }
+        });
+    }
 }

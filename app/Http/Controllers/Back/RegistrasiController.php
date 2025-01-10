@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Registrasi;
 use App\Models\Ruangan;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Str;
 
 class RegistrasiController extends Controller
@@ -21,6 +22,17 @@ class RegistrasiController extends Controller
         $registrasi = Registrasi::findOrFail($id);
         $ruangans = Ruangan::where('menu_id', $registrasi->menu_id)->get();
         return view('back.registrasi.edit', compact('registrasi', 'ruangans'));
+    }
+
+    public function store(Request $request)
+    {
+        $registrasi = Registrasi::create($request->all());
+        if ($registrasi->status === 'approved') {
+            $registrasi->menu?->updateKuotaNow();
+            $registrasi->ruangan?->updateKuotaNow();
+        }
+
+        return redirect()->back()->with('success', 'Registrasi berhasil ditambahkan!');
     }
 
     public function update(Request $request, $id)
@@ -49,6 +61,36 @@ class RegistrasiController extends Controller
         $registrasi = Registrasi::with(['menu', 'ruangan'])->findOrFail($id);
 
         return view('back.registrasi.card', compact('registrasi'));
+    }
+
+    public function kirimPesan(Registrasi $registrasi)
+    {
+        // Data untuk pesan
+        $nomorHp = $registrasi->nomor_hp;
+        $pesan = "Halo {$registrasi->nama},\n\nBerikut adalah detail kartu ujian Anda:\n" .
+                 "- Asal Sekolah: {$registrasi->asal_sekolah}\n" .
+                 "- Menu: {$registrasi->menu->mata_pelajaran}\n" .
+                 "- Ruangan: {$registrasi->ruangan->nama_ruangan}\n" .
+                 "- Nomor Registrasi: {$registrasi->registration_code}\n\n" .
+                 "Terima kasih!";
+    
+        // Kirim pesan menggunakan WhatsApp API
+        $response = Http::withToken(env('WHATSAPP_API_TOKEN'))
+            ->post('https://graph.facebook.com/v17.0/' . env('WHATSAPP_PHONE_NUMBER_ID') . '/messages', [
+                'messaging_product' => 'whatsapp',
+                'to' => $nomorHp,
+                'type' => 'text',
+                'text' => [
+                    'body' => $pesan,
+                ],
+            ]);
+    
+        // Respons berhasil atau gagal
+        if ($response->successful()) {
+            return redirect()->route('back.registrasis.index')->with('success', 'Pesan berhasil dikirim ke WhatsApp!');
+        } else {
+            return redirect()->route('back.registrasis.index')->with('error', 'Gagal mengirim pesan: ' . $response->body());
+        }
     }
 }
 

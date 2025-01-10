@@ -38,40 +38,41 @@
         <!-- Sidebar -->
         <nav id="nav-dash" class="fixed top-0 left-0 z-40 w-64 h-screen pt-20 bg-gray-800 text-white">
             <div class="h-full px-3 pb-4 overflow-y-auto">
-                <ul class="space-y-2">
+                <ul class="space-y-1">
                     <li>
-                        <a href="{{ route('back.dashboard.index') }}" class="flex items-center p-2 text-gray-200 hover:bg-gray-700 rounded-lg">
-                            <i class="fa-solid fa-desktop fa-lg text-gray-400"></i>
-                            <span class="ml-3">Dashboard</span>
+                        <a href="{{ route('back.dashboard.index') }}" class="grid grid-cols-[24px,1fr] items-center gap-3 p-2 text-gray-200 hover:bg-gray-700 rounded-lg">
+                            <i class="fa-solid fa-desktop text-gray-400"></i>
+                            <span>Dashboard</span>
                         </a>
                     </li>
                     <li>
-                        <a href="{{ route('back.menu.index') }}" class="flex items-center p-2 text-gray-200 hover:bg-gray-700 rounded-lg">
-                            <i class="fa-solid fa-bars fa-lg text-gray-400"></i>
-                            <span class="ml-3">Daftar Menu</span>
+                        <a href="{{ route('back.menu.index') }}" class="grid grid-cols-[24px,1fr] items-center gap-3 p-2 text-gray-200 hover:bg-gray-700 rounded-lg">
+                            <i class="fa-solid fa-bars text-gray-400"></i>
+                            <span>Daftar Menu</span>
                         </a>
                     </li>
                     <li>
-                        <a href="{{ route('back.ruangan.index') }}" class="flex items-center p-2 text-gray-200 hover:bg-gray-700 rounded-lg">
-                            <i class="fa-solid fa-door-open fa-lg text-gray-400"></i>
-                            <span class="ml-3">Daftar Ruangan</span>
+                        <a href="{{ route('back.ruangan.index') }}" class="grid grid-cols-[24px,1fr] items-center gap-3 p-2 text-gray-200 hover:bg-gray-700 rounded-lg">
+                            <i class="fa-solid fa-door-open text-gray-400"></i>
+                            <span>Daftar Ruangan</span>
                         </a>
                     </li>
                     <li>
-                        <a href="{{ route('back.registrasis.index') }}" class="flex items-center p-2 text-gray-200 hover:bg-gray-700 rounded-lg">
-                            <i class="fa-solid fa-person fa-lg text-gray-400"></i>
-                            <span class="ml-3">Registrasi</span>
+                        <a href="{{ route('back.registrasis.index') }}" class="grid grid-cols-[24px,1fr] items-center gap-3 p-2 text-gray-200 hover:bg-gray-700 rounded-lg">
+                            <i class="fa-solid fa-person text-gray-400"></i>
+                            <span>Registrasi</span>
                         </a>
                     </li>
                     <li>
-                        <a href="{{ route('back.users.index') }}" class="flex items-center p-2 text-gray-200 hover:bg-gray-700 rounded-lg">
-                            <i class="fa-solid fa-users fa-lg text-gray-400"></i>
-                            <span class="ml-3">Daftar Admin</span>
+                        <a href="{{ route('back.users.index') }}" class="grid grid-cols-[24px,1fr] items-center gap-3 p-2 text-gray-200 hover:bg-gray-700 rounded-lg">
+                            <i class="fa-solid fa-users text-gray-400"></i>
+                            <span>Daftar Admin</span>
                         </a>
                     </li>
                 </ul>
             </div>
         </nav>
+
 
         <!-- Content -->
         <main class="ml-64 pt-20 p-6">

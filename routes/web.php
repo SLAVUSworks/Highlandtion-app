@@ -60,7 +60,8 @@ Route::middleware('auth')->group(function () {
         Route::get('registrasis/{registrasi}/edit', [BackRegistrasiController::class, 'edit'])->name('registrasis.edit');
         Route::put('registrasis/{registrasi}', [BackRegistrasiController::class, 'update'])->name('registrasis.update'); // Update route
         Route::get('registrasis/{registrasi}/card', [BackRegistrasiController::class, 'showCard'])->name('registrasis.showCard');
-    });
+        Route::get('registrasis/{registrasi}/kirim-pesan', [BackRegistrasiController::class, 'kirimPesan'])->name('registrasis.kirimPesan');
+    });    
      
     
 

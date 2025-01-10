@@ -12,9 +12,15 @@ class Ruangan extends Model
     protected $fillable = [
         'nama_ruangan',
         'kuota',
-        'kuota_max',
+        'kuota_now',
         'menu_id'
     ];
+
+    public function updateKuotaNow()
+    {
+        $this->kuota_now = $this->kuota - $this->registrasi()->where('status', 'approved')->count();
+        $this->save();
+    }
 
     public function menu()
     {

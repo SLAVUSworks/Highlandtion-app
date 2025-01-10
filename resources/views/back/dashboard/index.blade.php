@@ -5,10 +5,17 @@
     <h1 class="text-2xl font-bold mb-4">Dashboard Kuota</h1>
     
     <div id="dashboardData" class="space-y-6">
-        <div class="p-4 bg-white shadow rounded">
+        <div class="grid grid-cols-2 gap-4">
+            <div class="p-4 bg-white shadow rounded">
             <h2 class="text-xl font-semibold">Total Kuota</h2>
             <p>Kuota Ruangan: <span id="ruanganKuota">{{ $ruanganKuota }}</span></p>
             <p>Kuota Perlombaan: <span id="menuKuota">{{ $menuKuota }}</span></p>
+            </div>
+            <div class="p-4 bg-white shadow rounded">
+            <h2 class="text-xl font-semibold">Sisa Kuota</h2>
+            <p>Kuota Ruangan: <span id="sisaRuanganKuota">{{ $sisaKuotaRuangan }}</span></p>
+            <p>Kuota Perlombaan: <span id="sisaMenuKuota">{{ $sisaKuotaMenu }}</span></p>
+            </div>
         </div>
 
         <div class="p-4 bg-white shadow rounded">
@@ -18,7 +25,8 @@
                     <tr>
                         <th class="border px-4 py-2">No</th>
                         <th class="border px-4 py-2">Name</th>
-                        <th class="border px-4 py-2">Kuota</th>
+                        <th class="border px-4 py-2">Kuota Total</th>
+                        <th class="border px-4 py-2">Kuota Sisa</th>
                     </tr>
                 </thead>
                 <tbody id="ruanganTable">
@@ -27,6 +35,7 @@
                             <td class="border px-4 py-2">{{ $item->id }}</td>
                             <td class="border px-4 py-2">{{ $item->name }}</td>
                             <td class="border px-4 py-2">{{ $item->kuota }}</td>
+                            <td class="border px-4 py-2">{{ $item->kuota_now }}</td>
                         </tr>
                     @endforeach
                 </tbody>
@@ -40,7 +49,8 @@
                     <tr>
                         <th class="border px-4 py-2">No</th>
                         <th class="border px-4 py-2">Name</th>
-                        <th class="border px-4 py-2">Kuota</th>
+                        <th class="border px-4 py-2">Kuota Total</th>
+                        <th class="border px-4 py-2">Kuota Sisa</th>
                     </tr>
                 </thead>
                 <tbody id="menuTable">
@@ -49,6 +59,7 @@
                             <td class="border px-4 py-2">{{ $item->id }}</td>
                             <td class="border px-4 py-2">{{ $item->name }} - {{ $item->tingkat }}</td>
                             <td class="border px-4 py-2">{{ $item->kuota }}</td>
+                            <td class="border px-4 py-2">{{ $item->kuota_now }}</td>
                         </tr>
                     @endforeach
                 </tbody>
@@ -78,6 +89,7 @@ async function fetchKuotaData() {
                     <td class="border px-4 py-2">${item.id}</td>
                     <td class="border px-4 py-2">${item.name}</td>
                     <td class="border px-4 py-2">${item.kuota}</td>
+                    <td class="border px-4 py-2">${item.kuota_now}</td>
                 </tr>
             `;
             ruanganTable.insertAdjacentHTML('beforeend', row);
@@ -91,6 +103,7 @@ async function fetchKuotaData() {
                     <td class="border px-4 py-2">${item.id}</td>
                     <td class="border px-4 py-2">${item.name}</td>
                     <td class="border px-4 py-2">${item.kuota}</td>
+                    <td class="border px-4 py-2">${item.kuota_now}</td>
                 </tr>
             `;
             menuTable.insertAdjacentHTML('beforeend', row);

@@ -5,7 +5,7 @@
 @section('content')
 <div class="container mx-auto px-4 py-6">
     <h3 class="text-xl font-bold mb-4">Tambah Ruangan</h3>
-    <form action="{{ route('ruangan.store') }}" method="POST">
+    <form action="{{ route('back.ruangan.store') }}" method="POST">
         @csrf
         <div class="mb-4">
             <label for="nama_ruangan" class="block text-gray-700 font-medium mb-2">Nama Ruangan</label>

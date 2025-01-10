@@ -5,7 +5,7 @@
 @section('content')
 <div class="container mx-auto px-4 py-6">
     <h1>Edit Menu</h1>
-    <form action="{{ route('menu.update', $menu) }}" method="POST" enctype="multipart/form-data">
+    <form action="{{ route('back.menu.update', $menu) }}" method="POST" enctype="multipart/form-data">
         @csrf
         @method('PUT')
         <div class="form-group">

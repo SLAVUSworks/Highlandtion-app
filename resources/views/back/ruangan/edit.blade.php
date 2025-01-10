@@ -1,7 +1,9 @@
 @extends('back.layouts.app')
 
+@section('title', 'Edit Ruangan')
+
 @section('content')
-<div class="container mx-auto p-6 bg-white rounded shadow">
+<div class="container mx-auto px-4 py-6">
     <h3 class="text-xl font-bold mb-4">Edit Ruangan</h3>
     <form action="{{ route('back.ruangan.update', $ruangan) }}" method="POST">
         @csrf
@@ -34,4 +36,6 @@
         <button type="submit" class="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600">Simpan</button>
     </form>
 </div>
+    <script src="https://cdn.tailwindcss.com"></script>
+
 @endsection
