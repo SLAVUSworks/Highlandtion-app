@@ -12,10 +12,11 @@
         <p><strong>Ruangan:</strong> {{ $registrasi->ruangan->nama_ruangan }}</p>
         <p><strong>Nomor Registrasi:</strong> {{ $registrasi->registration_code }}</p>
         <p class="pb-5"><strong>Nomor HP:</strong> {{ $registrasi->nomor_hp }}</p>
+        
         <a href="{{ route('back.registrasis.kirimPesan', $registrasi->id) }}" 
             class="mt-4 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600">
-            Kirim ke WhatsApp (Bot)
-         </a>                
+            Kirim ke WhatsApp
+        </a>
     </div>
 </div>
 <script src="https://cdn.tailwindcss.com"></script>

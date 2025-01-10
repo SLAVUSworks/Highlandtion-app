@@ -85,7 +85,36 @@
             </select>
         </div>
 
-        <button type="submit" class="bg-green-500 text-white px-4 py-2 rounded-lg hover:bg-green-600">Setujui dan Tempatkan</button>
+        <button type="submit" class="bg-green-500 text-white px-4 py-2 rounded-lg hover:bg-green-600">
+            Setujui dan Tempatkan
+        </button>
+    </form>
+    
+    <script>
+        document.querySelector('form').addEventListener('submit', function(event) {
+            event.preventDefault();  // Mencegah form untuk langsung submit
+    
+            var form = this;
+    
+            // Submit form menggunakan fetch API untuk menghindari reload
+            fetch(form.action, {
+                method: form.method,
+                body: new FormData(form)
+            })
+            .then(response => {
+                // Setelah submit berhasil, arahkan ke halaman showCard
+                if (response.ok) {
+                    window.location.href = "{{ route('back.registrasis.showCard', $registrasi->id) }}";
+                } else {
+                    alert('Terjadi kesalahan saat mengirim data');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('Terjadi kesalahan');
+            });
+        });
+    </script>
         {{-- <button type="button" class="bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600" onclick="rejectRegistration()">Tolak</button> --}}
         <button type="reset" class="bg-gray-500 text-white px-4 py-2 rounded-lg hover:bg-green-600"><a href="{{ route('back.registrasis.index') }}">Kembali</a></button>
 {{-- 
@@ -99,5 +128,4 @@
         </script> --}}
         </form>
 </div>
-<script src="https://cdn.tailwindcss.com"></script>
 @endsection

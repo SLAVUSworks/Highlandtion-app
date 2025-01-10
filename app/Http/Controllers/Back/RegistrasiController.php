@@ -8,6 +8,8 @@ use App\Models\Ruangan;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Str;
+use Twilio\Rest\Client;
+use Illuminate\Support\Facades\Log;
 
 class RegistrasiController extends Controller
 {
@@ -53,7 +55,7 @@ class RegistrasiController extends Controller
             'registration_code' => $uniqueCode,
         ]);
 
-        return redirect()->route('back.registrasis.index')->with('success', 'Registrasi berhasil diverifikasi.');
+        return redirect()->route('back.registrasis.showCard', $registrasi->id)->with('success', 'Registrasi berhasil diverifikasi.');
     }
 
     public function showCard($id)
@@ -63,33 +65,36 @@ class RegistrasiController extends Controller
         return view('back.registrasi.card', compact('registrasi'));
     }
 
-    public function kirimPesan(Registrasi $registrasi)
+    public function sendWhatsAppMessage(Registrasi $registrasi)
     {
-        // Data untuk pesan
-        $nomorHp = $registrasi->nomor_hp;
-        $pesan = "Halo {$registrasi->nama},\n\nBerikut adalah detail kartu ujian Anda:\n" .
-                 "- Asal Sekolah: {$registrasi->asal_sekolah}\n" .
-                 "- Menu: {$registrasi->menu->mata_pelajaran}\n" .
-                 "- Ruangan: {$registrasi->ruangan->nama_ruangan}\n" .
-                 "- Nomor Registrasi: {$registrasi->registration_code}\n\n" .
-                 "Terima kasih!";
+        // Ambil nomor telepon dan hapus angka 0 di depan jika ada
+        $nomorHp = ltrim($registrasi->nomor_hp, '0');
     
-        // Kirim pesan menggunakan WhatsApp API
-        $response = Http::withToken(env('WHATSAPP_API_TOKEN'))
-            ->post('https://graph.facebook.com/v17.0/' . env('WHATSAPP_PHONE_NUMBER_ID') . '/messages', [
-                'messaging_product' => 'whatsapp',
-                'to' => $nomorHp,
-                'type' => 'text',
-                'text' => [
-                    'body' => $pesan,
-                ],
-            ]);
+        // Set up Twilio credentials
+        $sid = env('TWILIO_SID');
+        $authToken = env('TWILIO_AUTH_TOKEN');
+        $twilioNumber = 'whatsapp:' . env('TWILIO_PHONE_NUMBER'); // Format untuk WhatsApp
     
-        // Respons berhasil atau gagal
-        if ($response->successful()) {
+        $client = new Client($sid, $authToken);
+    
+        // Kirim pesan ke nomor WhatsApp
+        try {
+            $message = $client->messages->create(
+                'whatsapp:+62' . $nomorHp, // Nomor WhatsApp tujuan (tanpa 0 di awal)
+                [
+                    'from' => $twilioNumber,
+                    'body' => "Halo, {$registrasi->nama}! Berikut adalah informasi kartu ujian Anda:\n" .
+                        "Asal Sekolah: {$registrasi->asal_sekolah}\n" .
+                        "Menu: {$registrasi->menu->mata_pelajaran}\n" .
+                        "Ruangan: {$registrasi->ruangan->nama_ruangan}\n" .
+                        "Nomor Registrasi: {$registrasi->registration_code}"
+                ]
+            );
+    
             return redirect()->route('back.registrasis.index')->with('success', 'Pesan berhasil dikirim ke WhatsApp!');
-        } else {
-            return redirect()->route('back.registrasis.index')->with('error', 'Gagal mengirim pesan: ' . $response->body());
+        } catch (\Exception $e) {
+            Log::error('Error saat mengirim pesan WhatsApp: ' . $e->getMessage());  // Logging error
+            return redirect()->route('back.registrasis.index')->with('error', 'Terjadi kesalahan saat mengirim pesan: ' . $e->getMessage());
         }
     }
 }
