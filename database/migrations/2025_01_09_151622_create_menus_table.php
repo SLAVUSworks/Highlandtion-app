@@ -18,6 +18,8 @@ return new class extends Migration
             $table->text('deskripsi')->nullable();
             $table->decimal('harga', 10, 2);
             $table->unsignedInteger('kuota')->default(0);
+            $table->string('icon')->nullable();
+            $table->string('thumbnail')->nullable();
             $table->timestamps();
         });
     }

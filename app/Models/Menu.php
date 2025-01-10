@@ -13,6 +13,8 @@ class Menu extends Model
         'tingkat',
         'deskripsi',
         'harga',
+        'icon',
+        'thumbnail',
         'kuota'
     ];
 
@@ -20,4 +22,10 @@ class Menu extends Model
     {
         return $this->hasMany(Ruangan::class);
     }
+
+    public function registrasi()
+    {
+        return $this->hasMany(Registrasi::class);
+    }
+
 }

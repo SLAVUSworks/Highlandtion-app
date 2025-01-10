@@ -5,40 +5,85 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>@yield('title', 'Admin Panel')</title>
-    <!-- Tambahkan CSS Framework (Bootstrap, Tailwind, atau lainnya) -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="{{ asset('css/admin.css') }}"> <!-- Custom CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css" integrity="sha512-5Hs3dF2AEPkpNAR7UiOHba+lRSJNeM2ECkwxUIxC1Q/FLycGTbNapWXB4tP889k5T5Ju8fs4b1P5z/iB4nMfSQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="{{ asset('css/admin.css') }}">
 </head>
-<body>
+<body class="bg-gray-100">
     <div id="app">
-        <!-- Sidebar -->
-        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-            <div class="container-fluid">
-                <a class="navbar-brand" href="{{ route('back.menu.index') }}">Atmint Panel cik</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
+        <!-- Top Navigation -->
+        <nav id="nav-dash" class="fixed top-0 z-50 w-full bg-white shadow flex items-center justify-between px-6 py-3">
+            <a href="{{ route('back.menu.index') }}" <h1 class="text-lg font-bold text-black">Admin Panel</h1></a>
+            <div class="relative">
+                <button id="user-menu-button" class="focus:outline-none">
+                    <img src="{{ 'storage/' . Auth::user()->avatar }}" alt="Profile Picture" class="rounded-full w-10 h-10">
                 </button>
-                <div class="collapse navbar-collapse" id="navbarNav">
-                    <ul class="navbar-nav">
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ route('back.menu.index') }}">Daftar Menu</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ route('back.ruangan.index') }}">Daftar Ruangan</a>
-                        </li>
-                    </ul>
+                <div id="user-menu" class="absolute right-0 mt-2 w-48 bg-white rounded shadow-lg hidden">
+                    <div class="px-4 py-2 border-b">
+                        <p class="text-sm text-gray-700 font-bold">{{ Auth::user()->nickname }}</p>
+                        <p class="text-sm text-gray-500">{{ Auth::user()->email }}</p>
+                        <p class="text-sm text-gray-500">Role: 
+                            @if(Auth::user()->role == 1) Admin @elseif(Auth::user()->role == 2) Head @else Assistant @endif
+                        </p>
+                    </div>
+                    <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Profile</a>
+                    <form action="{{ route('logout') }}" method="POST">
+                        @csrf
+                        <button type="submit" class="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Logout</button>
+                    </form>
                 </div>
             </div>
         </nav>
 
+        <!-- Sidebar -->
+        <nav id="nav-dash" class="fixed top-0 left-0 z-40 w-64 h-screen pt-20 bg-gray-800 text-white">
+            <div class="h-full px-3 pb-4 overflow-y-auto">
+                <ul class="space-y-2">
+                    <li>
+                        <a href="{{ route('back.menu.index') }}" class="flex items-center p-2 text-gray-200 hover:bg-gray-700 rounded-lg">
+                            <i class="fa-solid fa-bars fa-lg text-gray-400"></i>
+                            <span class="ml-3">Daftar Menu</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ route('back.ruangan.index') }}" class="flex items-center p-2 text-gray-200 hover:bg-gray-700 rounded-lg">
+                            <i class="fa-solid fa-door-open fa-lg text-gray-400"></i>
+                            <span class="ml-3">Daftar Ruangan</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ route('back.registrasis.index') }}" class="flex items-center p-2 text-gray-200 hover:bg-gray-700 rounded-lg">
+                            <i class="fa-solid fa-person fa-lg text-gray-400"></i>
+                            <span class="ml-3">Registrasi</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ route('back.users.index') }}" class="flex items-center p-2 text-gray-200 hover:bg-gray-700 rounded-lg">
+                            <i class="fa-solid fa-users fa-lg text-gray-400"></i>
+                            <span class="ml-3">Daftar Admin</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+
         <!-- Content -->
-        <div class="container mt-4">
-            @yield('content')
-        </div>
+        <main class="ml-64 pt-20 p-6">
+            <div class="bg-white p-6 rounded shadow">
+                @yield('content')
+            </div>
+        </main>
     </div>
 
     <!-- Scripts -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="{{ asset('js/admin.js') }}"></script> <!-- Custom JS -->
+    <script>
+        const userMenuButton = document.getElementById('user-menu-button');
+        const userMenu = document.getElementById('user-menu');
+
+        userMenuButton.addEventListener('click', () => {
+            userMenu.classList.toggle('hidden');
+        });
+    </script>
+    <script src="{{ asset('js/admin.js') }}"></script>
 </body>
 </html>

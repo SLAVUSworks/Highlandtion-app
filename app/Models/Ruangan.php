@@ -19,4 +19,10 @@ class Ruangan extends Model
     {
         return $this->belongsTo(Menu::class);
     }
+
+    public function registrasi()
+    {
+        return $this->hasMany(Registrasi::class);
+    }
+
 }

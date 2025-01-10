@@ -1,9 +1,15 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
 
 use App\Http\Controllers\Back\MenuController;
 use App\Http\Controllers\Back\RuanganController;
+use App\Http\Controllers\Back\UserController;
+use App\Http\Controllers\Back\RegistrasiController as BackRegistrasiController;
+
+use App\Http\Controllers\Front\MenuController as FrontMenuController;
+use App\Http\Controllers\Front\RegistrasiController;
 
 
 
@@ -18,14 +24,45 @@ use App\Http\Controllers\Back\RuanganController;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+// Route::get('/', function () {
+//     return view('welcome');
+// });
+
+Route::get('/', [FrontMenuController::class, 'index'])->name('menu.index');
+Route::get('/menu/{menu}', [FrontMenuController::class, 'show'])->name('menu.show');
+Route::get('/registrasi/{menu}', [RegistrasiController::class, 'create'])->name('registrasi.create');
+Route::post('/registrasi', [RegistrasiController::class, 'store'])->name('registrasi.store');
+
+Route::middleware('auth')->group(function () {
+    Route::prefix('back')->name('back.')->group(function () {
+        Route::resource('menu', MenuController::class);
+    });
+    
+    Route::prefix('back')->name('back.')->group(function () {
+        Route::resource('ruangan', RuanganController::class);
+    });
+
+    Route::prefix('back')->name('back.')->group(function () {
+        Route::resource('users', UserController::class);
+        Route::get('/profile', [UserController::class, 'show']);
+    });
+
+    Route::prefix('back')->name('back.')->group(function () {
+        Route::get('registrasis', [BackRegistrasiController::class, 'index'])->name('registrasis.index');
+        Route::get('registrasis/{registrasi}/edit', [BackRegistrasiController::class, 'edit'])->name('registrasis.edit');
+        Route::put('registrasis/{registrasi}', [BackRegistrasiController::class, 'update'])->name('registrasis.update'); // Update route
+        Route::get('registrasis/{registrasi}/card', [BackRegistrasiController::class, 'showCard'])->name('registrasis.showCard');
+    });
+     
+    
+
+    Route::get('back/storage/{path}', function ($path) {
+        return response()->file(storage_path('app/public/' . $path));
+    })->where('path', '.*');
+    
 });
 
-Route::prefix('back')->name('back.')->group(function () {
-    Route::resource('menu', MenuController::class);
-});
 
-Route::prefix('back')->name('back.')->group(function () {
-    Route::resource('ruangan', RuanganController::class);
-});
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
