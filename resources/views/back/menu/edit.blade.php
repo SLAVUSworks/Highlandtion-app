@@ -1,11 +1,11 @@
 @extends('back.layouts.app')
 
-@section('title', 'Daftar Menu')
+@section('title', 'Edit Menu')
 
 @section('content')
-<div class="container">
+<div class="container mx-auto px-4 py-6">
     <h1>Edit Menu</h1>
-    <form action="{{ route('back.menu.update', $menu) }}" method="POST" enctype="multipart/form-data">
+    <form action="{{ route('menu.update', $menu) }}" method="POST" enctype="multipart/form-data">
         @csrf
         @method('PUT')
         <div class="form-group">
@@ -41,4 +41,5 @@
         <button type="submit" class="btn btn-primary">Update</button>
     </form>
 </div>
+<script src="https://cdn.tailwindcss.com"></script>
 @endsection

@@ -1,5 +1,7 @@
 @extends('back.layouts.app')
 
+@section('title', 'Kartu Registrasi')
+
 @section('content')
 <div class="container mx-auto px-4 py-6">
     <h1 class="text-2xl font-bold mb-4">Kartu Ujian</h1>
@@ -11,4 +13,5 @@
         <p><strong>Nomor Registrasi:</strong> {{ $registrasi->registration_code }}</p>
     </div>
 </div>
+<script src="https://cdn.tailwindcss.com"></script>
 @endsection

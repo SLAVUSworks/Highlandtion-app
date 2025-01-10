@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('nama_ruangan');
             $table->integer('kuota');
+            $table->integer('kuota_max');
             $table->foreignId('menu_id')->constrained('menus')->onDelete('cascade');
             $table->timestamps();
         });

@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 
+use App\Http\Controllers\Back\DashboardController;
 use App\Http\Controllers\Back\MenuController;
 use App\Http\Controllers\Back\RuanganController;
 use App\Http\Controllers\Back\UserController;
@@ -34,6 +35,13 @@ Route::get('/registrasi/{menu}', [RegistrasiController::class, 'create'])->name(
 Route::post('/registrasi', [RegistrasiController::class, 'store'])->name('registrasi.store');
 
 Route::middleware('auth')->group(function () {
+
+    Route::prefix('back')->name('back.')->group(function () {
+        Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard.index');
+        Route::get('dashboard/kuota', [DashboardController::class, 'fetchKuotaData']);
+    });
+    
+
     Route::prefix('back')->name('back.')->group(function () {
         Route::resource('menu', MenuController::class);
     });

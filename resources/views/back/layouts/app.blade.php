@@ -16,7 +16,7 @@
             <a href="{{ route('back.menu.index') }}" <h1 class="text-lg font-bold text-black">Admin Panel</h1></a>
             <div class="relative">
                 <button id="user-menu-button" class="focus:outline-none">
-                    <img src="{{ 'storage/' . Auth::user()->avatar }}" alt="Profile Picture" class="rounded-full w-10 h-10">
+                    <img src="{{ url('storage/' . Auth::user()->avatar) }}" alt="Profile Picture" class="rounded-full w-10 h-10">
                 </button>
                 <div id="user-menu" class="absolute right-0 mt-2 w-48 bg-white rounded shadow-lg hidden">
                     <div class="px-4 py-2 border-b">
@@ -39,6 +39,12 @@
         <nav id="nav-dash" class="fixed top-0 left-0 z-40 w-64 h-screen pt-20 bg-gray-800 text-white">
             <div class="h-full px-3 pb-4 overflow-y-auto">
                 <ul class="space-y-2">
+                    <li>
+                        <a href="{{ route('back.dashboard.index') }}" class="flex items-center p-2 text-gray-200 hover:bg-gray-700 rounded-lg">
+                            <i class="fa-solid fa-desktop fa-lg text-gray-400"></i>
+                            <span class="ml-3">Dashboard</span>
+                        </a>
+                    </li>
                     <li>
                         <a href="{{ route('back.menu.index') }}" class="flex items-center p-2 text-gray-200 hover:bg-gray-700 rounded-lg">
                             <i class="fa-solid fa-bars fa-lg text-gray-400"></i>

@@ -1,9 +1,11 @@
 @extends('back.layouts.app')
 
+@section('title', 'Tambah Ruangan')
+
 @section('content')
-<div class="container mx-auto p-6 bg-white rounded shadow">
+<div class="container mx-auto px-4 py-6">
     <h3 class="text-xl font-bold mb-4">Tambah Ruangan</h3>
-    <form action="{{ route('back.ruangan.store') }}" method="POST">
+    <form action="{{ route('ruangan.store') }}" method="POST">
         @csrf
         <div class="mb-4">
             <label for="nama_ruangan" class="block text-gray-700 font-medium mb-2">Nama Ruangan</label>
@@ -27,4 +29,5 @@
         <button type="submit" class="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600">Simpan</button>
     </form>
 </div>
+<script src="https://cdn.tailwindcss.com"></script>
 @endsection

@@ -12,6 +12,7 @@ class Ruangan extends Model
     protected $fillable = [
         'nama_ruangan',
         'kuota',
+        'kuota_max',
         'menu_id'
     ];
 

@@ -1,9 +1,9 @@
 @extends('back.layouts.app')
 
-@section('title', 'Daftar Menu')
+@section('title', 'Buat Menu')
 
 @section('content')
-<div class="container">
+<div class="container mx-auto px-4 py-6">
     <h1>Tambah Menu</h1>
     <form action="{{ route('back.menu.store') }}" method="POST" enctype="multipart/form-data">
         @csrf
@@ -34,4 +34,5 @@
         <button type="submit" class="btn btn-primary">Simpan</button>
     </form>
 </div>
+<script src="https://cdn.tailwindcss.com"></script>
 @endsection

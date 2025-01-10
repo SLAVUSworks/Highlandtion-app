@@ -15,7 +15,8 @@ class Menu extends Model
         'harga',
         'icon',
         'thumbnail',
-        'kuota'
+        'kuota',
+        'kuota_now',
     ];
 
     public function ruangan()
