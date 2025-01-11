@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers\Back;
 
-use App\Http\Controllers\Controller;
 use App\Models\Config;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
 class ConfigController extends Controller
 {

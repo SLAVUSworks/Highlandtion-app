@@ -7,6 +7,7 @@ use App\Http\Controllers\Back\DashboardController;
 use App\Http\Controllers\Back\MenuController;
 use App\Http\Controllers\Back\RuanganController;
 use App\Http\Controllers\Back\UserController;
+use App\Http\Controllers\Back\ConfigController;
 use App\Http\Controllers\Back\RegistrasiController as BackRegistrasiController;
 
 use App\Http\Controllers\Front\MenuController as FrontMenuController;
@@ -53,6 +54,12 @@ Route::middleware('auth')->group(function () {
     Route::prefix('back')->name('back.')->group(function () {
         Route::resource('users', UserController::class);
         Route::get('/profile', [UserController::class, 'show']);
+    });
+
+    Route::prefix('back')->name('back.')->group(function () {
+        Route::resource('/config', ConfigController::class)->only([
+            'index', 'update'
+        ]);
     });
 
     Route::prefix('back')->name('back.')->group(function () {

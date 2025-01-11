@@ -3,10 +3,10 @@
 @section('content')
 <header class="relative h-screen bg-fixed bg-center bg-cover flex flex-col justify-center items-center" style="background-image: url('https://cdn.discordapp.com/attachments/1196022203842580561/1321883151399915530/114663443_p0_master1200.png?ex=67834a5e&is=6781f8de&hm=849a87fbb758dc3a409e517418adc82f941113b6b2001892cf08f2b91d06e7a5&');">
     <div class="absolute top-0 left-0 m-4">
-        <img src="{{ asset('https://media.discordapp.net/attachments/497671304229421069/1322756708879175690/e4819f1e-0951-4598-be82-119d94a4ec85.png?ex=67832c2f&is=6781daaf&hm=efb66096c0a2eceb4b31e434ee06f97a58139a655635c8451cb1e59066dc6ceb&=&format=webp&quality=lossless&width=480&height=480') }}" alt="Logo 1" class="w-20 h-20">
+        <img src="{{ $config['header-logo-left'] }}" alt="Logo 1" class="w-20 h-20">
     </div>
     <div class="absolute top-0 right-0 m-4">
-        <img src="{{ asset('https://media.discordapp.net/attachments/497671304229421069/1322756708879175690/e4819f1e-0951-4598-be82-119d94a4ec85.png?ex=67832c2f&is=6781daaf&hm=efb66096c0a2eceb4b31e434ee06f97a58139a655635c8451cb1e59066dc6ceb&=&format=webp&quality=lossless&width=480&height=480') }}" alt="Logo 2" class="w-20 h-20">
+        <img src="{{ $config['header-logo-right'] }}" alt="Logo 2" class="w-20 h-20">
     </div>
     <span class="text-black text-sm max-w-lg mx-auto mb-2 capitalize flex items-center">Ini Tagline <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="text-indigo-600 ml-2 w-5 h-5">
         <path stroke-linecap="round" stroke-linejoin="round" d="M17.25 8.25 21 12m0 0-3.75 3.75M21 12H3" />

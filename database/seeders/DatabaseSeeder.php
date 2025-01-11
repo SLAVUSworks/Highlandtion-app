@@ -6,6 +6,7 @@ namespace Database\Seeders;
 use Illuminate\Database\Seeder;
 use Database\Seeders\MenuSeeder;
 use Database\Seeders\UserSeeder;
+use Database\Seeders\ConfigSeeder;
 
 class DatabaseSeeder extends Seeder
 {
@@ -18,6 +19,7 @@ class DatabaseSeeder extends Seeder
 
         $this->call(MenuSeeder::class);
         $this->call(UserSeeder::class);
+        $this->call(ConfigSeeder::class);
         
     }
 }
