@@ -1,8 +1,10 @@
 @extends('back.layouts.app')
 
+@section('title', 'Daftar Ruangan')
+
 @section('content')
-<div class="container mx-auto p-6 bg-white rounded shadow">
-    <a href="{{ route('back.ruangan.create') }}" class="inline-block bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600 mb-4">Tambah Ruangan</a>
+<div class="container mx-auto px-4 py-6">
+    <h1 class="text-2xl font-bold mb-4">Daftar Ruangan</h1>
     <table class="table-auto w-full border-collapse border border-gray-300">
         <thead class="bg-gray-200">
             <tr>
@@ -33,4 +35,6 @@
         </tbody>
     </table>
 </div>
+    <script src="https://cdn.tailwindcss.com"></script>
+
 @endsection

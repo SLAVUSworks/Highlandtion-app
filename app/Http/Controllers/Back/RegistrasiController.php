@@ -10,14 +10,46 @@ use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Str;
 use Twilio\Rest\Client;
 use Illuminate\Support\Facades\Log;
+use App\Models\Menu;
+
 
 class RegistrasiController extends Controller
 {
     public function index()
     {
         $registrasis = Registrasi::with(['menu', 'ruangan'])->get();
-        return view('back.registrasi.index', compact('registrasis'));
+        $menus = Menu::all(); // Ambil semua menu dari database
+    
+        return view('back.registrasi.index', compact('registrasis', 'menus'));
+    }    
+    
+
+    public function getRegistrasiData(Request $request)
+    {
+        $search = $request->get('search', '');
+        $status = $request->get('status', '');
+        $menuId = $request->get('menu', '');
+    
+        $query = Registrasi::with('menu')
+            ->where(function ($q) use ($search) {
+                $q->where('nama', 'like', "%$search%")
+                  ->orWhere('asal_sekolah', 'like', "%$search%")
+                  ->orWhere('email', 'like', "%$search%");
+            });
+    
+        if ($status) {
+            $query->where('status', $status);
+        }
+    
+        if ($menuId) {
+            $query->where('menu_id', $menuId);
+        }
+    
+        $registrasis = $query->get();
+    
+        return response()->json($registrasis);
     }
+    
 
     public function edit($id)
     {
@@ -46,7 +78,7 @@ class RegistrasiController extends Controller
         ]);
 
         // Generate a unique registration code
-        $uniqueCode = strtoupper(Str::random(8));
+        $uniqueCode = 'HL-' . $registrasi->created_at->format('dm') . $registrasi->menu_id . $validated['ruangan_id'] . $registrasi->created_at->format('Hi');
 
         // Update the registration
         $registrasi->update([

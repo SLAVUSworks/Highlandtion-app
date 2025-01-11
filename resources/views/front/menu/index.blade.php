@@ -45,11 +45,26 @@
                     </p>
                 </div>
                 <div class="flex items-center mt-2.5">
-                    <span class="text-sm dark:text-gray-400">Kuota</span>
+                    <span class="text-sm dark:text-gray-400">Sisa Kuota</span>
                     <span class="bg-blue-100 text-blue-800 text-xs font-semibold mr-2 px-2.5 py-0.5 rounded dark:bg-blue-200 dark:text-blue-800 ml-3">
-                        {{ $menu->kuota_now }}
+                        @if ($menu->kuota_now == null)
+                            {{ $menu->kuota }}
+                        @else
+                            {{ $menu->kuota_now }}
+                        @endif
                     </span>
                 </div>
+            <script>
+                document.addEventListener('DOMContentLoaded', function () {
+                    document.querySelectorAll('.bg-blue-100').forEach(function (element) {
+                        let kuotaNow = parseInt(element.textContent.trim());
+                        if (kuotaNow <= 5) {
+                            element.classList.remove('bg-blue-100', 'dark:bg-blue-200');
+                            element.classList.add('bg-red-300');
+                        }
+                    });
+                });
+            </script>
             </div>
         </div>
     </div>

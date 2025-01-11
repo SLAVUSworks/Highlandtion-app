@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Ruangan;
 use App\Models\Menu;
+use Illuminate\Support\Facades\DB;
+
 
 class DashboardController extends Controller
 {
@@ -18,10 +20,20 @@ class DashboardController extends Controller
     {
         $ruanganKuota = Ruangan::sum('kuota');
         $menuKuota = Menu::sum('kuota');
-        $sisaKuotaRuangan = Ruangan::sum('kuota_now');
-        $sisaKuotaMenu = Menu::sum('kuota_now');
-        $kuotaPerRuangan = Ruangan::select('id', 'nama_ruangan as name', 'kuota', 'kuota_now')->get();
-        $kuotaPerMenu = Menu::select('id', 'mata_pelajaran as name', 'tingkat', 'kuota', 'kuota_now')->get();
+        $sisaKuotaRuangan = Ruangan::sum('kuota') - DB::table('registrasis')->where('status', 'approved')->count('ruangan_id');
+        $sisaKuotaMenu = Menu::sum('kuota') - DB::table('registrasis')->where('status', 'approved')->count('menu_id');
+        $kuotaPerRuangan = Ruangan::select('id', 'nama_ruangan as name', 'kuota', 'kuota_now')->get()->map(function ($item) {
+            if ($item->kuota_now == null) {
+                $item->kuota_now = $item->kuota;
+            }
+            return $item;
+        });
+        $kuotaPerMenu = Menu::select('id', 'mata_pelajaran as name', 'tingkat', 'kuota', 'kuota_now')->get()->map(function ($item) {
+            if ($item->kuota_now == null) {
+                $item->kuota_now = $item->kuota;
+            }
+            return $item;
+        });
     
         return view('back.dashboard.index', [
             'ruanganKuota' => $ruanganKuota,
@@ -31,29 +43,5 @@ class DashboardController extends Controller
             'kuotaPerRuangan' => $kuotaPerRuangan,
             'kuotaPerMenu' => $kuotaPerMenu,
         ]);
-    }
-    
-    public function fetchKuotaData()
-    {
-        $ruanganKuota = Ruangan::sum('kuota');
-        $menuKuota = Menu::sum('kuota');
-        $sisaKuotaRuangan = Ruangan::sum('kuota_now');
-        $sisaKuotaMenu = Menu::sum('kuota_now');
-        $kuotaPerRuangan = Ruangan::select('id', 'nama_ruangan as name', 'kuota', 'kuota_now')->get();
-        $kuotaPerMenu = Menu::select('id', 'mata_pelajaran as name', 'tingkat', 'kuota', 'kuota_now')->get();
-    
-        return response()->json([
-            'ruangan_kuota' => $ruanganKuota,
-            'menu_kuota' => $menuKuota,
-            'kuota_per_ruangan' => $kuotaPerRuangan,
-            'kuota_per_menu' => $kuotaPerMenu,
-            'ruanganKuota' => $ruanganKuota,
-            'menuKuota' => $menuKuota,
-            'sisaKuotaRuangan' => $sisaKuotaRuangan,
-            'sisaKuotaMenu' => $sisaKuotaMenu,
-            'kuotaPerRuangan' => $kuotaPerRuangan,
-            'kuotaPerMenu' => $kuotaPerMenu,
-        ]);
-    }
-    
+    }    
 }

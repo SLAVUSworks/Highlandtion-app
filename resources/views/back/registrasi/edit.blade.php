@@ -5,7 +5,7 @@
 @section('content')
 <div class="container mx-auto px-4 py-6">
     <h1 class="text-2xl font-bold mb-4">Verifikasi Registrasi</h1>
-    <form action="{{ route('back.registrasis.update', $registrasi->id) }}" method="POST">
+    <form id="registrasiForm" action="{{ route('back.registrasis.update', $registrasi->id) }}" method="POST">
         @csrf
         @method('PUT')
 
@@ -44,27 +44,59 @@
         </div>
         
         <!-- Modal -->
-        <div id="imageModal" class="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center hidden">
-            <div class="relative">
-                <img id="modalImage" src="" alt="Modal View" class="max-w-full max-h-screen rounded">
-                <button 
-                    class="absolute top-2 right-2 text-black text-4xl font-bold cursor-pointer text-black"
-                    onclick="closeModal()"
-                >×</button>
+        <div id="imageModal" class="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center hidden" onclick="closeModal(event)">
+            <div class="relative" id="modalContent" onclick="event.stopPropagation()">
+            <img id="modalImage" src="" alt="Modal View" class="max-w-full max-h-screen rounded transform transition-transform duration-300">
+            <button 
+            class="absolute top-2 right-2 text-black text-4xl font-bold cursor-pointer text-black"
+            onclick="closeModal()"
+            >×</button>
+            <div class="absolute bottom-2 left-2 flex space-x-2">
+            <button 
+            class="bg-white text-black px-2 py-1 rounded-lg"
+            onclick="zoomIn()"
+            >+</button>
+            <button 
+            class="bg-white text-black px-2 py-1 rounded-lg"
+            onclick="zoomOut()"
+            >-</button>
+            </div>
             </div>
         </div>
 
         <script>
+            let scale = 1;
+
             function openModal(image) {
-                const modal = document.getElementById('imageModal');
-                const modalImage = document.getElementById('modalImage');
-                modalImage.src = image.src;
-                modal.classList.remove('hidden');
+            const modal = document.getElementById('imageModal');
+            const modalImage = document.getElementById('modalImage');
+            modalImage.src = image.src;
+            modal.classList.remove('hidden');
             }
         
-            function closeModal() {
+            function closeModal(event) {
+            if (event.target.id === 'imageModal') {
                 const modal = document.getElementById('imageModal');
                 modal.classList.add('hidden');
+                resetZoom();
+            }
+            }
+
+            function zoomIn() {
+            scale += 0.1;
+            document.getElementById('modalImage').style.transform = `scale(${scale})`;
+            }
+
+            function zoomOut() {
+            if (scale > 0.1) {
+                scale -= 0.1;
+                document.getElementById('modalImage').style.transform = `scale(${scale})`;
+            }
+            }
+
+            function resetZoom() {
+            scale = 1;
+            document.getElementById('modalImage').style.transform = `scale(${scale})`;
             }
         </script>
 
@@ -77,46 +109,78 @@
         <div class="mb-4">
             <label for="ruangan_id" class="block text-gray-700 font-bold mb-2">Pilih Ruangan</label>
             <select id="ruangan_id" name="ruangan_id" required
-                class="w-full px-4 py-2 border border-gray-300 rounded-lg">
-                <option value="">-- Pilih Ruangan --</option>
-                @foreach($ruangans as $ruangan)
-                <option value="{{ $ruangan->id }}">{{ $ruangan->nama_ruangan }}</option>
-                @endforeach
+            class="w-full px-4 py-2 border border-gray-300 rounded-lg">
+            <option value="">-- Pilih Ruangan --</option>
+            @foreach($ruangans as $ruangan)
+            <option value="{{ $ruangan->id }}">{{ $ruangan->nama_ruangan }}</option>
+            @endforeach
             </select>
         </div>
 
-        <button type="submit" class="bg-green-500 text-white px-4 py-2 rounded-lg hover:bg-green-600">
-            Setujui dan Tempatkan
-        </button>
-    </form>
-    
-    <script>
-        document.querySelector('form').addEventListener('submit', function(event) {
-            event.preventDefault();  // Mencegah form untuk langsung submit
-    
-            var form = this;
-    
-            // Submit form menggunakan fetch API untuk menghindari reload
-            fetch(form.action, {
-                method: form.method,
-                body: new FormData(form)
-            })
-            .then(response => {
-                // Setelah submit berhasil, arahkan ke halaman showCard
-                if (response.ok) {
-                    window.location.href = "{{ route('back.registrasis.showCard', $registrasi->id) }}";
-                } else {
-                    alert('Terjadi kesalahan saat mengirim data');
+        <div class="mb-4">
+            <input type="checkbox" id="confirmRuangan" name="confirmRuangan" required>
+            <label for="confirmRuangan" class="text-gray-700 font-bold">Saya telah memastikan pembayaran tersebut valid.</label>
+        </div>
+
+        <div class="flex space-x-4">
+            <button type="button" id="confirmButton" class="bg-green-500 text-white px-4 py-2 rounded-lg hover:bg-green-600" disabled>
+            Setuju dan Tempatkan
+            </button>
+            <button type="reset" class="bg-gray-500 text-white px-4 py-2 rounded-lg hover:bg-gray-600">
+            <a href="{{ route('back.registrasis.index') }}">Kembali</a>
+            </button>
+        </div>
+        </form>
+
+        <script>
+            document.getElementById('confirmRuangan').addEventListener('change', function() {
+            document.getElementById('confirmButton').disabled = !this.checked;
+            });
+        </script>
+        
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+        <script>
+        document.getElementById('confirmButton').addEventListener('click', function() {
+            Swal.fire({
+                title: 'Apakah Anda yakin?',
+                text: "Anda tidak akan dapat mengembalikan ini!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Ya, setuju!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    document.getElementById('registrasiForm').submit();
                 }
             })
+        });
+
+        document.querySelector('form').addEventListener('submit', function(event) {
+            event.preventDefault();  // Mencegah form untuk langsung submit
+        
+            var form = this;
+        
+            // Submit form menggunakan fetch API untuk menghindari reload
+            fetch(form.action, {
+            method: form.method,
+            body: new FormData(form)
+            })
+            .then(response => {
+            // Setelah submit berhasil, arahkan ke halaman showCard
+            if (response.ok) {
+                window.location.href = "{{ route('back.registrasis.showCard', $registrasi->id) }}";
+            } else {
+                alert('Terjadi kesalahan saat mengirim data');
+            }
+            })
             .catch(error => {
-                console.error('Error:', error);
-                alert('Terjadi kesalahan');
+            console.error('Error:', error);
+            alert('Terjadi kesalahan');
             });
         });
-    </script>
+        </script>
         {{-- <button type="button" class="bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600" onclick="rejectRegistration()">Tolak</button> --}}
-        <button type="reset" class="bg-gray-500 text-white px-4 py-2 rounded-lg hover:bg-green-600"><a href="{{ route('back.registrasis.index') }}">Kembali</a></button>
 {{-- 
         <script>
             function rejectRegistration() {

@@ -4,41 +4,41 @@
 
 @section('content')
 <div class="container mx-auto px-4 py-6">
-    <h1>Edit Menu</h1>
+    <h1 class="text-2xl font-bold mb-6">Edit Menu</h1>
     <form action="{{ route('back.menu.update', $menu) }}" method="POST" enctype="multipart/form-data">
         @csrf
         @method('PUT')
-        <div class="form-group">
-            <label for="mata_pelajaran">Mata Pelajaran</label>
-            <input type="text" class="form-control" name="mata_pelajaran" id="mata_pelajaran" value="{{ $menu->mata_pelajaran }}" required>
+        <div class="mb-4">
+            <label for="mata_pelajaran" class="block text-sm font-medium text-gray-700">Mata Pelajaran</label>
+            <input type="text" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500" name="mata_pelajaran" id="mata_pelajaran" value="{{ $menu->mata_pelajaran }}" required>
         </div>
-        <div class="form-group">
-            <label for="tingkat">Tingkat</label>
-            <input type="text" class="form-control" name="tingkat" id="tingkat" value="{{ $menu->tingkat }}" required>
+        <div class="mb-4">
+            <label for="tingkat" class="block text-sm font-medium text-gray-700">Tingkat</label>
+            <input type="text" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500" name="tingkat" id="tingkat" value="{{ $menu->tingkat }}" required>
         </div>
-        <div class="form-group">
-            <label for="harga">Harga</label>
-            <input type="number" class="form-control" name="harga" id="harga" value="{{ $menu->harga }}" required>
+        <div class="mb-4">
+            <label for="harga" class="block text-sm font-medium text-gray-700">Harga</label>
+            <input type="number" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500" name="harga" id="harga" value="{{ $menu->harga }}" required>
         </div>
-        <div class="form-group">
-            <label for="kuota">Kuota</label>
-            <input type="number" class="form-control" name="kuota" id="kuota" value="{{ $menu->kuota }}" required>
+        <div class="mb-4">
+            <label for="kuota" class="block text-sm font-medium text-gray-700">Kuota</label>
+            <input type="number" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500" name="kuota" id="kuota" value="{{ $menu->kuota }}" required>
         </div>
-        <div class="form-group">
-            <label for="icon">Icon</label>
+        <div class="mb-4">
+            <label for="icon" class="block text-sm font-medium text-gray-700">Icon</label>
             @if ($menu->icon)
-            <img src="{{ asset('storage/' . $menu->icon) }}" alt="Current Icon" width="100" />
+            <img src="{{ asset('storage/' . $menu->icon) }}" alt="Current Icon" class="my-2 w-24 h-24 object-cover" />
             @endif
-            <input type="file" class="form-control" name="icon" id="icon" required>
+            <input type="file" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500" name="icon" id="icon" required>
         </div>
-        <div class="form-group">
-            <label for="thumbnail">Thumbnail</label>
+        <div class="mb-4">
+            <label for="thumbnail" class="block text-sm font-medium text-gray-700">Thumbnail</label>
             @if ($menu->thumbnail)
-            <img src="{{ asset('storage/' . $menu->thumbnail) }}" alt="Current Thumbnail" width="100" />
+            <img src="{{ asset('storage/' . $menu->thumbnail) }}" alt="Current Thumbnail" class="my-2 w-24 h-24 object-cover" />
             @endif
-            <input type="file" class="form-control" name="thumbnail" id="thumbnail" required>
+            <input type="file" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500" name="thumbnail" id="thumbnail" required>
         </div>
-        <button type="submit" class="btn btn-primary">Update</button>
+        <button type="submit" class="px-4 py-2 bg-indigo-600 text-white rounded-md shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">Update</button>
     </form>
 </div>
 <script src="https://cdn.tailwindcss.com"></script>
