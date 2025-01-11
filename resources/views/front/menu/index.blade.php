@@ -1,29 +1,58 @@
 @extends('front.layouts.app')
 
 @section('content')
-<div class="relative min-h-screen flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8 bg-no-repeat bg-cover" style="background-image: url('https://safebooru.org//images/1283/08d1264619f04bcc434f851541abdcdf15c3fee4.jpg'); background-size: cover; background-position: center;">
-    <div class="w-full max-w-8xl lg:w-8/12 mx-auto bg-blue-200 rounded-3xl shadow-2xl z-10 p-6 space-y-4">
-        <div class="z-10 w-full max-w-3xl p-6 mx-auto bg-white rounded-3xl shadow-2xl">
-            <h1 class="text-3xl font-bold text-gray-800">Selamat Datang di Aplikasi Perlombaan</h1>
-            <p class="text-gray-600 mt-4">Aplikasi ini adalah aplikasi yang digunakan untuk mengelola perlombaan yang diadakan oleh sekolah.</p>
+
+    <span class="text-black text-sm max-w-lg mx-auto mb-2 capitalize flex items-center">Ini Tagline <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="text-indigo-600 ml-2 w-5 h-5">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M17.25 8.25 21 12m0 0-3.75 3.75M21 12H3" />
+    </svg>
+    </span>
+    <h1 id="app" class="text-white text-4xl md:text-5xl xl:text-6xl font-semibold max-w-8xl mx-auto mb-16 leading-snug"></h1>
+    <script src="{{ asset('js/typewriter.js') }}"></script>
+
+    <div class="grid gap-8 sm:grid-cols-2 lg:grid-cols-3 p-3 md:p-4 xl:p-5">
+    @foreach ( $menus as $menu )    
+    <div class="bg-white border rounded-lg shadow-md dark:bg-gray-800 dark:border-gray-700 ">
+        <div class="p-2 flex justify-center">
+            <a href="{{ route('menu.show', $menu) }}" class="block w-full h-48">
+                <img 
+                    class="rounded-lg object-cover w-full h-full"
+                    src="{{ 'storage/' . $menu->thumbnail }}"
+                    alt="Thumbnail"
+                    loading="lazy">
+            </a>
         </div>
-    <h1 class="text-2xl font-bold text-gray-800 mb-6">Daftar Perlombaan</h1>
-    <div class="grid grid-cols-1 gap-6">
-        @foreach($menus as $menu)
-        <div class="flex flex-col bg-white shadow-md rounded-2xl overflow-hidden">
-            <img src="{{ asset('storage/' . $menu->thumbnail) }}" alt="{{ $menu->mata_pelajaran }}" 
-                 class="w-full h-40 object-cover">
-            <div class="p-4">
-                <h5 class="text-lg font-semibold text-gray-800 truncate">{{ $menu->mata_pelajaran }}</h5>
-                <p class="text-sm text-gray-600 mt-2">{{ $menu->deskripsi }}</p>
-                <a href="{{ route('menu.show', $menu) }}" 
-                   class="mt-4 inline-block bg-blue-500 text-white text-sm font-medium px-4 py-2 rounded-lg hover:bg-blue-600 transition duration-200">
-                    Detail
-                </a>
+        
+        <div class="px-4 pb-3">
+            <div>
+                <a href="{{ route('menu.show', $menu) }}">
+                    <h5 class="text-xl font-semibold tracking-tight hover:text-violet-800 dark:hover:text-violet-300 text-gray-900 dark:text-white ">
+                    {{ $menu->mata_pelajaran }}
+                </h5>
+            </a>
+            <p class="text-gray-600 dark:text-gray-400 text-sm break-all">{{ Str::limit($menu->deskripsi,50),'. . .'  }}</p>
+        </div>
+        <div class="mt-2 flex justify-between">
+            <div class="flex gap-3 py-2">
+                    <a href="#">
+                        <img src="{{ asset('storage/' . $menu->icon) }}"
+                        class="object-cover w-12 h-12 rounded-full" alt="mapel-icon" loading="lazy">
+                    </a>
+                    <p class="text-gray-600 dark:text-gray-300 hover:text-violet-800 ">
+                        <a href="#" class="text-sm">
+                            <small>Tingkat</small> <br>
+                            {{ $menu->tingkat }}
+                        </a>
+                    </p>
+                </div>
+                <div class="flex items-center mt-2.5">
+                    <span class="text-sm dark:text-gray-400">Kuota</span>
+                    <span class="bg-blue-100 text-blue-800 text-xs font-semibold mr-2 px-2.5 py-0.5 rounded dark:bg-blue-200 dark:text-blue-800 ml-3">
+                        {{ $menu->kuota_now }}
+                    </span>
+                </div>
             </div>
         </div>
-        @endforeach
     </div>
+    @endforeach
 </div>
-
 @endsection

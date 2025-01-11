@@ -12,8 +12,6 @@ use App\Http\Controllers\Back\RegistrasiController as BackRegistrasiController;
 use App\Http\Controllers\Front\MenuController as FrontMenuController;
 use App\Http\Controllers\Front\RegistrasiController;
 
-
-
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -25,17 +23,20 @@ use App\Http\Controllers\Front\RegistrasiController;
 |
 */
 
-// Route::get('/', function () {
-//     return view('welcome');
-// });
-
 Route::get('/', [FrontMenuController::class, 'index'])->name('menu.index');
 Route::get('/menu/{menu}', [FrontMenuController::class, 'show'])->name('menu.show');
 Route::get('/registrasi/{menu}', [RegistrasiController::class, 'create'])->name('registrasi.create');
 Route::post('/registrasi', [RegistrasiController::class, 'store'])->name('registrasi.store');
 
-Route::middleware('auth')->group(function () {
 
+Route::middleware('auth')->group(function () {
+    Route::get('/admin', function () {
+        if (Auth::check()) {
+            return redirect('/back/dashboard');
+        }
+        return redirect('/login');
+    });
+    
     Route::prefix('back')->name('back.')->group(function () {
         Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard.index');
         Route::get('dashboard/kuota', [DashboardController::class, 'fetchKuotaData']);
@@ -70,8 +71,4 @@ Route::middleware('auth')->group(function () {
     })->where('path', '.*');
     
 });
-
-
 Auth::routes();
-
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
