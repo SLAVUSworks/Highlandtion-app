@@ -87,7 +87,7 @@ class RegistrasiController extends Controller
             'registration_code' => $uniqueCode,
         ]);
 
-        return redirect()->route('back.registrasis.showCard', $registrasi->id)->with('success', 'Registrasi berhasil diverifikasi.');
+        return redirect()->route('back.registrasis.card', $registrasi->id)->with('success', 'Registrasi berhasil diverifikasi.');
     }
 
     public function showCard($id)

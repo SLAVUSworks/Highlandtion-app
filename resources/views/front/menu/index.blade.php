@@ -1,73 +1,120 @@
 @extends('front.layouts.app')
 
 @section('content')
-
+<header class="relative h-screen bg-fixed bg-center bg-cover flex flex-col justify-center items-center" style="background-image: url('https://cdn.discordapp.com/attachments/1196022203842580561/1321883151399915530/114663443_p0_master1200.png?ex=67834a5e&is=6781f8de&hm=849a87fbb758dc3a409e517418adc82f941113b6b2001892cf08f2b91d06e7a5&');">
+    <div class="absolute top-0 left-0 m-4">
+        <img src="{{ asset('https://media.discordapp.net/attachments/497671304229421069/1322756708879175690/e4819f1e-0951-4598-be82-119d94a4ec85.png?ex=67832c2f&is=6781daaf&hm=efb66096c0a2eceb4b31e434ee06f97a58139a655635c8451cb1e59066dc6ceb&=&format=webp&quality=lossless&width=480&height=480') }}" alt="Logo 1" class="w-20 h-20">
+    </div>
+    <div class="absolute top-0 right-0 m-4">
+        <img src="{{ asset('https://media.discordapp.net/attachments/497671304229421069/1322756708879175690/e4819f1e-0951-4598-be82-119d94a4ec85.png?ex=67832c2f&is=6781daaf&hm=efb66096c0a2eceb4b31e434ee06f97a58139a655635c8451cb1e59066dc6ceb&=&format=webp&quality=lossless&width=480&height=480') }}" alt="Logo 2" class="w-20 h-20">
+    </div>
     <span class="text-black text-sm max-w-lg mx-auto mb-2 capitalize flex items-center">Ini Tagline <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="text-indigo-600 ml-2 w-5 h-5">
         <path stroke-linecap="round" stroke-linejoin="round" d="M17.25 8.25 21 12m0 0-3.75 3.75M21 12H3" />
     </svg>
     </span>
-    <h1 id="app" class="text-white text-4xl md:text-5xl xl:text-6xl font-semibold max-w-8xl mx-auto mb-16 leading-snug"></h1>
+    <h1 id="app" class="text-white text-4xl md:text-5xl xl:text-6xl font-semibold max-w-8xl mx-auto mb-16 leading-snug text-center"></h1>
     <script src="{{ asset('js/typewriter.js') }}"></script>
+</header>
 
-    <div class="grid gap-8 sm:grid-cols-2 lg:grid-cols-3 p-3 md:p-4 xl:p-5">
-    @foreach ( $menus as $menu )    
-    <div class="bg-white border rounded-lg shadow-md dark:bg-gray-800 dark:border-gray-700 ">
-        <div class="p-2 flex justify-center">
-            <a href="{{ route('menu.show', $menu) }}" class="block w-full h-48">
-                <img 
-                    class="rounded-lg object-cover w-full h-full"
-                    src="{{ 'storage/' . $menu->thumbnail }}"
-                    alt="Thumbnail"
-                    loading="lazy">
-            </a>
-        </div>
-        
-        <div class="px-4 pb-3">
-            <div>
-                <a href="{{ route('menu.show', $menu) }}">
-                    <h5 class="text-xl font-semibold tracking-tight hover:text-violet-800 dark:hover:text-violet-300 text-gray-900 dark:text-white ">
-                    {{ $menu->mata_pelajaran }}
-                </h5>
-            </a>
-            <p class="text-gray-600 dark:text-gray-400 text-sm break-all">{{ Str::limit($menu->deskripsi,50),'. . .'  }}</p>
-        </div>
-        <div class="mt-2 flex justify-between">
-            <div class="flex gap-3 py-2">
-                    <a href="#">
-                        <img src="{{ asset('storage/' . $menu->icon) }}"
-                        class="object-cover w-12 h-12 rounded-full" alt="mapel-icon" loading="lazy">
+
+<div class="p-5">
+    <div class="flex justify-start">
+        <h2 class="text-2xl font-semibold mb-4">Tingkat</h2>
+    </div>
+    <div class="flex justify-start">
+        <button onclick="filterMenus('all')" class="relative inline-flex items-center justify-center p-0.5 mb-2 me-2 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-purple-600 to-blue-500 group-hover:from-purple-600 group-hover:to-blue-500 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800">
+            <span class="relative px-5 py-2.5 transition-all ease-in duration-75 bg-white dark:bg-gray-900 rounded-md group-hover:bg-opacity-0">
+            Semua
+            </span>
+            </button>
+        <button onclick="filterMenus('SD')" class="relative inline-flex items-center justify-center p-0.5 mb-2 me-2 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-cyan-500 to-blue-500 group-hover:from-cyan-500 group-hover:to-blue-500 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-cyan-200 dark:focus:ring-cyan-800">
+            <span class="relative px-5 py-2.5 transition-all ease-in duration-75 bg-white dark:bg-gray-900 rounded-md group-hover:bg-opacity-0">
+            SD/MI
+            </span>
+        </button>
+        <button onclick="filterMenus('SMP/MTs')" class="relative inline-flex items-center justify-center p-0.5 mb-2 me-2 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-green-400 to-blue-600 group-hover:from-green-400 group-hover:to-blue-600 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-green-200 dark:focus:ring-green-800">
+            <span class="relative px-5 py-2.5 transition-all ease-in duration-75 bg-white dark:bg-gray-900 rounded-md group-hover:bg-opacity-0">
+            SMP/MTs
+            </span>
+        </button>
+        <button onclick="filterMenus('SMA/MA')" class="relative inline-flex items-center justify-center p-0.5 mb-2 me-2 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-teal-300 to-lime-300 group-hover:from-teal-300 group-hover:to-lime-300 dark:text-white dark:hover:text-gray-900 focus:ring-4 focus:outline-none focus:ring-lime-200 dark:focus:ring-lime-800">
+            <span class="relative px-5 py-2.5 transition-all ease-in duration-75 bg-white dark:bg-gray-900 rounded-md group-hover:bg-opacity-0">
+            SMA/Ma
+            </span>
+        </button>
+    </div>
+</div>
+<div class="grid gap-8 sm:grid-cols-2 lg:grid-cols-3 p-3 md:p-4 xl:p-5" id="menu-container">
+@foreach ( $menus as $menu )    
+<div class="bg-white border rounded-lg shadow-md dark:bg-gray-800 dark:border-gray-700 menu-item" data-tingkat="{{ $menu->tingkat }}">
+    <div class="p-2 flex justify-center">
+        <a href="{{ route('menu.show', $menu) }}" class="block w-full h-48">
+            <img 
+                class="rounded-lg object-cover w-full h-full"
+                src="{{ 'storage/' . $menu->thumbnail }}"
+                alt="Thumbnail"
+                loading="lazy">
+        </a>
+    </div>
+    
+    <div class="px-4 pb-3">
+        <div>
+            <a href="{{ route('menu.show', $menu) }}">
+                <h5 class="text-xl font-semibold tracking-tight hover:text-violet-800 dark:hover:text-violet-300 text-gray-900 dark:text-white ">
+                {{ $menu->mata_pelajaran }}
+            </h5>
+        </a>
+        <p class="text-gray-600 dark:text-gray-400 text-sm break-all">{{ Str::limit($menu->deskripsi,50),'. . .'  }}</p>
+    </div>
+    <div class="mt-2 flex justify-between">
+        <div class="flex gap-3 py-2">
+                <a href="#">
+                    <img src="{{ asset('storage/' . $menu->icon) }}"
+                    class="object-cover w-12 h-12 rounded-full" alt="mapel-icon" loading="lazy">
+                </a>
+                <p class="text-gray-600 dark:text-gray-300 hover:text-violet-800 ">
+                    <a href="#" class="text-sm">
+                        <small>Tingkat</small> <br>
+                        {{ $menu->tingkat }}
                     </a>
-                    <p class="text-gray-600 dark:text-gray-300 hover:text-violet-800 ">
-                        <a href="#" class="text-sm">
-                            <small>Tingkat</small> <br>
-                            {{ $menu->tingkat }}
-                        </a>
-                    </p>
-                </div>
-                <div class="flex items-center mt-2.5">
-                    <span class="text-sm dark:text-gray-400">Sisa Kuota</span>
-                    <span class="bg-blue-100 text-blue-800 text-xs font-semibold mr-2 px-2.5 py-0.5 rounded dark:bg-blue-200 dark:text-blue-800 ml-3">
-                        @if ($menu->kuota_now == null)
-                            {{ $menu->kuota }}
-                        @else
-                            {{ $menu->kuota_now }}
-                        @endif
-                    </span>
-                </div>
-            <script>
-                document.addEventListener('DOMContentLoaded', function () {
-                    document.querySelectorAll('.bg-blue-100').forEach(function (element) {
-                        let kuotaNow = parseInt(element.textContent.trim());
-                        if (kuotaNow <= 5) {
-                            element.classList.remove('bg-blue-100', 'dark:bg-blue-200');
-                            element.classList.add('bg-red-300');
-                        }
-                    });
-                });
-            </script>
+                </p>
             </div>
+            <div class="flex items-center mt-2.5">
+                <span class="text-sm dark:text-gray-400">Sisa Kuota</span>
+                <span class="bg-blue-100 text-blue-800 text-xs font-semibold mr-2 px-2.5 py-0.5 rounded dark:bg-blue-200 dark:text-blue-800 ml-3">
+                    @if ($menu->kuota_now == null)
+                        {{ $menu->kuota }}
+                    @else
+                        {{ $menu->kuota_now }}
+                    @endif
+                </span>
+            </div>
+        <script>
+            document.addEventListener('DOMContentLoaded', function () {
+                document.querySelectorAll('.bg-blue-100').forEach(function (element) {
+                    let kuotaNow = parseInt(element.textContent.trim());
+                    if (kuotaNow <= 5) {
+                        element.classList.remove('bg-blue-100', 'dark:bg-blue-200');
+                        element.classList.add('bg-red-300');
+                    }
+                });
+            });
+        </script>
         </div>
     </div>
-    @endforeach
 </div>
+@endforeach
+</div>
+
+<script>
+    function filterMenus(tingkat) {
+        document.querySelectorAll('.menu-item').forEach(function (item) {
+            if (item.getAttribute('data-tingkat') === tingkat || tingkat === 'all') {
+                item.style.display = 'block';
+            } else {
+                item.style.display = 'none';
+            }
+        });
+    }
+</script>
 @endsection

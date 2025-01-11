@@ -169,7 +169,7 @@
             .then(response => {
             // Setelah submit berhasil, arahkan ke halaman showCard
             if (response.ok) {
-                window.location.href = "{{ route('back.registrasis.showCard', $registrasi->id) }}";
+                window.location.href = "{{ route('back.registrasis.card', $registrasi->id) }}";
             } else {
                 alert('Terjadi kesalahan saat mengirim data');
             }

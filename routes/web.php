@@ -60,10 +60,9 @@ Route::middleware('auth')->group(function () {
         Route::get('registrasis/{registrasi}/edit', [BackRegistrasiController::class, 'edit'])->name('registrasis.edit');
         Route::put('registrasis/{registrasi}', [BackRegistrasiController::class, 'update'])->name('registrasis.update');
         Route::get('registrasis/{registrasi}/card', [BackRegistrasiController::class, 'showCard'])->name('registrasis.card');
-        
-        Route::get('/api/registrasi-data', [RegistrasiController::class, 'getRegistrasiData']);
-    
         Route::get('registrasis/{registrasi}/kirim-pesan-whatsapp', [BackRegistrasiController::class, 'sendWhatsAppMessage'])->name('registrasis.kirimPesan');
+
+        Route::get('/registrasi-data', [BackRegistrasiController::class, 'getRegistrasiData']);
     });
     
      

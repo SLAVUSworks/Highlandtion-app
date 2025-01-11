@@ -36,8 +36,11 @@
 
             <div>
                 <label for="nomor_hp" class="block text-sm font-medium text-gray-700 text-left">Nomor HP</label>
-                <input type="text" id="nomor_hp" name="nomor_hp" required 
-                       class="mt-1 block w-full border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500 text-lg">
+                <div class="flex">
+                    <span class="inline-flex items-center px-3 rounded-l-md border border-r-0 border-gray-300 bg-gray-50 text-gray-500 text-lg">+62</span>
+                    <input type="text" id="nomor_hp" name="nomor_hp" required 
+                           class="mt-1 block w-full border-gray-300 rounded-r-lg shadow-sm focus:ring-blue-500 focus:border-blue-500 text-lg">
+                </div>
             </div>
         </div>
 
@@ -64,9 +67,19 @@
                 <script src="{{ asset('js/registrasi.js') }}"></script>
                 
                 </div>
-                <label for="bukti_transfer" class="block text-sm font-medium text-gray-700 text-left mt-3">Bukti Transfer</label>
+                <label for="bukti_transfer" class="block text-sm font-medium text-gray-700 text-left mt-3">Bukti Transfer - <i>Max 2MB</i></label>
                 <input type="file" id="bukti_transfer" name="bukti_transfer" required 
-                       class="mt-1 block w-full border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500 text-lg">
+                       class="mt-1 block w-full border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500 text-lg"
+                       accept="image/*" onchange="validateFileSize(this)">
+                <script>
+                    function validateFileSize(input) {
+                        const file = input.files[0];
+                        if (file.size > 2 * 1024 * 1024) {
+                            alert('Ukuran File Harus Kecil dari 2MB');
+                            input.value = '';
+                        }
+                    }
+                </script>
             </div>
             <button type="submit" class="w-full bg-blue-500 text-white text-sm font-medium px-6 py-3 rounded-lg hover:bg-blue-600 transition duration-200">Kirim Pendaftaran</button>
             <script src="{{ asset('js/registrasi.js') }}"></script>

@@ -15,8 +15,6 @@ use App\Http\Controllers\Back\RegistrasiController;
 |
 */
 
-Route::get('/registrasi-data', [RegistrasiController::class, 'getRegistrasiData']);
-
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });

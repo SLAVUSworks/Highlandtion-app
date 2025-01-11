@@ -22,30 +22,49 @@
             </div>
         </div>
     </nav>
+    @yield('content')
     <section class="min-h-screen text-center py-20 px-8 xl:px-0 flex flex-col justify-center">
     
-    @yield('content')
 
     </section>
-    <footer class="bg-gray-800 text-white py-8">
-        <div class="container mx-auto">
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-                <div>
-                    <h3 class="text-lg font-semibold">Highlandtion</h3>
-                    <p class="text-sm">Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, voluptates.</p>
-                </div>
-                <div>
-                    <h3 class="text-lg font-semibold">Links</h3>
-                    <ul class="mt-2">
-                        <li><a href="#" class="text-sm hover:text-gray-300">Home</a></li>
-                        <li><a href="#" class="text-sm hover:text-gray-300">About</a></li>
-                        <li><a href="#" class="text-sm hover:text-gray-300">Contact</a></li>
-                    </ul>
-                </div>
-                <div>
-                    <h3 class="text-lg font-semibold">Contact</h3>
-                    <p class="text-sm">Jl. Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, voluptates.</p>
-                </div>
+<footer class="bg-gray-800 text-white py-8">
+    <div class="container mx-auto">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div>
+                <h3 class="text-lg font-semibold">Highlandtion</h3>
+                <p class="text-sm">Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, voluptates.</p>
             </div>
+            <div>
+                <h3 class="text-lg font-semibold">Links</h3>
+                <ul class="mt-2">
+                    <li><a href="#" class="text-sm hover:text-gray-300">Home</a></li>
+                    <li><a href="#" class="text-sm hover:text-gray-300">About</a></li>
+                    <li><a href="#" class="text-sm hover:text-gray-300">Contact</a></li>
+                </ul>
+            </div>
+            <div>
+                <h3 class="text-lg font-semibold">Contact</h3>
+                <p class="text-sm">Jl. Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, voluptates.</p>
+            </div>
+        </div>
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 mt-8 justify-items-center text-center">
+            <div class="flex justify-center">
+                <img src="#" alt="SMAN1BKT" class="w-1/3 h-auto mx-auto">
+            </div>
+        </div>
+        <h3 class="text-lg font-semibold mt-8">Sponsor</h3>
+        <div class="grid grid-cols-1 md:grid-cols-8 gap-4 mt-8">
+            <div>
+                <img src="#" alt="Sponsor 1" class="mx-auto">
+            </div>
+        </div>
+        <h3 class="text-lg font-semibold mt-8">Ekstrakurikuler</h3>
+        <div class="grid grid-cols-1 md:grid-cols-8 gap-4 mt-8">
+            <div>
+                <img src="#" alt="ekskul 1" class="mx-auto">
+            </div>
+        </div>
+    </div>
+</footer>
 </body>
 </html>

@@ -79,7 +79,7 @@
             const menu = menuFilter.val();
 
             $.ajax({
-                url: "/api/registrasi-data",
+                url: "{{ url('back/registrasi-data') }}", // Untuk URL penuh
                 method: "GET",
                 data: { search: query, status: status, menu: menu },
                 success: function (data) {
@@ -121,8 +121,14 @@
 
         // Initial fetch
         fetchRegistrasiData();
+
+        // Update table content every 5 seconds
+        setInterval(() => {
+            fetchRegistrasiData(); // Regularly fetch updated table data
+        }, 5000);
     });
 </script>
+
 
 
 @endsection
