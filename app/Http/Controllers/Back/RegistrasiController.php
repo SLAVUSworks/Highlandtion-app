@@ -11,7 +11,7 @@ use Illuminate\Support\Str;
 use Twilio\Rest\Client;
 use Illuminate\Support\Facades\Log;
 use App\Models\Menu;
-
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class RegistrasiController extends Controller
 {
@@ -93,6 +93,18 @@ class RegistrasiController extends Controller
         $registrasi = Registrasi::with(['menu', 'ruangan'])->findOrFail($id);
 
         return view('back.registrasi.card', compact('registrasi'));
+    }
+
+    public function generatePdf($id)
+    {
+        $registrasi = Registrasi::findOrFail($id);
+    
+        $htmlContent = view('back.registrasi.pdf', compact('registrasi'))->render();
+        
+        // Inisialisasi DomPDF
+        $pdf = Pdf::loadHTML($htmlContent);
+    
+        return $pdf->download("Kartu_Registrasi_{$registrasi->registration_code}.pdf");
     }
 
     public function sendWhatsAppMessage(Registrasi $registrasi)

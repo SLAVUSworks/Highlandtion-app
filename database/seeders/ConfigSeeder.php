@@ -43,21 +43,9 @@ class ConfigSeeder extends Seeder
                 'value' => 'Ini Tagline',
             ],
             [
-                'name' => 'header-typewriter',
-                'value' => "Gunakan Syntax typewriter.js atau gunakan teks biasa untuk statis"
-            ],
-            [
                 'name' => 'footer-contact',
                 'value' => 'detail kontak',
             ],
-            [
-                'name' => 'footer-sponsor',
-                'value' => '! Gunakan dan sesuaikan jumlah tag ini dengan jumlah sponsor <img src="url gambar" alt="Sponsor" class="mx-auto">',
-            ],
-            [
-                'name' => 'footer-ekskul',
-                'value' => '! Gunakan dan sesuaikan jumlah tag ini dengan jumlah ekskul<div><img src="#" alt="ekskul 1" class="mx-auto"></div>',
-            ]
         ]);
     }
 }

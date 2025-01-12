@@ -4,12 +4,15 @@ var typewriter = new Typewriter(app, {
     loop: true
 });
 
-typewriter.typeString('Main Tagline <u style="text-decoration: red underline;">Test Tagline</u>')
-    .pauseFor(1500)
-    .deleteChars(10)
-    .typeString('<strong>Testing.</strong>')
+typewriter.typeString('Highlandtion <u style="text-decoration: red underline;">2.1</u>')
     .pauseFor(2500)
     .deleteAll()
-    .typeString('Test Test Test <strong>Test Tes</strong>')
-    .pauseFor(2500)
+    .typeString('<strong>High</strong>')
+    .pauseFor(1000)
+    .deleteAll()
+    .typeString('<strong>Landbouw</strong>')
+    .pauseFor(1000)
+    .deleteAll()
+    .typeString('<strong>Competition</strong>')
+    .pauseFor(1000)
     .start();

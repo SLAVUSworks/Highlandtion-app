@@ -1,7 +1,7 @@
 @extends('front.layouts.app')
 
 @section('content')
-<header class="relative h-screen bg-fixed bg-center bg-cover flex flex-col justify-center items-center" style="background-image: url('https://cdn.discordapp.com/attachments/1196022203842580561/1321883151399915530/114663443_p0_master1200.png?ex=67834a5e&is=6781f8de&hm=849a87fbb758dc3a409e517418adc82f941113b6b2001892cf08f2b91d06e7a5&');">
+<header class="relative h-screen bg-fixed bg-center bg-cover flex flex-col justify-center items-center" style="background-image: url('{{ $config['header-background'] }}');">
     <div class="absolute top-0 left-0 m-4">
         <img src="{{ $config['header-logo-left'] }}" alt="Logo 1" class="w-20 h-20">
     </div>
