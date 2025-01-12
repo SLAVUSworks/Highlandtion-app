@@ -51,10 +51,6 @@ class ConfigSeeder extends Seeder
                 'value' => 'detail kontak',
             ],
             [
-                'name' => 'footer-mpk-smansa-osis',
-                'value' => '! Duplikat tag ini menjadi 3 dan masukan url logo <div class="flex justify-center"><img src="#" alt="SMAN1BKT" class="w-1/3 h-auto mx-auto"></div>',
-            ],
-            [
                 'name' => 'footer-sponsor',
                 'value' => '! Gunakan dan sesuaikan jumlah tag ini dengan jumlah sponsor <img src="url gambar" alt="Sponsor" class="mx-auto">',
             ],

@@ -2,7 +2,7 @@
 
 @section('content')
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-<div class="w-full max-w-8xl lg:w-8/12 mx-auto bg-white rounded-3xl shadow-2xl z-10 p-6 space-y-4">
+<div class="w-full max-w-8xl lg:w-8/12 mx-auto bg-white rounded-3xl shadow-2xl z-10 p-6 mt-6 mb-6 space-y-4">
     <h1 class="text-2xl font-bold text-gray-800 mb-6 text-center">Form Pendaftaran</h1>
     <form action="{{ route('registrasi.store') }}" method="POST" enctype="multipart/form-data" class="space-y-6">
         <div class="text-center mb-6">

@@ -12,8 +12,16 @@
             <input type="text" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm" name="mata_pelajaran" id="mata_pelajaran" required>
         </div>
         <div class="mb-4">
+            <label for="deskripsi" class="block text-gray-700">Deskripsi</label>
+            <input type="text" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm" name="deskripsi" id="deskripsi" required>
+        </div>
+        <div class="mb-4">
             <label for="tingkat" class="block text-gray-700">Tingkat</label>
-            <input type="text" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm" name="tingkat" id="tingkat" required>
+            <select class="mt-1 block w-full border-gray-300 rounded-md shadow-sm" name="tingkat" id="tingkat" required>
+            <option value="SD">SD</option>
+            <option value="SMP/MTs">SMP/MTs</option>
+            <option value="SMA/MA">SMA/MA</option>
+            </select>
         </div>
         <div class="mb-4">
             <label for="harga" class="block text-gray-700">Harga</label>

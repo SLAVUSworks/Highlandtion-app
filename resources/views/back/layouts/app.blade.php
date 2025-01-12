@@ -7,6 +7,8 @@
     <title>@yield('title', 'Admin Panel')</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css" integrity="sha512-5Hs3dF2AEPkpNAR7UiOHba+lRSJNeM2ECkwxUIxC1Q/FLycGTbNapWXB4tP889k5T5Ju8fs4b1P5z/iB4nMfSQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdn.ckeditor.com/ckeditor5/44.1.0/ckeditor5.css" crossorigin>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <link rel="stylesheet" href="{{ asset('css/admin.css') }}">
 </head>
@@ -98,6 +100,12 @@
                         <span>Registrasi</span>
                     </a>
                     </li>
+                    <li>
+                        <a href="{{ route('back.articles.index') }}" class="grid grid-cols-[24px,1fr] items-center gap-3 p-2 text-gray-200 hover:bg-gray-700 rounded-lg {{ request()->routeIs('back.articles.index') ? 'bg-gray-700' : '' }}">
+                            <i class="fa-solid fa-file text-gray-400"></i>
+                            <span>Informasi</span>
+                        </a>
+                    </li>
                 </ul>
                 </li>
                 <li>
@@ -115,14 +123,18 @@
                 </ul>
                 <ul class="submenu space-y-1 ml-6">
                     <li>
-                    <a href="{{ route('back.config.index') }}" class="grid grid-cols-[24px,1fr] items-center gap-3 p-2 text-gray-200 hover:bg-gray-700 rounded-lg {{ request()->routeIs('back.users.index') ? 'bg-gray-700' : '' }}">
-                        <i class="fa-solid fa-list text-gray-400"></i>
-                        <span>Konfigurasi</span>
-                    </a>
+                        <a href="{{ route('back.config.index') }}" class="grid grid-cols-[24px,1fr] items-center gap-3 p-2 text-gray-200 hover:bg-gray-700 rounded-lg {{ request()->routeIs('back.config.index') ? 'bg-gray-700' : '' }}">
+                            <i class="fa-solid fa-list text-gray-400"></i>
+                            <span>Konfigurasi</span>
+                        </a>
                     </li>
                 </ul>
                 </li>
             </ul>
+            </div>
+            <div class="absolute bottom-0 left-0 mb-2 ml-2 mr-6 flex items-center">
+                <img src="https://github.com/SLAVUSworks/HL-Web-ICON/blob/master/slavusworks.png?raw=true" alt="SLAVUSworks" class="w-12 h-12 ml-2">
+                <p class="text-xs text-right">HL-Web App v1.0 Made and Maintained by <a href="https://github.com/SLAVUSworks" target="_blank" rel="noopener noreferrer" class="text-blue-400">SLAVUSworks</a></p>
             </div>
         </nav>
 
@@ -135,23 +147,60 @@
         </main>
     </div>
 
-    <!-- Scripts -->
     <script>
-        // Mendapatkan semua tombol dengan kelas 'submenu-button'
         const submenuButtons = document.querySelectorAll('.submenu-button');
         
         submenuButtons.forEach(button => {
-            // Untuk setiap tombol, cari submenu yang terkait (elemen <ul>)
-            const submenu = button.nextElementSibling; // submenu adalah <ul> yang berada setelah <button>
+            const submenu = button.nextElementSibling;
     
-            // Menambahkan event listener pada tombol
             button.addEventListener('click', () => {
-                // Toggle visibilitas submenu
                 submenu.classList.toggle('hidden');
             });
         });
     </script>    
-    <script src="{{ asset('js/admin.js') }}"></script>
+    @section('scripts')
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const swalElement = document.querySelector('.swal');
+            const message = swalElement ? swalElement.getAttribute('data-swal') : null;
+            if (message) {
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Berhasil',
+                    text: message,
+                });
+            }
+        });
+    </script>
+<script src="https://cdn.ckeditor.com/ckeditor5/36.0.1/classic/ckeditor.js"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        ClassicEditor.create(document.querySelector("#editor"), {
+            toolbar: [
+                'heading', '|', 'bold', 'italic', 'link', 'bulletedList', 'numberedList', 'blockQuote',
+                '|', 'undo', 'redo', '|', 'alignment', 'imageUpload', 'mediaEmbed', 'codeBlock'
+            ],
+            height: 400, // Tinggi default editor
+        })
+            .then(editor => {
+                // Sinkronisasi nilai editor dengan textarea
+                const form = document.querySelector("form");
+                form.addEventListener("submit", function () {
+                    document.querySelector("#desc").value = editor.getData();
+                });
+
+                // Buat editor resizable
+                const editorElement = document.querySelector(".ck-editor__editable");
+                editorElement.style.resize = "both"; // Izinkan perubahan ukuran
+                editorElement.style.overflow = "auto"; // Aktifkan scroll jika diperlukan
+            })
+            .catch(error => {
+                console.error(error);
+            });
+    });
+</script>
+    @endsection
+<script src="{{ asset('js/admin.js') }}"></script>
     @yield('scripts')
 </body>
 </html>

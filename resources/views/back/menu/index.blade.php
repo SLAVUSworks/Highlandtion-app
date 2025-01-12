@@ -5,7 +5,16 @@
 @section('content')
 <div class="container mx-auto px-4 py-6">
     <h1 class="text-2xl font-bold mb-4">Daftar Event</h1>
-
+    @if ($errors->any())
+    <div class="alert alert-danger">
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+    @endif
+    <div class="swal" data-swal="{{ session('success') }}"></div>
     <table class="min-w-full bg-white border border-gray-200">
         <thead>
             <tr>
@@ -27,10 +36,10 @@
                 <td class="py-2 px-4 border-b"><img src="{{ asset('storage/' . $menu->thumbnail) }}" alt="Thumbnail for {{ $menu->mata_pelajaran }}" class="w-12"></td>
                 <td class="py-2 px-4 border-b">{{ $menu->mata_pelajaran }}</td>
                 <td class="py-2 px-4 border-b">{{ $menu->tingkat }}</td>
-                <td class="py-2 px-4 border-b">{{ $menu->harga }}</td>
+                <td class="py-2 px-4 border-b">Rp.{{ number_format($menu->harga, 0, ',', '.') }}</td>
                 <td class="py-2 px-4 border-b">{{ $menu->kuota }}</td>
                 <td class="py-2 px-4 border-b">
-                    <div class="flex space-x-2">
+                    <div class="flex justify-center space-x-2">
                         <a href="{{ route('back.menu.edit', $menu) }}" class="btn btn-warning btn-sm bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-1 px-2 rounded">Edit</a>
                         <form action="{{ route('back.menu.destroy', $menu) }}" method="POST" class="inline-block">
                             @csrf

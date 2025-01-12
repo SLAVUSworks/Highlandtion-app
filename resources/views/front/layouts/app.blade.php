@@ -7,6 +7,7 @@
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css" integrity="sha512-5Hs3dF2AEPkpNAR7UiOHba+lRSJNeM2ECkwxUIxC1Q/FLycGTbNapWXB4tP889k5T5Ju8fs4b1P5z/iB4nMfSQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
         <link rel="icon" type="image/x-icon" href="{{ $config['app_favicon'] }}">
         <script src="https://unpkg.com/typewriter-effect@latest/dist/core.js"></script>
+        <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
         <link rel="stylesheet" href="{{ asset('css/front.css') }}">
     
         <title>@yield('title', 'Highlandtion')</title>
@@ -17,18 +18,18 @@
         <div class="container mx-auto flex justify-between items-center">
             <a href="/" class="text-white text-lg font-semibold">{{ $config['app_name'] }}</a>
             <div>
-                <a href="#" class="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Home</a>
-                <a href="#" class="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium">About</a>
-                <a href="#" class="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Contact</a>
+                <a href="/" class="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Pemesanan Tiket</a>
+                <a href="{{ route('front.articles.index') }}" class="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Informasi</a>
+                <a href="#" class="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Kontak</a>
             </div>
         </div>
     </nav>
-    @yield('content')
-    <section class="min-h-screen text-center py-20 px-8 xl:px-0 flex flex-col justify-center">
-    
+    <section class="min-h-screen text-center px-8 xl:px-0 flex flex-col justify-center">
+        
+        @yield('content')
 
     </section>
-<footer class="bg-gray-800 text-white py-8">
+<footer class="bg-gray-800 text-white py-8" data-aos="fade-up" data-aos-anchor-placement="top-bottom">
     <div class="container mx-auto">
         <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
             <div>
@@ -55,15 +56,20 @@
                 <img src="https://github.com/SLAVUSworks/HL-Web-ICON/blob/master/osis.PNG?raw=true" alt="SMAN1BKT" class="w-32 h-32 object-contain mx-auto">
             </div>
         </div>
-        <h3 class="text-lg font-semibold mt-8">Sponsor</h3>
-        <div class="grid grid-cols-1 md:grid-cols-8 gap-4 mt-8">
-
+        <div class="flex justify-end items-center mt-8">
+            <p class="text-sm text-right">HL-Web App n Booking System v1.0<br> <small class="text-base">made and maintained by <a href="https://github.com/SLAVUSworks" target="_blank" rel="noopener noreferrer" class="text-blue-400">SLAVUSworks</a></small></p>
+            <img src="https://github.com/SLAVUSworks/HL-Web-ICON/blob/master/slavusworks.png?raw=true" alt="SLAVUSworks" class="w-12 h-12 ml-2">
         </div>
-        <h3 class="text-lg font-semibold mt-8">Ekstrakurikuler</h3>
-        <div class="grid grid-cols-1 md:grid-cols-8 gap-4 mt-8">
-
         </div>
-    </div>
 </footer>
+<script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        AOS.init({
+            duration: 1000,
+            once: true,
+        });
+    });
+</script>
 </body>
 </html>

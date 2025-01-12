@@ -18,10 +18,10 @@
 
 
 <div class="p-5">
-    <div class="flex justify-start">
+    <div class="flex justify-start" data-aos="fade-right">
         <h2 class="text-2xl font-semibold mb-4">Tingkat</h2>
     </div>
-    <div class="flex justify-start">
+    <div class="flex justify-start" data-aos="fade-right">
         <button onclick="filterMenus('all')" class="relative inline-flex items-center justify-center p-0.5 mb-2 me-2 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-purple-600 to-blue-500 group-hover:from-purple-600 group-hover:to-blue-500 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800">
             <span class="relative px-5 py-2.5 transition-all ease-in duration-75 bg-white dark:bg-gray-900 rounded-md group-hover:bg-opacity-0">
             Semua
@@ -42,52 +42,65 @@
             SMA/Ma
             </span>
         </button>
+        </div>
     </div>
-</div>
-<div class="grid gap-8 sm:grid-cols-2 lg:grid-cols-3 p-3 md:p-4 xl:p-5" id="menu-container">
-@foreach ( $menus as $menu )    
-<div class="bg-white border rounded-lg shadow-md dark:bg-gray-800 dark:border-gray-700 menu-item" data-tingkat="{{ $menu->tingkat }}">
-    <div class="p-2 flex justify-center">
+<script>
+    function filterMenus(tingkat) {
+        document.querySelectorAll('.menu-item').forEach(function (item) {
+            if (item.getAttribute('data-tingkat') === tingkat || tingkat === 'all') {
+                item.style.display = 'block';
+            } else {
+                item.style.display = 'none';
+            }
+        });
+    }
+</script>
+    <div class="grid gap-8 sm:grid-cols-2 lg:grid-cols-3 p-3 md:p-4 xl:p-5" id="menu-container">
+    @foreach ( $menus as $menu )    
+    <div class="bg-white border rounded-lg shadow-md dark:bg-gray-800 dark:border-gray-700 menu-item" data-aos="fade-up"
+    data-aos-anchor-placement="top-bottom" data-tingkat="{{ $menu->tingkat }}">
+        <div class="p-2 flex justify-center">
         <a href="{{ route('menu.show', $menu) }}" class="block w-full h-48">
             <img 
-                class="rounded-lg object-cover w-full h-full"
-                src="{{ 'storage/' . $menu->thumbnail }}"
-                alt="Thumbnail"
-                loading="lazy">
+            class="rounded-lg object-cover w-full h-full"
+            src="{{ 'storage/' . $menu->thumbnail }}"
+            alt="Thumbnail"
+            loading="lazy">
         </a>
-    </div>
-    
-    <div class="px-4 pb-3">
+        </div>
+        
+        <div class="px-4 pb-3">
         <div>
             <a href="{{ route('menu.show', $menu) }}">
-                <h5 class="text-xl font-semibold tracking-tight hover:text-violet-800 dark:hover:text-violet-300 text-gray-900 dark:text-white ">
-                {{ $menu->mata_pelajaran }}
+            <h5 class="text-xl font-semibold tracking-tight hover:text-violet-800 dark:hover:text-violet-300 text-gray-900 dark:text-white ">
+            {{ $menu->mata_pelajaran }}
             </h5>
         </a>
         <p class="text-gray-600 dark:text-gray-400 text-sm break-all">{{ Str::limit($menu->deskripsi,50),'. . .'  }}</p>
-    </div>
-    <div class="mt-2 flex justify-between">
+        <p class="text-gray-800 dark:text-gray-200 text-lg font-semibold">Rp.{{ number_format($menu->harga, 0, ',', '.') }}</p>
+        </div>
+        <div class="mt-2 flex justify-between">
         <div class="flex gap-3 py-2">
-                <a href="#">
-                    <img src="{{ asset('storage/' . $menu->icon) }}"
-                    class="object-cover w-12 h-12 rounded-full" alt="mapel-icon" loading="lazy">
+            <a href="#">
+                <img src="{{ asset('storage/' . $menu->icon) }}"
+                class="object-cover w-12 h-12 rounded-full" alt="mapel-icon" loading="lazy">
+            </a>
+            <p class="text-gray-600 dark:text-gray-300 hover:text-violet-800 ">
+                <a href="#" class="text-sm">
+                <small>Tingkat</small> <br>
+                {{ $menu->tingkat }}
                 </a>
-                <p class="text-gray-600 dark:text-gray-300 hover:text-violet-800 ">
-                    <a href="#" class="text-sm">
-                        <small>Tingkat</small> <br>
-                        {{ $menu->tingkat }}
-                    </a>
-                </p>
+            </p>
             </div>
             <div class="flex items-center mt-2.5">
-                <span class="text-sm dark:text-gray-400">Sisa Kuota</span>
-                <span class="bg-blue-100 text-blue-800 text-xs font-semibold mr-2 px-2.5 py-0.5 rounded dark:bg-blue-200 dark:text-blue-800 ml-3">
-                    @if ($menu->kuota_now == null)
-                        {{ $menu->kuota }}
-                    @else
-                        {{ $menu->kuota_now }}
-                    @endif
-                </span>
+            <span class="text-sm dark:text-gray-400">Sisa Kuota</span>
+            <span class="bg-blue-100 text-blue-800 text-xs font-semibold mr-2 px-2.5 py-0.5 rounded dark:bg-blue-200 dark:text-blue-800 ml-3">
+                @if ($menu->kuota_now == null)
+                {{ $menu->kuota }}
+                @else
+                {{ $menu->kuota_now }}
+                @endif
+            </span>
             </div>
         <script>
             document.addEventListener('DOMContentLoaded', function () {
@@ -105,7 +118,9 @@
 </div>
 @endforeach
 </div>
-
+@endsection
+@section('scripts')
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
     function filterMenus(tingkat) {
         document.querySelectorAll('.menu-item').forEach(function (item) {
@@ -116,5 +131,18 @@
             }
         });
     }
+</script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const swalElement = document.querySelector('.swal');
+        const message = swalElement ? swalElement.getAttribute('data-swal') : null;
+        if (message) {
+            Swal.fire({
+                icon: 'success',
+                title: 'Berhasil',
+                text: message,
+            });
+        }
+    });
 </script>
 @endsection

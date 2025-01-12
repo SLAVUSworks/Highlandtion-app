@@ -9,9 +9,12 @@ use App\Http\Controllers\Back\RuanganController;
 use App\Http\Controllers\Back\UserController;
 use App\Http\Controllers\Back\ConfigController;
 use App\Http\Controllers\Back\RegistrasiController as BackRegistrasiController;
+use App\Http\Controllers\Back\ArticleController;
 
+use App\Http\Controllers\Front\ArticleController as FrontArticleController;
 use App\Http\Controllers\Front\MenuController as FrontMenuController;
 use App\Http\Controllers\Front\RegistrasiController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -28,6 +31,11 @@ Route::get('/', [FrontMenuController::class, 'index'])->name('menu.index');
 Route::get('/menu/{menu}', [FrontMenuController::class, 'show'])->name('menu.show');
 Route::get('/registrasi/{menu}', [RegistrasiController::class, 'create'])->name('registrasi.create');
 Route::post('/registrasi', [RegistrasiController::class, 'store'])->name('registrasi.store');
+Route::prefix('informasi')->name('front.articles.')->group(function () {
+    Route::get('/', [FrontArticleController::class, 'index'])->name('index');
+    Route::get('/{slug}', [FrontArticleController::class, 'show'])->name('show');
+});
+
 
 
 Route::middleware('auth')->group(function () {
@@ -71,8 +79,11 @@ Route::middleware('auth')->group(function () {
 
         Route::get('/registrasi-data', [BackRegistrasiController::class, 'getRegistrasiData']);
     });
+
+    Route::prefix('back')->name('back.')->group(function () {
+        Route::resource('articles', ArticleController::class);
+    });
     
-     
     Route::get('back/storage/{path}', function ($path) {
         return response()->file(storage_path('app/public/' . $path));
     })->where('path', '.*');

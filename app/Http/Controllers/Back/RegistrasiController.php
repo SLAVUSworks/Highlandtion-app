@@ -17,8 +17,8 @@ class RegistrasiController extends Controller
 {
     public function index()
     {
-        $registrasis = Registrasi::with(['menu', 'ruangan'])->get();
-        $menus = Menu::all(); // Ambil semua menu dari database
+        $registrasis = Registrasi::with(['menu', 'ruangan']);
+        $menus = Menu::all();
     
         return view('back.registrasi.index', compact('registrasis', 'menus'));
     }    
@@ -44,7 +44,7 @@ class RegistrasiController extends Controller
         if ($menuId) {
             $query->where('menu_id', $menuId);
         }
-    
+        
         $registrasis = $query->get();
     
         return response()->json($registrasis);
@@ -77,10 +77,8 @@ class RegistrasiController extends Controller
             'ruangan_id' => 'required|exists:ruangans,id',
         ]);
 
-        // Generate a unique registration code
         $uniqueCode = 'HL-' . $registrasi->created_at->format('dm') . $registrasi->menu_id . $validated['ruangan_id'] . $registrasi->created_at->format('Hi');
 
-        // Update the registration
         $registrasi->update([
             'ruangan_id' => $validated['ruangan_id'],
             'status' => 'approved',
@@ -99,20 +97,17 @@ class RegistrasiController extends Controller
 
     public function sendWhatsAppMessage(Registrasi $registrasi)
     {
-        // Ambil nomor telepon dan hapus angka 0 di depan jika ada
         $nomorHp = ltrim($registrasi->nomor_hp, '0');
-    
-        // Set up Twilio credentials
+        
         $sid = env('TWILIO_SID');
         $authToken = env('TWILIO_AUTH_TOKEN');
-        $twilioNumber = 'whatsapp:' . env('TWILIO_PHONE_NUMBER'); // Format untuk WhatsApp
-    
+        $twilioNumber = 'whatsapp:' . env('TWILIO_PHONE_NUMBER');
+        
         $client = new Client($sid, $authToken);
     
-        // Kirim pesan ke nomor WhatsApp
         try {
             $message = $client->messages->create(
-                'whatsapp:+62' . $nomorHp, // Nomor WhatsApp tujuan (tanpa 0 di awal)
+                'whatsapp:+62' . $nomorHp,
                 [
                     'from' => $twilioNumber,
                     'body' => "Halo, {$registrasi->nama}! Berikut adalah informasi kartu ujian Anda:\n" .
@@ -122,13 +117,13 @@ class RegistrasiController extends Controller
                         "Nomor Registrasi: {$registrasi->registration_code}"
                 ]
             );
-    
-            return redirect()->route('back.registrasis.index')->with('success', 'Pesan berhasil dikirim ke WhatsApp!');
         } catch (\Exception $e) {
-            Log::error('Error saat mengirim pesan WhatsApp: ' . $e->getMessage());  // Logging error
-            return redirect()->route('back.registrasis.index')->with('error', 'Terjadi kesalahan saat mengirim pesan: ' . $e->getMessage());
+            Log::error('Error saat mengirim pesan WhatsApp: ' . $e->getMessage());
+            return redirect()->back()->with('error', 'Terjadi kesalahan saat mengirim pesan: ' . $e->getMessage());
         }
-    }
+    
+        return redirect()->back()->with('success', 'Pesan berhasil dikirim ke WhatsApp!');
+    }    
 }
 
 

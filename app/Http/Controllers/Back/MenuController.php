@@ -25,6 +25,7 @@ class MenuController extends Controller
         $request->validate([
             'mata_pelajaran' => 'required',
             'tingkat' => 'required',
+            'deskripsi' => 'required',
             'icon' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'thumbnail' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
@@ -41,7 +42,7 @@ class MenuController extends Controller
     
         Menu::create($data);
     
-        return redirect()->route('back.menu.index');
+        return redirect()->route('back.menu.index')->with('success', 'Menu berhasil dibuat!');
     }
 
     public function edit(Menu $menu)
@@ -54,12 +55,13 @@ class MenuController extends Controller
         $request->validate([
             'mata_pelajaran' => 'required',
             'tingkat' => 'required',
+            'deskripsi' => 'required',
             'icon' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'thumbnail' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
     
         // Ambil data input lainnya
-        $data = $request->only(['mata_pelajaran', 'tingkat']);
+        $data = $request->only(['mata_pelajaran', 'tingkat', 'deskripsi']);
     
         // Proses file icon jika diupload
         if ($request->hasFile('icon')) {

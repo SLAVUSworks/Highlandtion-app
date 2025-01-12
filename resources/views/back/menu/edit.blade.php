@@ -13,8 +13,16 @@
             <input type="text" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500" name="mata_pelajaran" id="mata_pelajaran" value="{{ $menu->mata_pelajaran }}" required>
         </div>
         <div class="mb-4">
+            <label for="deskripsi" class="block text-sm font-medium text-gray-700">Deskripsi</label>
+            <textarea class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500" name="deskripsi" id="deskripsi" required>{{ $menu->deskripsi }}</textarea>
+        </div>
+        <div class="mb-4">
             <label for="tingkat" class="block text-sm font-medium text-gray-700">Tingkat</label>
-            <input type="text" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500" name="tingkat" id="tingkat" value="{{ $menu->tingkat }}" required>
+            <select class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500" name="tingkat" id="tingkat" required>
+            <option value="SD" {{ $menu->tingkat == 'SD' ? 'selected' : '' }}>SD</option>
+            <option value="SMP/MTs" {{ $menu->tingkat == 'SMP/MTs' ? 'selected' : '' }}>SMP/MTs</option>
+            <option value="SMA/MA" {{ $menu->tingkat == 'SMA/MA' ? 'selected' : '' }}>SMA/MA</option>
+            </select>
         </div>
         <div class="mb-4">
             <label for="harga" class="block text-sm font-medium text-gray-700">Harga</label>
@@ -29,14 +37,14 @@
             @if ($menu->icon)
             <img src="{{ asset('storage/' . $menu->icon) }}" alt="Current Icon" class="my-2 w-24 h-24 object-cover" />
             @endif
-            <input type="file" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500" name="icon" id="icon" required>
+            <input type="file" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500" name="icon" id="icon">
         </div>
         <div class="mb-4">
             <label for="thumbnail" class="block text-sm font-medium text-gray-700">Thumbnail</label>
             @if ($menu->thumbnail)
             <img src="{{ asset('storage/' . $menu->thumbnail) }}" alt="Current Thumbnail" class="my-2 w-24 h-24 object-cover" />
             @endif
-            <input type="file" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500" name="thumbnail" id="thumbnail" required>
+            <input type="file" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500" name="thumbnail" id="thumbnail">
         </div>
         <button type="submit" class="px-4 py-2 bg-indigo-600 text-white rounded-md shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">Update</button>
     </form>
