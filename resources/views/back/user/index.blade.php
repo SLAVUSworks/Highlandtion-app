@@ -76,7 +76,7 @@
 
     <div class="flex flex-wrap mb-4">
         <div class="w-full lg:w-1/3 mb-4 lg:mb-0">
-            <div class="bg-white shadow rounded-lg p-4 text-center">
+            <div class="bg-white shadow rounded-lg m-2 h-full p-4 text-center">
                 <img src="{{ asset('storage/'. $item->avatar) }}" alt="avatar" class="rounded-full mx-auto mb-4 w-24 h-24 object-cover">
                 <h5 class="text-lg font-semibold">{{ $item->nickname }}</h5>
                 @if (auth()->user()->role == 1)
@@ -92,7 +92,7 @@
             </div>
         </div>
         <div class="w-full lg:w-2/3">
-            <div class="bg-white shadow rounded-lg p-4">
+            <div class="bg-white shadow rounded-lg m-2 h-full p-4">
                 <div class="mb-4">
                     <div class="flex justify-between">
                         <p class="font-semibold">Nickname</p>

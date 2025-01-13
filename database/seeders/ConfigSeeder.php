@@ -24,19 +24,19 @@ class ConfigSeeder extends Seeder
             ],
             [
                 'name' => 'app_favicon',
-                'value' => 'favicon.png',
+                'value' => 'https://github.com/SLAVUSworks/HL-Web-ICON/blob/master/hl2.png?raw=true',
             ],
             [
                 'name' => 'header-background',
-                'value' => 'header-background.jpg',
+                'value' => 'https://safebooru.org//images/3092/e4da0905431f44463d193968b91d949ebe41a9cf.jpg',
             ],
             [
                 'name' => 'header-logo-left',
-                'value' => 'header-logo-left.png',
+                'value' => 'https://github.com/SLAVUSworks/HL-Web-ICON/blob/master/hl2.png?raw=true',
             ],
             [
                 'name' => 'header-logo-right',
-                'value' => 'header-logo-right.png',
+                'value' => 'https://github.com/SLAVUSworks/HL-Web-ICON/blob/master/smansa.png?raw=true',
             ],
             [
                 'name' => 'tagline',

@@ -17,14 +17,24 @@
     <nav class="bg-gray-800 p-4">
         <div class="container mx-auto flex justify-between items-center">
             <a href="/" class="text-white text-lg font-semibold">{{ $config['app_name'] }}</a>
-            <div>
+            <button id="menu-toggle" class="md:hidden text-gray-300 hover:text-white focus:outline-none">
+                <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
+                </svg>
+            </button>
+            <div id="menu" class="hidden md:flex space-x-4">
                 <a href="/" class="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Pemesanan Tiket</a>
                 <a href="{{ route('front.articles.index') }}" class="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Informasi</a>
                 <a href="#" class="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Kontak</a>
             </div>
         </div>
+        <div id="mobile-menu" class="hidden md:hidden mt-2 space-y-2">
+            <a href="/" class="block text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Pemesanan Tiket</a>
+            <a href="{{ route('front.articles.index') }}" class="block text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Informasi</a>
+            <a href="#" class="block text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Kontak</a>
+        </div>
     </nav>
-    <section class="min-h-screen text-center px-8 xl:px-0 flex flex-col justify-center">
+    <section class="min-h-screen text-center xl:px-0 flex flex-col justify-center">
         
         @yield('content')
 
@@ -69,6 +79,16 @@
             duration: 1000,
             once: true,
         });
+    });
+</script>
+<script>
+    document.getElementById('menu-toggle').addEventListener('click', function () {
+        const mobileMenu = document.getElementById('mobile-menu');
+        if (mobileMenu.classList.contains('hidden')) {
+            mobileMenu.classList.remove('hidden');
+        } else {
+            mobileMenu.classList.add('hidden');
+        }
     });
 </script>
 </body>
