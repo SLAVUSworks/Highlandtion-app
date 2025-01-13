@@ -16,6 +16,11 @@ class DashboardController extends Controller
      *
      * @return \Illuminate\Http\JsonResponse
      */
+    public function __construct()
+    {
+        $this->middleware('admin');
+    }
+    
     public function index()
     {
         $ruanganKuota = Ruangan::sum('kuota');

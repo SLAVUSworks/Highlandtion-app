@@ -7,6 +7,7 @@
     <title>@yield('title', 'Admin Panel')</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css" integrity="sha512-5Hs3dF2AEPkpNAR7UiOHba+lRSJNeM2ECkwxUIxC1Q/FLycGTbNapWXB4tP889k5T5Ju8fs4b1P5z/iB4nMfSQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="icon" type="image/x-icon" href="https://github.com/SLAVUSworks/HL-Web-ICON/blob/master/hl2.png?raw=true">
     <link rel="stylesheet" href="https://cdn.ckeditor.com/ckeditor5/44.1.0/ckeditor5.css" crossorigin>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
@@ -106,6 +107,12 @@
                             <span>Informasi</span>
                         </a>
                     </li>
+                    <li>
+                        <a href="{{ route('back.contact.index') }}" class="grid grid-cols-[24px,1fr] items-center gap-3 p-2 text-gray-200 hover:bg-gray-700 rounded-lg {{ request()->routeIs('back.contact.index') ? 'bg-gray-700' : '' }}">
+                            <i class="fa-solid fa-phone text-gray-400"></i>
+                            <span>Kontak</span>
+                        </a>
+                    </li>
                 </ul>
                 </li>
                 <li>
@@ -115,12 +122,18 @@
                 </button>
                 <ul class="submenu space-y-1 ml-6">
                     <li>
-                    <a href="{{ route('back.users.index') }}" class="grid grid-cols-[24px,1fr] items-center gap-3 p-2 text-gray-200 hover:bg-gray-700 rounded-lg {{ request()->routeIs('back.users.index') ? 'bg-gray-700' : '' }}">
-                        <i class="fa-solid fa-users text-gray-400"></i>
-                        <span>Daftar Admin</span>
-                    </a>
+                        <a href="{{ route('back.users.index') }}" class="grid grid-cols-[24px,1fr] items-center gap-3 p-2 text-gray-200 hover:bg-gray-700 rounded-lg {{ request()->routeIs('back.users.index') ? 'bg-gray-700' : '' }}">
+                            <i class="fa-solid fa-users text-gray-400"></i>
+                            <span>
+                                @if(auth()->user()->role != 1)
+                                    Profil
+                                @else
+                                    Daftar Admin
+                                @endif
+                            </span>
+                        </a>
                     </li>
-                </ul>
+                </ul>                
                 <ul class="submenu space-y-1 ml-6">
                     <li>
                         <a href="{{ route('back.config.index') }}" class="grid grid-cols-[24px,1fr] items-center gap-3 p-2 text-gray-200 hover:bg-gray-700 rounded-lg {{ request()->routeIs('back.config.index') ? 'bg-gray-700' : '' }}">

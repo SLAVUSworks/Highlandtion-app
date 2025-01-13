@@ -15,9 +15,10 @@
                         <span><i class="fa-solid fa-eye"></i> {{ $article->views }}</span>
                     </div>
                     <h1 class="text-2xl font-bold text-gray-900 dark:text-dark mb-4">{{ $article->title }}</h1>
-                    <div class="text-gray-700 dark:text-dark text-left">
+                    <div class="text-gray-700 dark:text-dark text-left break-words">
                         {!! $article->desc !!}
                     </div>
+                                       
                 </div>
             </div>
             <!-- Author Info -->

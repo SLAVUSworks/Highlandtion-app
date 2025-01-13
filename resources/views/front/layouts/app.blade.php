@@ -25,7 +25,7 @@
             <div id="menu" class="hidden md:flex space-x-4">
                 <a href="/" class="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Pemesanan Tiket</a>
                 <a href="{{ route('front.articles.index') }}" class="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Informasi</a>
-                <a href="#" class="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Kontak</a>
+                <a href="/contact" class="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Kontak</a>
             </div>
         </div>
         <div id="mobile-menu" class="hidden md:hidden mt-2 space-y-2">

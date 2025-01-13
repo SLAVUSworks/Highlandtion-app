@@ -10,6 +10,7 @@ use App\Http\Controllers\Back\UserController;
 use App\Http\Controllers\Back\ConfigController;
 use App\Http\Controllers\Back\RegistrasiController as BackRegistrasiController;
 use App\Http\Controllers\Back\ArticleController;
+use App\Http\Controllers\Back\ContactPageController;
 
 use App\Http\Controllers\Front\ArticleController as FrontArticleController;
 use App\Http\Controllers\Front\MenuController as FrontMenuController;
@@ -35,6 +36,7 @@ Route::prefix('informasi')->name('front.articles.')->group(function () {
     Route::get('/', [FrontArticleController::class, 'index'])->name('index');
     Route::get('/{slug}', [FrontArticleController::class, 'show'])->name('show');
 });
+Route::get('/contact', [ContactPageController::class, 'show'])->name('contact.show');
 
 Route::get('/registrasi/{id}/pdf', [BackRegistrasiController::class, 'generatePdf'])->name('registrasis.pdf');
 
@@ -84,10 +86,14 @@ Route::middleware('auth')->group(function () {
         Route::resource('articles', ArticleController::class);
     });
 
-        Route::group(['prefix' => 'laravel-filemanager', 'middleware' => ['web', 'auth']], function () {
-            \UniSharp\LaravelFilemanager\Lfm::routes();
-        });
+    Route::group(['prefix' => 'laravel-filemanager', 'middleware' => ['web', 'auth']], function () {
+        \UniSharp\LaravelFilemanager\Lfm::routes();
+    });
 
+    Route::prefix('back')->name('back.')->group(function () {
+        Route::get('/contact', [ContactPageController::class, 'index'])->name('contact.index');
+        Route::put('/contact', [ContactPageController::class, 'update'])->name('contact.update');
+    });
     
     Route::get('back/storage/{path}', function ($path) {
         return response()->file(storage_path('app/public/' . $path));
