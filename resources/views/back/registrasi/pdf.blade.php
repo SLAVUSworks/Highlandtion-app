@@ -9,82 +9,88 @@
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
         }
         .container {
-            width: 100%;
-            padding: 20px;
-        }
-        .content {
-            width: 100%;
-            padding: 20px;
-            border: 1px solid #ddd;
+            width: 105mm;
+            height: 148.5mm;
+            padding: 10mm;
+            background-size: cover;
+            background-position: center;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            border: 2px dashed #000; /* Outline putus-putus */
         }
         .header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 20px;
-        }
-        .header .left {
-            display: flex;
-            align-items: center;
+            margin-bottom: 10px;
+            color: #000000; /* Teks header putih agar kontras dengan latar belakang */
         }
         .header .left h2 {
             margin: 0;
+            font-size: 1.2rem;
+            font-weight: bold;
         }
         .header .right {
-            color: #1e40af;
-            font-size: 1.2rem;
+            font-size: 1rem;
+            color: #000000;
         }
         hr {
             border: none;
-            border-top: 1px dashed #ddd;
-            margin: 20px 0;
+            border-top: 1px dashed #000000;
+            margin: 10px 0;
         }
         .school-info {
             display: flex;
             justify-content: space-between;
-            margin-bottom: 20px;
+            margin-bottom: 10px;
+            color: #000000; /* Teks info sekolah putih agar kontras */
         }
         .school-details {
             font-size: 0.9rem;
         }
         .school-details .code {
-            color: #999;
+            color: #000000;
         }
         .school-details .name {
             font-weight: bold;
-            font-size: 1.2rem;
+            font-size: 1.1rem;
         }
         .school-details .location {
             font-size: 0.9rem;
-            color: #555;
         }
         .details, .participant, .dates {
-            margin-bottom: 15px;
-        }
-        .details div, .participant div, .dates div {
             margin-bottom: 10px;
+            color: #000000; /* Teks detail putih agar kontras */
         }
         .details span, .participant span, .dates span {
             font-weight: bold;
         }
-        .details div, .level div, .participant div, .registration-date div, .status div, .verification-date div {
-            font-size: 1rem;
+        .details div, .participant div, .dates div {
+            font-size: 0.9rem;
+            margin-bottom: 5px;
         }
         .registration-code {
             text-align: center;
-            margin-top: 20px;
+            margin-top: 10px;
         }
         .registration-code h6 {
             font-size: 1.2rem;
             font-weight: bold;
+            color: #000000;
         }
     </style>
 </head>
 <body>
-<div class="container">
-    <div class="content">
+    <div class="container">
         <div class="header">
             <div class="left">
                 <h2>Highlandtion</h2>
@@ -94,44 +100,43 @@
         <hr>
         <div class="school-info">
             <div class="school-details">
-                <div class="code">HL 2.1</div>
-                <div class="name">SMAN 1 LANDBOUW</div>
-                <div class="location">Bukittinggi</div>
+                <div class="name">SMAN 1 BUKITTINGGI</div>
+                <div class="location">Jl. Syekh Jamil Jambek No.36, Pakan Kurai, Kec. Guguk Panjang, Kota Bukittinggi, Sumatera Barat 26136</div>
             </div>
         </div>
         <hr>
-        <div class="details">
-            <div class="ticket">
-                <span>Tiket</span>
-                <div>{{ $registrasi->menu->mata_pelajaran }}</div>
-            </div>
-            <div class="level">
-                <span>Tingkat</span>
-                <div>{{ $registrasi->menu->tingkat }}</div>
-            </div>
-        </div>
         <div class="participant">
-            <div class="name">
+            <div>
                 <span>Nama Peserta</span>
                 <div>{{ $registrasi->nama }}</div>
             </div>
-            <div class="school">
+            <div>
                 <span>Sekolah Asal</span>
                 <div>{{ $registrasi->asal_sekolah }}</div>
             </div>
         </div>
+        <div class="details">
+            <div>
+                <span>Tiket</span>
+                <div>{{ $registrasi->menu->mata_pelajaran }}</div>
+            </div>
+            <div>
+                <span>Tingkat</span>
+                <div>{{ $registrasi->menu->tingkat }}</div>
+            </div>
+            <div>
+                <span>Ruang Ujian/Lokasi Acara</span>
+                <div>{{ $registrasi->ruangan->nama_ruangan }}</div>
+            </div>
+        </div>
         <hr>
         <div class="dates">
-            <div class="registration-date">
-                <span>Tanggal Pendaftaran</span>
+            <div>
+                <span>Waktu Pendaftaran</span>
                 <div>{{ $registrasi->created_at }}</div>
             </div>
-            <div class="status">
-                <span>Status</span>
-                <div>{{ $registrasi->status }}</div>
-            </div>
-            <div class="verification-date">
-                <span>Tanggal Diverivikasi</span>
+            <div>
+                <span>Waktu Diverifikasi</span>
                 <div>{{ $registrasi->updated_at }}</div>
             </div>
         </div>
@@ -140,6 +145,5 @@
             <h6>{{ $registrasi->registration_code }}</h6>
         </div>
     </div>
-</div>
 </body>
 </html>

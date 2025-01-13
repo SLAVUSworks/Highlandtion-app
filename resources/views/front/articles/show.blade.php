@@ -6,19 +6,20 @@
         <!-- Blog entries -->
         <div class="w-full">
             <!-- Featured blog post -->
-            <div class="mb-6 shadow-lg rounded-lg bg-white dark:bg-gray-800" data-aos="fade-up">
-                    <img class="w-full h-64 object-cover rounded-t-lg" src="{{ asset('storage/'.$article->img) }}" alt="{{ $article->title }}">
+            <div class="mb-6 shadow-lg rounded-lg bg-white dark:bg-gray-200" data-aos="fade-up">
+                <img class="w-full h-64 object-cover rounded-t-lg" src="{{ asset('storage/'.$article->img) }}" alt="{{ $article->title }}">
                 
                 <div class="p-6">
                     <div class="text-sm text-gray-500 dark:text-gray-400 flex space-x-4 mb-4">
                         <span><i class="fa-solid fa-calendar"></i> {{ $article->publish_date }}</span>
                         <span><i class="fa-solid fa-eye"></i> {{ $article->views }}</span>
                     </div>
-                    <h1 class="text-2xl font-bold text-gray-900 dark:text-white mb-4">{{ $article->title }}</h1>
-                    <p class="text-gray-700 dark:text-gray-300 text-left">{!! $article->desc !!}</p>
+                    <h1 class="text-2xl font-bold text-gray-900 dark:text-dark mb-4">{{ $article->title }}</h1>
+                    <div class="text-gray-700 dark:text-dark text-left">
+                        {!! $article->desc !!}
+                    </div>
                 </div>
             </div>
-
             <!-- Author Info -->
             <div class="mb-6 shadow-lg rounded-lg bg-white dark:bg-gray-800" data-aos="fade-in">
                 <div class="flex flex-wrap">

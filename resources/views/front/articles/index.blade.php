@@ -26,8 +26,8 @@
                         </h5>
                     </a>
                     <p class="text-gray-600 dark:text-gray-400 text-sm break-words">
-                        {{ Str::limit($article->desc, 100) }}
-                    </p>
+                        {{ Str::limit(strip_tags(html_entity_decode($article->desc)), 100) }}
+                    </p>                                       
                 </div>
                 <div class="mt-2 flex justify-between">
                     <div class="flex items-center gap-3 py-2">

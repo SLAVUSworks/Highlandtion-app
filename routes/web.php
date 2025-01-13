@@ -36,7 +36,7 @@ Route::prefix('informasi')->name('front.articles.')->group(function () {
     Route::get('/{slug}', [FrontArticleController::class, 'show'])->name('show');
 });
 
-
+Route::get('/registrasi/{id}/pdf', [BackRegistrasiController::class, 'generatePdf'])->name('registrasis.pdf');
 
 Route::middleware('auth')->group(function () {
     Route::get('/admin', function () {
@@ -76,7 +76,6 @@ Route::middleware('auth')->group(function () {
         Route::put('registrasis/{registrasi}', [BackRegistrasiController::class, 'update'])->name('registrasis.update');
         Route::get('registrasis/{registrasi}/card', [BackRegistrasiController::class, 'showCard'])->name('registrasis.card');
         Route::get('registrasis/{registrasi}/kirim-pesan-whatsapp', [BackRegistrasiController::class, 'sendWhatsAppMessage'])->name('registrasis.kirimPesan');
-        Route::get('/registrasis/{id}/pdf', [BackRegistrasiController::class, 'generatePdf'])->name('registrasis.pdf');
 
         Route::get('/registrasi-data', [BackRegistrasiController::class, 'getRegistrasiData']);
     });

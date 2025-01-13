@@ -121,12 +121,14 @@ class RegistrasiController extends Controller
             $message = $client->messages->create(
                 'whatsapp:+62' . $nomorHp,
                 [
-                    'from' => $twilioNumber,
-                    'body' => "Halo, {$registrasi->nama}! Berikut adalah informasi kartu ujian Anda:\n" .
-                        "Asal Sekolah: {$registrasi->asal_sekolah}\n" .
-                        "Menu: {$registrasi->menu->mata_pelajaran}\n" .
-                        "Ruangan: {$registrasi->ruangan->nama_ruangan}\n" .
-                        "Nomor Registrasi: {$registrasi->registration_code}"
+                'from' => $twilioNumber,
+                'body' => "Halo,\n\nPendaftaran anda sudah diverifikasi oleh sektretariat Highlandtion 2.1\n\n" .
+                    "Atas nama {$registrasi->nama}\n" .
+                    "Asal sekolah: {$registrasi->asal_sekolah}\n" .
+                    "Terdaftar pada: {$registrasi->menu->mata_pelajaran}\n" .
+                    "Nomor Registrasi: {$registrasi->registration_code}\n\n" .
+                    "Kartu dapat di unduh melalui: " . route('registrasis.pdf', $registrasi->id) . "\n\n" .
+                    "Kami tunggu kehadiran mu ~"
                 ]
             );
         } catch (\Exception $e) {

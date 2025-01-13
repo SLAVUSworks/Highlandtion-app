@@ -88,8 +88,8 @@
                             <div class="font-semibold">{{ $registrasi->created_at }}</div>
                         </div>
                         <div class="flex flex-col mx-auto items-center">
-                            <span class="">Status</span>
-                            <div class="font-semibold">{{ $registrasi->status }}</div>
+                            <span class="">Ruang Ujian/Lokasi Acara</span>
+                            <div class="font-semibold">{{ $registrasi->ruangan->nama_ruangan }}</div>
                         </div>
                         <div class="flex flex-col items-end">
                             <span class="">Tanggal Diverivikasi</span>
@@ -107,11 +107,12 @@
             class="mt-4 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600">
             Kirim ke WhatsApp
         </a>
-        <a target="_blank" href="https://wa.me/{{ $registrasi->nomor_hp }}?text=Halo%20{{ $registrasi->nama }},%20berikut%20adalah%20detail%20registrasi%20Anda:%0A%0AAsal%20Sekolah:%20{{ $registrasi->asal_sekolah }}%0AMenu:%20{{ $registrasi->menu->mata_pelajaran }}%0ARuangan:%20{{ $registrasi->ruangan->nama_ruangan }}%0ANomor%20Registrasi:%20{{ $registrasi->registration_code }}%0A%0ATerima%20kasih." 
-            class="mt-4 ml-4 px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600">
-            Kirim Manual ke WhatsApp
-        </a>
-        <a href="{{ route('back.registrasis.pdf', $registrasi->id) }}" 
+        <a target="_blank" 
+        href="https://wa.me/{{ preg_replace('/^0/', '62', $registrasi->nomor_hp) }}?text=Halo%2C%0A%0APendaftaran%20anda%20sudah%20diverifikasi%20oleh%20sektretariat%20Highlandtion%202.1%0A%0AAtas%20nama%20{{ $registrasi->nama }}%0AAsal%20sekolah%20{{ $registrasi->asal_sekolah }}%0ATerdaftar%20pada%20{{ $registrasi->menu->mata_pelajaran }}%0ANomor%20Registrasi%20{{ $registrasi->registration_code }}%0A%0AKartu%20dapat%20di%20unduh%20melalui%20{{ route('registrasis.pdf', $registrasi->id) }}%0A%0AKami%20tunggu%20kehadiran%20mu%20~" 
+        class="mt-4 ml-4 px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600">
+        Kirim Manual ke WhatsApp
+        </a>     
+        <a href="{{ route('registrasis.pdf', $registrasi->id) }}" 
             target="_blank" 
             class="mt-4 ml-4 px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600">
             Show PDF
