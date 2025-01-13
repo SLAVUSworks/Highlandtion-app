@@ -99,17 +99,13 @@
                     </p>
                 </div>
                 <div class="flex items-center mt-2.5">
-                    <span class="text-sm dark:text-gray-400 mr-1">Sisa Kuota</span>
+                    <span class="text-sm dark:text-gray-400 mr-1">Pendaftaran</span>
                     <span class="text-xs font-semibold mr-2 px-2.5 py-0.5 rounded 
-                        {{ $menu->status === 'tutup' ? 'bg-gray-300 text-gray-700' : 'bg-blue-100 text-blue-800 dark:bg-blue-200 dark:text-blue-800 ml-3' }}">
-                        @if ($menu->status === 'tutup')
-                            Ditutup
+                        {{ $menu->status === 'tutup' ? 'bg-gray-300 text-red-700' : 'bg-blue-100 text-blue-800 dark:bg-blue-200 dark:text-blue-800 ml-3' }}">
+                        @if ($menu->status === 'buka')
+                            Dibuka
                         @else
-                            @if ($menu->kuota_now == null)
-                                {{ $menu->kuota }}
-                            @else
-                                {{ $menu->kuota_now }}
-                            @endif
+                            Ditutup
                         @endif
                     </span>
                 </div>
