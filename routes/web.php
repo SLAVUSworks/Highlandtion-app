@@ -83,6 +83,11 @@ Route::middleware('auth')->group(function () {
     Route::prefix('back')->name('back.')->group(function () {
         Route::resource('articles', ArticleController::class);
     });
+
+        Route::group(['prefix' => 'laravel-filemanager', 'middleware' => ['web', 'auth']], function () {
+            \UniSharp\LaravelFilemanager\Lfm::routes();
+        });
+
     
     Route::get('back/storage/{path}', function ($path) {
         return response()->file(storage_path('app/public/' . $path));
