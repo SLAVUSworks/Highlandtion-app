@@ -17,6 +17,7 @@ return new class extends Migration
             $table->enum('tingkat', ['SD', 'SMP/MTs', 'SMA/MA']);
             $table->text('deskripsi')->nullable();
             $table->decimal('harga', 10, 2);
+            $table->enum('status', ['buka', 'tutup'])->default('buka');
             $table->unsignedInteger('kuota')->default(0);
             $table->unsignedInteger('kuota_now')->nullable()->default(null);
             $table->string('icon')->nullable();

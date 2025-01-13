@@ -15,10 +15,10 @@
 <body class="bg-gray-100">
     <div id="app">
         <!-- Top Navigation -->
-        <nav id="nav-dash" class="fixed top-0 z-50 w-full bg-white shadow flex items-center justify-between px-6 py-3">
-            <a href="{{ route('back.menu.index') }}" <h1 class="text-lg font-bold text-black">Highlandtion Web Config's</h1></a>
+        <nav id="nav-dash" class="fixed top-0 z-50 w-full bg-white shadow flex items-center justify-between px-6 py-3 h-16">
+            <a href="{{ route('back.menu.index') }}"> <h1 class="text-lg font-bold text-black">Highlandtion Web Config's</h1></a>
             <div class="relative">
-            <button id="user-menu-button" class="focus:outline-none">
+            <button id="user-menu-button" class="focus:outline-none flex items-center">
                 <img src="{{ url('storage/' . Auth::user()->avatar) }}" alt="Profile Picture" class="rounded-full w-10 h-10">
             </button>
             <script>

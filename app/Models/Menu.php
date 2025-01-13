@@ -15,6 +15,7 @@ class Menu extends Model
         'harga',
         'icon',
         'thumbnail',
+        'status',
         'kuota',
         'kuota_now',
     ];

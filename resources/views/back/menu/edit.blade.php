@@ -46,6 +46,14 @@
             @endif
             <input type="file" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500" name="thumbnail" id="thumbnail">
         </div>
+        <div class="mb-4">
+            <label for="status" class="block text-sm font-medium text-gray-700">Status</label>
+            <select class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500" 
+                name="status" id="status" required>
+                <option value="buka" {{ $menu->status == 'buka' ? 'selected' : '' }}>Menerima</option>
+                <option value="tutup" {{ $menu->status == 'tutup' ? 'selected' : '' }}>Ditutup</option>
+            </select>
+        </div>        
         <button type="submit" class="px-4 py-2 bg-indigo-600 text-white rounded-md shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">Update</button>
     </form>
 </div>

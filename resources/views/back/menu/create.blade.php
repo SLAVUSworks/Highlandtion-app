@@ -39,6 +39,13 @@
             <label for="thumbnail" class="block text-gray-700">Thumbnail</label>
             <input type="file" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm" name="thumbnail" id="thumbnail" required>
         </div>
+        <div class="mb-4">
+            <label for="tingkat" class="block text-gray-700">Tingkat</label>
+            <select class="mt-1 block w-full border-gray-300 rounded-md shadow-sm" name="tingkat" id="tingkat" required>
+            <option value="buka">Menerima</option>
+            <option value="tutup">Ditutup</option>
+            </select>
+        </div>
         <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Simpan</button>
     </form>
 </div>

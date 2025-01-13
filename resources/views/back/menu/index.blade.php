@@ -24,7 +24,7 @@
                 <th class="py-2 px-4 border-b">Mata Pelajaran</th>
                 <th class="py-2 px-4 border-b">Tingkat</th>
                 <th class="py-2 px-4 border-b">Harga</th>
-                <th class="py-2 px-4 border-b">Kuota</th>
+                <th class="py-2 px-4 border-b">Status</th>
                 <th class="py-2 px-4 border-b">Aksi</th>
             </tr>
         </thead>
@@ -37,7 +37,12 @@
                 <td class="py-2 px-4 border-b">{{ $menu->mata_pelajaran }}</td>
                 <td class="py-2 px-4 border-b">{{ $menu->tingkat }}</td>
                 <td class="py-2 px-4 border-b">Rp.{{ number_format($menu->harga, 0, ',', '.') }}</td>
-                <td class="py-2 px-4 border-b">{{ $menu->kuota }}</td>
+                <td class="py-2 px-4 border-b">
+                    <span class="px-2 py-1 text-white text-sm font-semibold rounded 
+                        {{ $menu->status === 'buka' ? 'bg-green-500' : 'bg-red-500' }}">
+                        {{ $menu->status === 'buka' ? 'Menerima' : 'Ditutup' }}
+                    </span>
+                </td>
                 <td class="py-2 px-4 border-b">
                     <div class="flex justify-center space-x-2">
                         <a href="{{ route('back.menu.edit', $menu) }}" class="btn btn-warning btn-sm bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-1 px-2 rounded">Edit</a>
