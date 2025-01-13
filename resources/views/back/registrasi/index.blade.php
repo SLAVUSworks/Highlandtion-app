@@ -5,6 +5,23 @@
 @section('content')
 <div class="container mx-auto px-4 py-6">
     <h1 class="text-2xl font-bold mb-4">Daftar Registrasi</h1>
+
+    <!-- Cards for Counts -->
+    <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6">
+        <div class="bg-blue-100 border border-blue-300 rounded-lg p-4">
+            <h2 class="text-lg font-semibold text-blue-800">Pendaftar</h2>
+            <p id="total-pendaftar" class="text-2xl font-bold text-blue-900">0</p>
+        </div>
+        <div class="bg-green-100 border border-green-300 rounded-lg p-4">
+            <h2 class="text-lg font-semibold text-green-800">Terdaftar</h2>
+            <p id="total-terdaftar" class="text-2xl font-bold text-green-900">0</p>
+        </div>
+        <div class="bg-yellow-100 border border-yellow-300 rounded-lg p-4">
+            <h2 class="text-lg font-semibold text-yellow-800">Pending</h2>
+            <p id="total-pending" class="text-2xl font-bold text-yellow-900">0</p>
+        </div>
+    </div>
+
     <div class="overflow-x-auto">
         <div class="flex items-center gap-4 mb-4">
             <!-- Search Input -->
@@ -29,6 +46,7 @@
             @endforeach
             </select>
         </div>
+
         <table class="table-auto w-full border-collapse border border-gray-300">
             <thead>
                 <tr class="bg-gray-100">
@@ -65,6 +83,7 @@
         </table>
     </div>
 </div>
+
 <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 <script>
     $(document).ready(function () {
@@ -72,6 +91,9 @@
         const searchInput = $("#search-input");
         const statusFilter = $("#filter-status");
         const menuFilter = $("#filter-menu");
+        const totalPendaftar = $("#total-pendaftar");
+        const totalTerdaftar = $("#total-terdaftar");
+        const totalPending = $("#total-pending");
 
         function fetchRegistrasiData() {
             const query = searchInput.val();
@@ -79,11 +101,15 @@
             const menu = menuFilter.val();
 
             $.ajax({
-                url: "{{ url('back/registrasi-data') }}", // Untuk URL penuh
+                url: "{{ url('back/registrasi-data') }}",
                 method: "GET",
                 data: { search: query, status: status, menu: menu },
                 success: function (data) {
                     let tableRows = "";
+                    let pendaftarCount = 0;
+                    let terdaftarCount = 0;
+                    let pendingCount = 0;
+
                     data.forEach((registrasi) => {
                         tableRows += `
                             <tr>
@@ -105,8 +131,16 @@
                                 </td>
                             </tr>
                         `;
+
+                        pendaftarCount++;
+                        if (registrasi.status === "approved") terdaftarCount++;
+                        if (registrasi.status === "pending") pendingCount++;
                     });
+
                     tableBody.html(tableRows);
+                    totalPendaftar.text(pendaftarCount);
+                    totalTerdaftar.text(terdaftarCount);
+                    totalPending.text(pendingCount);
                 },
                 error: function (xhr, status, error) {
                     console.error("Error fetching data:", error);
@@ -124,11 +158,9 @@
 
         // Update table content every 5 seconds
         setInterval(() => {
-            fetchRegistrasiData(); // Regularly fetch updated table data
+            fetchRegistrasiData();
         }, 5000);
     });
 </script>
-
-
 
 @endsection
