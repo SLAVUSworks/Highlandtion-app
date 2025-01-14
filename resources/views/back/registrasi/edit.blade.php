@@ -109,13 +109,16 @@
         <div class="mb-4">
             <label for="ruangan_id" class="block text-gray-700 font-bold mb-2">Pilih Ruangan</label>
             <select id="ruangan_id" name="ruangan_id" required
-            class="w-full px-4 py-2 border border-gray-300 rounded-lg">
-            <option value="">-- Pilih Ruangan --</option>
-            @foreach($ruangans as $ruangan)
-            <option value="{{ $ruangan->id }}">{{ $ruangan->nama_ruangan }}</option>
-            @endforeach
+                class="w-full px-4 py-2 border border-gray-300 rounded-lg">
+                <option value="">-- Pilih Ruangan --</option>
+                @foreach($ruangans as $ruangan)
+                <option value="{{ $ruangan->id }}" 
+                        @if($ruangan->kuota_now == $ruangan->kuota) disabled @endif>
+                    {{ $ruangan->nama_ruangan }}
+                </option>
+                @endforeach
             </select>
-        </div>
+        </div>              
 
         <div class="mb-4">
             <input type="checkbox" id="confirmRuangan" name="confirmRuangan" required>

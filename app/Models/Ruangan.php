@@ -18,7 +18,7 @@ class Ruangan extends Model
 
     public function updateKuotaNow()
     {
-        $this->kuota_now = $this->kuota - $this->registrasi()->where('status', 'approved')->count();
+        $this->kuota_now = $this->registrasi()->where('status', 'approved')->count();
         $this->save();
     }
 

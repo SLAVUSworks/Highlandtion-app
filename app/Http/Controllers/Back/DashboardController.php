@@ -29,13 +29,13 @@ class DashboardController extends Controller
         $sisaKuotaMenu = Menu::sum('kuota') - DB::table('registrasis')->where('status', 'approved')->count('menu_id');
         $kuotaPerRuangan = Ruangan::select('id', 'nama_ruangan as name', 'kuota', 'kuota_now')->get()->map(function ($item) {
             if ($item->kuota_now == null) {
-                $item->kuota_now = $item->kuota;
+                $item->kuota_now = 0;
             }
             return $item;
         });
         $kuotaPerMenu = Menu::select('id', 'mata_pelajaran as name', 'tingkat', 'kuota', 'kuota_now')->get()->map(function ($item) {
             if ($item->kuota_now == null) {
-                $item->kuota_now = $item->kuota;
+                $item->kuota_now = 0;
             }
             return $item;
         });
