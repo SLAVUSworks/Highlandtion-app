@@ -57,13 +57,15 @@ class MenuController extends Controller
             'mata_pelajaran' => 'required',
             'tingkat' => 'required',
             'deskripsi' => 'required',
+            'kuota' => 'required',
+            'harga' => 'required',
             'status' => 'required',
             'icon' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'thumbnail' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
     
         // Ambil data input lainnya
-        $data = $request->only(['mata_pelajaran', 'tingkat', 'deskripsi','status']);
+        $data = $request->only(['mata_pelajaran', 'tingkat', 'deskripsi','status', 'kuota', 'harga']);
     
         // Proses file icon jika diupload
         if ($request->hasFile('icon')) {

@@ -40,8 +40,8 @@
             <input type="file" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm" name="thumbnail" id="thumbnail" required>
         </div>
         <div class="mb-4">
-            <label for="tingkat" class="block text-gray-700">Tingkat</label>
-            <select class="mt-1 block w-full border-gray-300 rounded-md shadow-sm" name="tingkat" id="tingkat" required>
+            <label for="status" class="block text-gray-700">Pendaftaran</label>
+            <select class="mt-1 block w-full border-gray-300 rounded-md shadow-sm" name="status" id="status" required>
             <option value="buka">Menerima</option>
             <option value="tutup">Ditutup</option>
             </select>

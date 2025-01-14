@@ -50,13 +50,13 @@
             <div>
                 <div class="space-y-4 w-full">
                     <div class="flex items-center space-x-4 w-full">
-                        <img src="https://cdn.discordapp.com/attachments/497671304229421069/1322756708879175690/e4819f1e-0951-4598-be82-119d94a4ec85.png" alt="Bank Logo" class="w-32 h-32">
+                        <img src="https://alumni.sv.ugm.ac.id/wp-content/uploads/sites/1262/2016/03/logo-BRI.png" alt="Bank Logo" class="w-32 h-32">
                         <div class="w-full text-left">
-                            <h3 class="text-2xl font-bold text-gray-800">Bank ABCD</h3>
+                            <h3 class="text-2xl font-bold text-gray-800">Bank BRI</h3>
                             <p class="text-xl font-semibold text-gray-600 copyable" onclick="copyText(this)">
-                                1234567890
+                                001501017539536
                             </p>
-                            <p class="text-xl text-gray-600">a.n. John Doe</p>
+                            <p class="text-xl text-gray-600">a.n. Highlandtion</p>
                         </div>
                     </div>
                 </div>

@@ -2,16 +2,16 @@
 
 namespace App\Http\Controllers\Front;
 
+use App\Models\Menu;
 use App\Models\Registrasi;
 use Illuminate\Http\Request;
-use Illuminate\Support\Str;
 use App\Http\Controllers\Controller;
 
 class RegistrasiController extends Controller
 {
-    public function create()
+    public function create(Menu $menu)
     {
-        return view('registrasi.create');
+        return view('front.registrasi.create', compact('menu'));
     }
 
     public function store(Request $request)
@@ -22,10 +22,10 @@ class RegistrasiController extends Controller
             'email' => 'required|email|max:255',
             'nomor_hp' => 'required|string|max:20',
             'bukti_transfer' => 'required|image|max:2048',
+            'menu_id' => 'required|exists:menus,id',
         ]);
 
         $path = $request->file('bukti_transfer')->store('bukti_transfer', 'public');
-        $registrationCode = 'REG-' . strtoupper(Str::random(8));
 
         $registrasi = Registrasi::create([
             'nama' => $validated['nama'],
@@ -33,10 +33,11 @@ class RegistrasiController extends Controller
             'email' => $validated['email'],
             'nomor_hp' => $validated['nomor_hp'],
             'bukti_transfer' => $path,
-            'registration_code' => $registrationCode,
+            'menu_id' => $validated['menu_id'],
         ]);
 
-        return redirect()->route('registrasi.card', $registrasi)->with('success', 'Pendaftaran berhasil.');
+        return redirect()->route('registrasi.card', $registrasi)->with('success', 'Pendaftaran berhasil, menunggu verifikasi.');
+        
     }
 
     public function show(Registrasi $registrasi)
