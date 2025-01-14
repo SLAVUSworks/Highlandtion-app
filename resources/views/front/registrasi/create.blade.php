@@ -62,6 +62,13 @@
                 </div>
                 
                 <!-- SweetAlert2 -->
+                <script>
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Berhasil',
+                        text: '{{ session('success') }}',
+                    });
+                </script>
                 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
                 
                 <script src="{{ asset('js/registrasi.js') }}"></script>

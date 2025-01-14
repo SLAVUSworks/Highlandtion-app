@@ -32,6 +32,7 @@ Route::get('/', [FrontMenuController::class, 'index'])->name('menu.index');
 Route::get('/menu/{menu}', [FrontMenuController::class, 'show'])->name('menu.show');
 Route::get('/registrasi/{menu}', [RegistrasiController::class, 'create'])->name('registrasi.create');
 Route::post('/registrasi', [RegistrasiController::class, 'store'])->name('registrasi.store');
+Route::get('/registrasi/{registrasi}/card', [RegistrasiController::class, 'show'])->name('registrasi.card');
 Route::prefix('informasi')->name('front.articles.')->group(function () {
     Route::get('/', [FrontArticleController::class, 'index'])->name('index');
     Route::get('/{slug}', [FrontArticleController::class, 'show'])->name('show');

@@ -20,7 +20,12 @@ class Registrasi extends Model
         'status',
         'registration_code',
     ];
-    
+
+    // Default status
+    protected $attributes = [
+        'status' => 'pending',
+    ];
+
     public function menu()
     {
         return $this->belongsTo(Menu::class);

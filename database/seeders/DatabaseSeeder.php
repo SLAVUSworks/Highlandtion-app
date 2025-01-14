@@ -4,7 +4,6 @@ namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
-use Database\Seeders\MenuSeeder;
 use Database\Seeders\UserSeeder;
 use Database\Seeders\ConfigSeeder;
 
@@ -17,7 +16,6 @@ class DatabaseSeeder extends Seeder
     {
         // \App\Models\User::factory(10)->create();
 
-        $this->call(MenuSeeder::class);
         $this->call(UserSeeder::class);
         $this->call(ConfigSeeder::class);
         
