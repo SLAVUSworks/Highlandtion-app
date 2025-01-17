@@ -60,6 +60,8 @@ class RegistrasiController extends Controller
 
     public function store(Request $request)
     {
+    
+
         $registrasi = Registrasi::create($request->all());
         if ($registrasi->status === 'approved') {
             $registrasi->menu?->updateKuotaNow();

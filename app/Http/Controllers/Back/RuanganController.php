@@ -30,7 +30,7 @@ class RuanganController extends Controller
         ]);
 
         Ruangan::create($request->all());
-        return redirect()->route('back.ruangan.index');
+        return redirect()->route('back.ruangan.index')->with('success', 'Ruangan berhasil ditambahkan.');
     }
 
     public function edit(Ruangan $ruangan)

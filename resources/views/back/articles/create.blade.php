@@ -39,6 +39,8 @@
         </button>
     </form>
 </div>
+
+
 @endsection
 
 @section('scripts')
@@ -55,3 +57,4 @@
     CKEDITOR.replace('desc', options);
 </script>
 @endsection
+

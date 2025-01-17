@@ -145,5 +145,60 @@
             <h6>{{ $registrasi->registration_code }}</h6>
         </div>
     </div>
+    <div class="container-2">
+        <div class="header">
+            <div class="left">
+                <h2>Highlandtion</h2>
+            </div>
+            <div class="right">2.1</div>
+        </div>
+        <hr>
+        <div class="school-info">
+            <div class="school-details">
+                <div class="name">SMAN 1 BUKITTINGGI</div>
+                <div class="location">Jl. Syekh Jamil Jambek No.36, Pakan Kurai, Kec. Guguk Panjang, Kota Bukittinggi, Sumatera Barat 26136</div>
+            </div>
+        </div>
+        <hr>
+        <div class="participant">
+            <div>
+                <span>Nama Peserta</span>
+                <div>{{ $registrasi->nama }}</div>
+            </div>
+            <div>
+                <span>Sekolah Asal</span>
+                <div>{{ $registrasi->asal_sekolah }}</div>
+            </div>
+        </div>
+        <div class="details">
+            <div>
+                <span>Tiket</span>
+                <div>{{ $registrasi->menu->mata_pelajaran }}</div>
+            </div>
+            <div>
+                <span>Tingkat</span>
+                <div>{{ $registrasi->menu->tingkat }}</div>
+            </div>
+            <div>
+                <span>Ruang Ujian/Lokasi Acara</span>
+                <div>{{ $registrasi->ruangan->nama_ruangan }}</div>
+            </div>
+        </div>
+        <hr>
+        <div class="dates">
+            <div>
+                <span>Waktu Pendaftaran</span>
+                <div>{{ $registrasi->created_at }}</div>
+            </div>
+            <div>
+                <span>Waktu Diverifikasi</span>
+                <div>{{ $registrasi->updated_at }}</div>
+            </div>
+        </div>
+        <div class="registration-code">
+            <span>Nomor Registrasi</span>
+            <h6>{{ $registrasi->registration_code }}</h6>
+        </div>
+    </div>
 </body>
 </html>

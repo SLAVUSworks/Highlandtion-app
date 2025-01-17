@@ -27,6 +27,10 @@ return [
     | Supported Drivers: "local", "ftp", "sftp", "s3"
     |
     */
+    
+    /*
+    default public.root => storage_path('app/public')
+    */
 
     'disks' => [
 
@@ -38,7 +42,7 @@ return [
 
         'public' => [
             'driver' => 'local',
-            'root' => storage_path('app/public'),
+            'root' => storage_path('app/storage'),
             'url' => env('APP_URL').'/storage',
             'visibility' => 'public',
             'throw' => false,

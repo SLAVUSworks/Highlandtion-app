@@ -25,6 +25,12 @@ class RegistrasiController extends Controller
             'menu_id' => 'required|exists:menus,id',
         ]);
 
+        $reg = Registrasi::where('nama', $request->nama)->first();
+
+        if($reg){
+            return redirect()->back()->with('error', $request->nama . ' asal sekolah ' . $reg->asal_sekolah . ' sudah terdaftar di ' . $reg->menu->mata_pelajaran . ' - '. $reg->menu->tingkat . '. Jika merasa belum terdaftar silahkan hubungi panitia.');
+        }
+
         $path = $request->file('bukti_transfer')->store('bukti_transfer', 'public');
 
         $registrasi = Registrasi::create([

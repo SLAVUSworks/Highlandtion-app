@@ -50,6 +50,7 @@ class ArticleController extends Controller
         // Handle image upload
         if ($request->file('img')) {
             $validated['img'] = $request->file('img')->store('articles', 'public');
+      
         }
 
         Article::create($validated);
