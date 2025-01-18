@@ -12,6 +12,7 @@ use Twilio\Rest\Client;
 use Illuminate\Support\Facades\Log;
 use App\Models\Menu;
 use Barryvdh\DomPDF\Facade\Pdf;
+use File;
 
 class RegistrasiController extends Controller
 {
@@ -81,10 +82,21 @@ class RegistrasiController extends Controller
 
         $uniqueCode = 'HL-' . $registrasi->created_at->format('dm') . $registrasi->menu_id . $validated['ruangan_id'] . $registrasi->created_at->format('Hi');
 
+        
+        $filename = explode("/", $registrasi->bukti_transfer)[2];
+        
+        $approved_path = storage_path("app/storage/bukti_transfer/approved");
+        if(!File::exists($approved_path)){
+            File::makeDirectory($approved_path, 0755, true);
+        }
+
+        File::move(storage_path("app/storage/".$registrasi->bukti_transfer), $approved_path . "/" .$filename);
+
         $registrasi->update([
             'ruangan_id' => $validated['ruangan_id'],
             'status' => 'approved',
             'registration_code' => $uniqueCode,
+            'bukti_transfer'=> "bukti_transfer/approved/" . $filename,
         ]);
 
         return redirect()->route('back.registrasis.card', $registrasi->id)->with('success', 'Registrasi berhasil diverifikasi.');

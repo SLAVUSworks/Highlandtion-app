@@ -6,6 +6,7 @@ use App\Models\Menu;
 use App\Models\Registrasi;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Str;
 
 class RegistrasiController extends Controller
 {
@@ -29,16 +30,19 @@ class RegistrasiController extends Controller
             ->where('email', $request->email)
             ->first();
     
-    if ($reg) {
-        return redirect()->back()->with(
-            'error', 
-            $request->nama . ' dengan email ' . $request->email . ' asal sekolah ' . $reg->asal_sekolah . 
-            ' sudah terdaftar di ' . $reg->menu->mata_pelajaran . ' - ' . $reg->menu->tingkat . 
-            '. Jika merasa belum pernah mendaftar silahkan hubungi panitia.'
-        );
-    }
+        if ($reg) {
+            return redirect()->back()->with(
+                'error', 
+                $request->nama . ' dengan email ' . $request->email . ' asal sekolah ' . $reg->asal_sekolah . 
+                ' sudah terdaftar di ' . $reg->menu->mata_pelajaran . ' - ' . $reg->menu->tingkat . 
+                '. Jika merasa belum pernah mendaftar silahkan hubungi panitia.'
+            );
+        }
     
-        $path = $request->file('bukti_transfer')->store('bukti_transfer', 'public');
+
+        $filename = Str::random(30) . "_" . Str::random(30) . "." . $request->file("bukti_transfer")->getClientOriginalExtension();
+
+        $path = $request->file('bukti_transfer')->storeAs('bukti_transfer/pending', $filename, 'public');
 
         $registrasi = Registrasi::create([
             'nama' => $validated['nama'],

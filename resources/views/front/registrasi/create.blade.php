@@ -19,19 +19,19 @@
             <div>
                 <label for="nama" class="block text-sm font-medium text-gray-700 text-left">Nama Lengkap</label>
                 <input type="text" id="nama" name="nama" required 
-                       class="mt-1 block w-full border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500 text-lg">
+                       class="mt-1 block w-full border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500 p-2 text-lg">
             </div>
 
             <div>
                 <label for="asal_sekolah" class="block text-sm font-medium text-gray-700 text-left">Asal Sekolah</label>
                 <input type="text" id="asal_sekolah" name="asal_sekolah" required 
-                       class="mt-1 block w-full border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500 text-lg">
+                       class="mt-1 block w-full border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500 p-2 text-lg">
             </div>
 
             <div>
                 <label for="email" class="block text-sm font-medium text-gray-700 text-left">Email</label>
                 <input type="email" id="email" name="email" required 
-                       class="mt-1 block w-full border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500 text-lg">
+                       class="mt-1 block w-full border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500 p-2 text-lg">
             </div>
 
             <div>
@@ -39,7 +39,7 @@
                 <div class="flex">
                     <span class="inline-flex items-center px-3 rounded-l-md border border-r-0 border-gray-300 bg-gray-50 text-gray-500 text-lg">+62</span>
                     <input type="text" id="nomor_hp" name="nomor_hp" required 
-                           class="mt-1 block w-full border-gray-300 rounded-r-lg shadow-sm focus:ring-blue-500 focus:border-blue-500 text-lg">
+                           class="mt-1 block w-full border-gray-300 rounded-r-lg shadow-sm focus:ring-blue-500 focus:border-blue-500 p-2 text-lg">
                 </div>
             </div>
         </div>
