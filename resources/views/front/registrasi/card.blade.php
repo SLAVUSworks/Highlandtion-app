@@ -25,7 +25,7 @@
         </div>
         <div class="border-b border-dashed border-b-2 my-5"></div>
         <div class="flex items-center">
-            <div class="flex flex-col">
+            <div class="flex flex-col text-left">
                 <div class="flex-auto text-xs text-gray-400 my-1">
                     <span class="mr-1">HL</span><span>2.1</span>
                 </div>
@@ -38,7 +38,7 @@
         </div>        
         <div class="border-b border-dashed border-b-2 my-5 pt-5">
         </div>
-        <div class="flex items-center mb-5 p-5 text-sm">
+        <div class="flex items-center mb-5 text-sm text-left">
             <div class="flex flex-col">
                 <span class="text-sm">Tiket</span>
                 <div class="font-semibold">{{ $registrasi->menu->mata_pelajaran }}</div>
@@ -48,8 +48,8 @@
                 <div class="font-semibold">{{ $registrasi->menu->tingkat }}</div>
             </div>
         </div>
-        <div class="flex items-center mb-4 px-5">
-            <div class="flex flex-col text-sm">
+        <div class="flex items-center mb-4">
+            <div class="flex flex-col text-sm text-left">
                 <span class="">Nama Peserta</span>
                 <div class="font-semibold">{{ $registrasi->nama }}</div>
             </div>
@@ -57,14 +57,14 @@
                 <span class=""></span>
                 <div class="font-semibold"></div>
             </div>
-            <div class="flex flex-col text-sm items-end">
+            <div class="flex flex-col text-sm text-right">
                 <span class="">Sekolah Asal</span>
                 <div class="font-semibold">{{ $registrasi->asal_sekolah }}</div>
             </div>
         </div>
         <div class="border-b border-dashed border-b-2 my-5 pt-5">
         </div>
-        <div class="flex items-center justify-between px-5 pt-3 text-sm">
+        <div class="flex items-center justify-between pt-3 text-sm">
             <div class="flex flex-col items-start">
                 <span class="">Status</span>
                 <div class="font-semibold 

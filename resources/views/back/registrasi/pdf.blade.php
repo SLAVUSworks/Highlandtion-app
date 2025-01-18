@@ -27,6 +27,20 @@
             justify-content: space-between;
             border: 2px dashed #000; /* Outline putus-putus */
         }
+
+        .container-2 {
+            width: 165mm;
+            height: 190mm;
+            padding: 10mm;
+            background-size: cover;
+            background-position: center;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            border: 2px dashed #000; /* Outline putus-putus */
+        }
         .header {
             display: flex;
             justify-content: space-between;
@@ -145,6 +159,8 @@
             <h6>{{ $registrasi->registration_code }}</h6>
         </div>
     </div>
+    <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+    <h3 style="text-align: center"><i>Lengkapi Data dan Antarkan Kartu ini Menuju Meja Registrasi Ulang</i></h3>
     <div class="container-2">
         <div class="header">
             <div class="left">
@@ -163,41 +179,48 @@
         <div class="participant">
             <div>
                 <span>Nama Peserta</span>
-                <div>{{ $registrasi->nama }}</div>
+                <div></div>
             </div>
+            <br><br>
             <div>
                 <span>Sekolah Asal</span>
-                <div>{{ $registrasi->asal_sekolah }}</div>
+                <div></div>
             </div>
+            <br><br>
         </div>
         <div class="details">
             <div>
                 <span>Tiket</span>
-                <div>{{ $registrasi->menu->mata_pelajaran }}</div>
+                <div></div>
             </div>
+            <br><br>
             <div>
                 <span>Tingkat</span>
-                <div>{{ $registrasi->menu->tingkat }}</div>
+                <div></div>
             </div>
+            <br><br>
             <div>
                 <span>Ruang Ujian/Lokasi Acara</span>
-                <div>{{ $registrasi->ruangan->nama_ruangan }}</div>
+                <div></div>
             </div>
+            <br><br>
         </div>
         <hr>
         <div class="dates">
             <div>
                 <span>Waktu Pendaftaran</span>
-                <div>{{ $registrasi->created_at }}</div>
+                <div></div>
+                <br><br>
             </div>
             <div>
                 <span>Waktu Diverifikasi</span>
-                <div>{{ $registrasi->updated_at }}</div>
+                <div></div>
+                <br><br>
             </div>
         </div>
         <div class="registration-code">
             <span>Nomor Registrasi</span>
-            <h6>{{ $registrasi->registration_code }}</h6>
+            <h6>HL- . . . . . . . . . . . . . </h6>
         </div>
     </div>
 </body>
