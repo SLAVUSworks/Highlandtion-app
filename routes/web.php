@@ -11,6 +11,7 @@ use App\Http\Controllers\Back\ConfigController;
 use App\Http\Controllers\Back\RegistrasiController as BackRegistrasiController;
 use App\Http\Controllers\Back\ArticleController;
 use App\Http\Controllers\Back\ContactPageController;
+use App\Http\Controllers\Back\ExportController;
 
 use App\Http\Controllers\Front\ArticleController as FrontArticleController;
 use App\Http\Controllers\Front\MenuController as FrontMenuController;
@@ -99,6 +100,10 @@ Route::middleware('auth')->group(function () {
     Route::get('back/storage/{path}', function ($path) {
         return response()->file(storage_path('app/public/' . $path));
     })->where('path', '.*');
-    
+
+    Route::prefix('back')->name('back.')->group(function () {
+        Route::get('/export', [ExportController::class, 'showExportPage'])->name('export.index'); 
+        Route::get('/export-csv', [ExportController::class, 'exportCsv'])->name('export.csv');
+    });    
 });
 Auth::routes();

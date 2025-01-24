@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Ruangan;
 use App\Models\Menu;
+use App\Models\Registrasi;
 use Illuminate\Support\Facades\DB;
 
 
@@ -23,6 +24,11 @@ class DashboardController extends Controller
     
     public function index()
     {
+        $totalPendaftar = Registrasi::count();
+        $totalDiverifikasi = Registrasi::where('status', 'approved')->count();
+        $terakhirDiupdateReg = Registrasi::orderBy('created_at', 'desc')->first();
+        $terakhirDiupdateVer = Registrasi::orderBy('updated_at', 'desc')->first();
+
         $ruanganKuota = Ruangan::sum('kuota');
         $menuKuota = Menu::sum('kuota');
         $sisaKuotaRuangan = Ruangan::sum('kuota') - DB::table('registrasis')->where('status', 'approved')->count('ruangan_id');
@@ -41,12 +47,16 @@ class DashboardController extends Controller
         });
     
         return view('back.dashboard.index', [
+            'totalPendaftar' => $totalPendaftar,
+            'totalDiverifikasi' => $totalDiverifikasi,
             'ruanganKuota' => $ruanganKuota,
             'menuKuota' => $menuKuota,
             'sisaKuotaRuangan' => $sisaKuotaRuangan,
             'sisaKuotaMenu' => $sisaKuotaMenu,
             'kuotaPerRuangan' => $kuotaPerRuangan,
             'kuotaPerMenu' => $kuotaPerMenu,
+            'terakhirDiupdateReg' => $terakhirDiupdateReg ? $terakhirDiupdateReg->created_at->format('Y-m-d H:i') : 'N/A',
+            'terakhirDiupdateVer' => $terakhirDiupdateVer ? $terakhirDiupdateVer->updated_at->format('Y-m-d H:i') : 'N/A',
         ]);
     }    
 }

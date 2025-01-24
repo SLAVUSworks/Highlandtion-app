@@ -142,6 +142,14 @@
                         </a>
                     </li>
                 </ul>
+                <ul class="submenu space-y-1 ml-6">
+                    <li>
+                        <a href="{{ route('back.export.index') }}" class="grid grid-cols-[24px,1fr] items-center gap-3 p-2 text-gray-200 hover:bg-gray-700 rounded-lg {{ request()->routeIs('back.export.index') ? 'bg-gray-700' : '' }}">
+                            <i class="fa-solid fa-file-export text-gray-400"></i>
+                            <span>Rekap Data</span>
+                        </a>
+                    </li>
+                </ul>
                 </li>
             </ul>
             </div>
