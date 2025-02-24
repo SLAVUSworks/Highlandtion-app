@@ -11,11 +11,11 @@
     <link rel="stylesheet" href="https://cdn.ckeditor.com/ckeditor5/44.1.0/ckeditor5.css" crossorigin>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
     <link rel="stylesheet" href="{{ asset('css/admin.css') }}">
 </head>
 <body class="bg-gray-100">
     <div id="app">
-        <!-- Top Navigation -->
         <nav id="nav-dash" class="fixed top-0 z-50 w-full bg-white shadow flex items-center justify-between px-6 py-3 h-16">
             <a href="{{ route('back.menu.index') }}"> <h1 class="text-lg font-bold text-black">Highlandtion Web Config's</h1></a>
             <div class="relative">
@@ -43,7 +43,6 @@
             </div>
         </nav>
 
-        <!-- Sidebar -->
         <nav id="nav-dash" class="fixed top-0 left-0 z-40 w-64 h-screen pt-20 bg-gray-800 text-white">
             <div class="h-full px-3 pb-4 overflow-y-auto">
             <ul class="space-y-1">
@@ -64,15 +63,15 @@
                         <i class="fa-solid fa-calendar-days text-gray-400"></i>
                         <span>Menu Event</span>
                     </button>
-                    <ul class="submenu space-y-1 ml-6 {{ request()->routeIs('back.menu.*') ? '' : 'hidden' }}">
+                    <ul class="submenu space-y-1 ml-6 {{ request()->routeIs('back.menu*') ? '' : 'hidden' }}">
                         <li>
                         <a href="{{ route('back.menu.index') }}" class="block p-2 text-gray-200 hover:bg-gray-700 rounded-lg {{ request()->routeIs('back.menu.index') ? 'bg-gray-700' : '' }}">
                             Daftar Event
                         </a>
                         </li>
                         <li>
-                        <a href="{{ route('back.menu.create') }}" class="block p-2 text-gray-200 hover:bg-gray-700 rounded-lg {{ request()->routeIs('back.menu.create') ? 'bg-gray-700' : '' }}">
-                            Tambah Event
+                        <a href="{{ route('back.menu-category.index') }}" class="block p-2 text-gray-200 hover:bg-gray-700 rounded-lg {{ request()->routeIs('back.menu-category.index') ? 'bg-gray-700' : '' }}">
+                            Daftar Kategori
                         </a>
                         </li>
                     </ul>

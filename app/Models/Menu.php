@@ -11,6 +11,7 @@ class Menu extends Model
     protected $fillable = [
         'mata_pelajaran',
         'tingkat',
+        'menu_category_id',
         'deskripsi',
         'harga',
         'icon',
@@ -36,4 +37,8 @@ class Menu extends Model
         return $this->hasMany(Registrasi::class);
     }
 
+    public function menuCategory()
+    {
+        return $this->belongsTo(MenuCategory::class);
+    }
 }

@@ -12,7 +12,8 @@ use Twilio\Rest\Client;
 use Illuminate\Support\Facades\Log;
 use App\Models\Menu;
 use Barryvdh\DomPDF\Facade\Pdf;
-use File;
+use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Storage;
 
 class RegistrasiController extends Controller
 {
@@ -83,23 +84,22 @@ class RegistrasiController extends Controller
         $uniqueCode = 'HL-' . $registrasi->created_at->format('dm') . $registrasi->menu_id . $validated['ruangan_id'] . $registrasi->created_at->format('Hi');
 
         
-        $filename = explode("/", $registrasi->bukti_transfer)[2];
-        
-        $approved_path = storage_path("app/storage/bukti_transfer/approved");
-        if(!File::exists($approved_path)){
-            File::makeDirectory($approved_path, 0755, true);
-        }
+        $filename = basename($registrasi->bukti_transfer);
 
-        File::move(storage_path("app/storage/".$registrasi->bukti_transfer), $approved_path . "/" .$filename);
-
+        $source_path = "public/" . $registrasi->bukti_transfer;
+        $target_path = "public/bukti_transfer/approved/" . $filename;
+    
+        Storage::move($source_path, $target_path);
+    
         $registrasi->update([
             'ruangan_id' => $validated['ruangan_id'],
             'status' => 'approved',
             'registration_code' => $uniqueCode,
-            'bukti_transfer'=> "bukti_transfer/approved/" . $filename,
+            'bukti_transfer' => "bukti_transfer/approved/" . $filename,
         ]);
-
-        return redirect()->route('back.registrasis.card', $registrasi->id)->with('success', 'Registrasi berhasil diverifikasi.');
+    
+        return redirect()->route('back.registrasis.card', $registrasi->id)
+            ->with('success', 'Registrasi berhasil diverifikasi.');
     }
 
     public function showCard($id)

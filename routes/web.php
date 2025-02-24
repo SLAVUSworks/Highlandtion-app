@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Auth;
 
 use App\Http\Controllers\Back\DashboardController;
 use App\Http\Controllers\Back\MenuController;
+use App\Http\Controllers\Back\MenuCategoryController;
 use App\Http\Controllers\Back\RuanganController;
 use App\Http\Controllers\Back\UserController;
 use App\Http\Controllers\Back\ConfigController;
@@ -50,60 +51,46 @@ Route::middleware('auth')->group(function () {
         return redirect('/login');
     });
     
-    Route::prefix('back')->name('back.')->group(function () {
-        Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard.index');
-    });
-    
+        Route::prefix('back')->name('back.')->group(function () {
+            Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard.index');
 
-    Route::prefix('back')->name('back.')->group(function () {
-        Route::resource('menu', MenuController::class);
-    });
-    
-    Route::prefix('back')->name('back.')->group(function () {
-        Route::resource('ruangan', RuanganController::class);
-    });
+            Route::resource('menu', MenuController::class);
 
-    Route::prefix('back')->name('back.')->group(function () {
-        Route::resource('users', UserController::class);
-        Route::get('/profile', [UserController::class, 'show']);
+            Route::resource('menu-category', MenuCategoryController::class);
+        
+            Route::resource('ruangan', RuanganController::class);
+
+            Route::resource('users', UserController::class);
+            Route::get('/profile', [UserController::class, 'show']);
+
+            Route::resource('/config', ConfigController::class)->only([
+                'index', 'update'
+            ]);
+
+            Route::get('registrasis', [BackRegistrasiController::class, 'index'])->name('registrasis.index');
+            Route::get('registrasis/{registrasi}/edit', [BackRegistrasiController::class, 'edit'])->name('registrasis.edit');
+            Route::put('registrasis/{registrasi}', [BackRegistrasiController::class, 'update'])->name('registrasis.update');
+            Route::get('registrasis/{registrasi}/card', [BackRegistrasiController::class, 'showCard'])->name('registrasis.card');
+            Route::get('registrasis/{registrasi}/kirim-pesan-whatsapp', [BackRegistrasiController::class, 'sendWhatsAppMessage'])->name('registrasis.kirimPesan');
+
+            Route::get('/registrasi-data', [BackRegistrasiController::class, 'getRegistrasiData']);
+
+            Route::resource('articles', ArticleController::class);
+
+            Route::group(['prefix' => 'laravel-filemanager', 'middleware' => ['web', 'auth']], function () {
+                \UniSharp\LaravelFilemanager\Lfm::routes();
+
+            Route::get('/contact', [ContactPageController::class, 'index'])->name('contact.index');
+            Route::put('/contact', [ContactPageController::class, 'update'])->name('contact.update');
+        
+            Route::get('/export', [ExportController::class, 'showExportPage'])->name('export.index'); 
+            Route::get('/export-csv', [ExportController::class, 'exportCsv'])->name('export.csv');
+        });
+
+        Route::get('back/storage/{path}', function ($path) {
+            return response()->file(storage_path('app/public/' . $path));
+        })->where('path', '.*');
     });
-
-    Route::prefix('back')->name('back.')->group(function () {
-        Route::resource('/config', ConfigController::class)->only([
-            'index', 'update'
-        ]);
-    });
-
-    Route::prefix('back')->name('back.')->group(function () {
-        Route::get('registrasis', [BackRegistrasiController::class, 'index'])->name('registrasis.index');
-        Route::get('registrasis/{registrasi}/edit', [BackRegistrasiController::class, 'edit'])->name('registrasis.edit');
-        Route::put('registrasis/{registrasi}', [BackRegistrasiController::class, 'update'])->name('registrasis.update');
-        Route::get('registrasis/{registrasi}/card', [BackRegistrasiController::class, 'showCard'])->name('registrasis.card');
-        Route::get('registrasis/{registrasi}/kirim-pesan-whatsapp', [BackRegistrasiController::class, 'sendWhatsAppMessage'])->name('registrasis.kirimPesan');
-
-        Route::get('/registrasi-data', [BackRegistrasiController::class, 'getRegistrasiData']);
-    });
-
-    Route::prefix('back')->name('back.')->group(function () {
-        Route::resource('articles', ArticleController::class);
-    });
-
-    Route::group(['prefix' => 'laravel-filemanager', 'middleware' => ['web', 'auth']], function () {
-        \UniSharp\LaravelFilemanager\Lfm::routes();
-    });
-
-    Route::prefix('back')->name('back.')->group(function () {
-        Route::get('/contact', [ContactPageController::class, 'index'])->name('contact.index');
-        Route::put('/contact', [ContactPageController::class, 'update'])->name('contact.update');
-    });
-    
-    Route::get('back/storage/{path}', function ($path) {
-        return response()->file(storage_path('app/public/' . $path));
-    })->where('path', '.*');
-
-    Route::prefix('back')->name('back.')->group(function () {
-        Route::get('/export', [ExportController::class, 'showExportPage'])->name('export.index'); 
-        Route::get('/export-csv', [ExportController::class, 'exportCsv'])->name('export.csv');
-    });    
 });
+
 Auth::routes();

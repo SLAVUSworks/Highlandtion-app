@@ -42,6 +42,7 @@ class MenuController extends Controller
         }
     
         Menu::create($data);
+        
     
         return redirect()->route('back.menu.index')->with('success', 'Menu berhasil dibuat!');
     }

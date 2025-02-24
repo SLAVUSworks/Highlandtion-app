@@ -17,11 +17,11 @@ return new class extends Migration
             $table->string('asal_sekolah');
             $table->string('email');
             $table->string('nomor_hp');
-            $table->string('bukti_transfer'); // Path ke file bukti transfer
+            $table->string('bukti_transfer');
             $table->foreignId('menu_id')->constrained('menus')->onDelete('cascade');
             $table->foreignId('ruangan_id')->nullable()->constrained('ruangans')->onDelete('cascade');
             $table->enum('status', ['pending', 'approved', 'rejected'])->default('pending');
-            $table->string('registration_code')->nullable(); // Kode unik untuk kartu ujian
+            $table->string('registration_code')->nullable();
             $table->timestamps();
         });
     }
