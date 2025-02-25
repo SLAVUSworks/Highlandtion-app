@@ -5,8 +5,9 @@
 @section('content')
 <div class="container mx-auto p-6">
     <h1 class="text-2xl font-bold mb-4">Daftar Event</h1>
-
-    {{-- Alert Error --}}
+    <a href="{{ route('back.menu.create') }}" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg mb-4 inline-block">
+        Tambah Event/Menu
+    </a>
     @if ($errors->any())
     <div class="bg-red-100 text-red-700 px-4 py-3 rounded mb-4">
         <ul class="list-disc list-inside">
@@ -17,10 +18,8 @@
     </div>
     @endif
 
-    {{-- Alert Sukses --}}
     <div class="swal" data-swal="{{ session('success') }}"></div>
 
-    {{-- Tabel Event --}}
     <div class="overflow-x-auto bg-white shadow-md rounded-lg">
         <table class="w-full border-collapse">
             <thead>

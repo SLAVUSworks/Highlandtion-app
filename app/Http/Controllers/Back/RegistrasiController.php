@@ -19,7 +19,7 @@ class RegistrasiController extends Controller
 {
     public function index()
     {
-        $registrasis = Registrasi::with(['menu', 'ruangan']);
+        $registrasis = Registrasi::with(['menu', 'ruangan'])->get();
         $menus = Menu::all();
     
         return view('back.registrasi.index', compact('registrasis', 'menus'));

@@ -24,21 +24,18 @@
 
     <div class="overflow-x-auto">
         <div class="flex items-center gap-4 mb-4">
-            <!-- Search Input -->
             <input
             type="text"
             id="search-input"
             class="border border-gray-300 rounded-lg px-4 py-2 h-10 w-full"
             placeholder="Cari berdasarkan nama, asal sekolah, atau email..."
             />
-            <!-- Filter Status -->
             <select id="filter-status" class="border border-gray-300 rounded-lg px-4 py-2 h-10">
             <option value="">Semua Status</option>
             <option value="approved">Approved</option>
             <option value="pending">Pending</option>
             <option value="rejected">Rejected</option>
             </select>
-            <!-- Filter Menu -->
             <select id="filter-menu" class="border border-gray-300 rounded-lg px-4 py-2 h-10">
             <option value="">Semua Menu</option>
             @foreach($menus as $menu)
@@ -59,6 +56,7 @@
                 </tr>
             </thead>
             <tbody>
+                {{-- @dd($registrasis) --}}
                 @foreach($registrasis as $registrasi)
                 <tr>
                     <td class="border border-gray-300 px-4 py-2">{{ $registrasi->nama }}</td>
@@ -148,15 +146,12 @@
             });
         }
 
-        // Event listeners for search and filters
         searchInput.on("input", fetchRegistrasiData);
         statusFilter.on("change", fetchRegistrasiData);
         menuFilter.on("change", fetchRegistrasiData);
 
-        // Initial fetch
         fetchRegistrasiData();
 
-        // Update table content every 5 seconds
         setInterval(() => {
             fetchRegistrasiData();
         }, 5000);

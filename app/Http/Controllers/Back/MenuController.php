@@ -26,6 +26,7 @@ class MenuController extends Controller
             'mata_pelajaran' => 'required',
             'tingkat' => 'required',
             'deskripsi' => 'required',
+            'menu_category_id' => 'required',
             'status' => 'required',
             'icon' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'thumbnail' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
@@ -58,6 +59,7 @@ class MenuController extends Controller
             'mata_pelajaran' => 'required',
             'tingkat' => 'required',
             'deskripsi' => 'required',
+            'menu_category_id' => 'required',
             'kuota' => 'required',
             'harga' => 'required',
             'status' => 'required',
@@ -65,30 +67,22 @@ class MenuController extends Controller
             'thumbnail' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
     
-        // Ambil data input lainnya
-        $data = $request->only(['mata_pelajaran', 'tingkat', 'deskripsi','status', 'kuota', 'harga']);
+        $data = $request->only(['mata_pelajaran', 'tingkat', 'deskripsi','menu_category_id','status', 'kuota', 'harga']);
     
-        // Proses file icon jika diupload
         if ($request->hasFile('icon')) {
-            // Hapus icon lama jika ada
             if ($menu->icon) {
                 Storage::delete('public/' . $menu->icon);
             }
-            // Simpan file baru
             $data['icon'] = $request->file('icon')->store('icons', 'public');
         }
     
-        // Proses file thumbnail jika diupload
         if ($request->hasFile('thumbnail')) {
-            // Hapus thumbnail lama jika ada
             if ($menu->thumbnail) {
                 Storage::delete('public/' . $menu->thumbnail);
             }
-            // Simpan file baru
             $data['thumbnail'] = $request->file('thumbnail')->store('thumbnails', 'public');
         }
     
-        // Update data menu
         $menu->update($data);
     
         return redirect()->route('back.menu.index')->with('success', 'Menu berhasil diperbarui!');
