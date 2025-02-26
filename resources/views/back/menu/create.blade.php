@@ -12,6 +12,15 @@
             <input type="text" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm" name="mata_pelajaran" id="mata_pelajaran" required>
         </div>
         <div class="mb-4">
+            <label for="menu_category_id" class="block text-gray-700">Kategori Menu</label>
+            <select class="mt-1 block w-full border-gray-300 rounded-md shadow-sm" name="menu_category_id" id="menu_category_id" required>
+                <option value="" disabled selected>Pilih Kategori</option>
+                @foreach($menuCategories as $category)
+                    <option value="{{ $category->id }}">{{ $category->name }}</option>
+                @endforeach
+            </select>
+        </div>
+        <div class="mb-4">
             <label for="deskripsi" class="block text-gray-700">Deskripsi</label>
             <input type="text" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm" name="deskripsi" id="deskripsi" required>
         </div>

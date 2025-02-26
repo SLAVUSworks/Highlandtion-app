@@ -11,7 +11,7 @@ class CreateContactPagesTable extends Migration
         Schema::create('contact_pages', function (Blueprint $table) {
             $table->id();
             $table->string('title');
-            $table->text('description');
+            $table->longText('description');
             $table->timestamps();
         });
     }

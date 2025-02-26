@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('mata_pelajaran');
             $table->enum('tingkat', ['SD', 'SMP/MTs', 'SMA/MA']);
-            $table->foreignId('menu_category_id')->index()->constrained();
+            $table->foreignId('menu_category_id')->index()->constrained('menu_categories')->onDelete('cascade');
             $table->text('deskripsi')->nullable();
             $table->decimal('harga', 10, 2);
             $table->enum('status', ['buka', 'tutup'])->default('buka');

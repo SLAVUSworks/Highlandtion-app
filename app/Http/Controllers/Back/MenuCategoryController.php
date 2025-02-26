@@ -18,20 +18,28 @@ class MenuCategoryController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'name' => 'required',
+            'name' => 'required|string|max:255',
             'icon' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
-
+    
+        $recentEntry = MenuCategory::where('name', $request->name)
+            ->where('created_at', '>=', now()->subSeconds(2))
+            ->first();
+    
+        if ($recentEntry) {
+            return back()->with('error', 'Kategori ini baru saja ditambahkan!');
+        }
+    
         $iconPath = $request->file('icon')->store('menu-icons', 'public');
-
+    
         MenuCategory::create([
             'name' => $request->name,
             'icon' => $iconPath,
         ]);
-
-        MenuCategory::create($request->all());
-        return redirect()->route('back.menu-category.index')->with('success', 'Menu Kategori Berhasil Dibuat!');
+    
+        return redirect()->back()->with('success', 'Kategori berhasil ditambahkan.');
     }
+    
 
     public function update(Request $request, $id)
     {

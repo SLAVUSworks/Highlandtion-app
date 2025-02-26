@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Menu;
 use Illuminate\Support\Facades\Storage;
+use App\Models\MenuCategory;
 
 class MenuController extends Controller
 {
@@ -17,7 +18,8 @@ class MenuController extends Controller
 
     public function create()
     {
-        return view('back.menu.create');
+        $menuCategories = MenuCategory::all();
+        return view('back.menu.create', compact('menuCategories'));
     }
 
     public function store(Request $request)

@@ -10,7 +10,7 @@ class ContactPageController extends Controller
 {
     public function index()
     {
-        $contactPage = ContactPage::first(); // Ambil data pertama (hanya satu halaman kontak)
+        $contactPage = ContactPage::first();
         return view('back.contact.edit', compact('contactPage'));
     }
 
@@ -20,24 +20,21 @@ class ContactPageController extends Controller
             'title' => 'required|string|max:255',
             'description' => 'required|string',
         ]);
-
-        $contactPage = ContactPage::first(); // Ambil data pertama
-
-        // Update data kontak
+    
+        $contactPage = ContactPage::first();
+        
         $contactPage->update([
             'title' => $request->title,
             'description' => $request->description,
         ]);
-
-        return redirect()->route('back.contact.index')->with('success', 'Halaman kontak berhasil diperbarui');
+    
+        return redirect()->back()->with('success', 'Kontak berhasil diperbarui!');
     }
 
     public function show()
     {
-        // Mengambil data halaman kontak dari database
         $contactPage = ContactPage::first();
 
-        // Menampilkan halaman kontak di view
         return view('front.contact.contact', compact('contactPage'));
     }
 }

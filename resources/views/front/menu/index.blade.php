@@ -19,73 +19,32 @@
 
 <div class="p-5">
     <div class="flex justify-start">
-        <h2 class="text-2xl font-semibold mb-4">Tingkat</h2>
+        <h2 class="text-2xl font-semibold mb-4">Kategori</h2>
     </div>
-    <div class="flex justify-start flex-wrap">
-        <button onclick="filterMenus('all')" class="relative inline-flex items-center justify-center p-0.5 mb-2 me-2 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-purple-600 to-blue-500 group-hover:from-purple-600 group-hover:to-blue-500 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800">
+    <div class="flex flex-wrap gap-2 mb-4">
+        <button onclick="filterMenus('all')" class="relative inline-flex items-center justify-center p-0.5 mb-2 me-2 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-gray-500 to-gray-700 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-gray-300 dark:focus:ring-gray-800">
             <span class="relative px-5 py-2.5 transition-all ease-in duration-75 bg-white dark:bg-gray-900 rounded-md group-hover:bg-opacity-0">
                 Semua
             </span>
         </button>
-        <button onclick="filterMenus('SD')" class="relative inline-flex items-center justify-center p-0.5 mb-2 me-2 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-cyan-500 to-blue-500 group-hover:from-cyan-500 group-hover:to-blue-500 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-cyan-200 dark:focus:ring-cyan-800">
-            <span class="relative px-5 py-2.5 transition-all ease-in duration-75 bg-white dark:bg-gray-900 rounded-md group-hover:bg-opacity-0">
-                Lumi. SD/MI
-            </span>
-        </button>
-        <button onclick="filterMenus('SMP/MTs')" class="relative inline-flex items-center justify-center p-0.5 mb-2 me-2 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-green-400 to-blue-600 group-hover:from-green-400 group-hover:to-blue-600 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-green-200 dark:focus:ring-green-800">
-            <span class="relative px-5 py-2.5 transition-all ease-in duration-75 bg-white dark:bg-gray-900 rounded-md group-hover:bg-opacity-0">
-                Lumi. SMP/MTs
-            </span>
-        </button>
-        <button onclick="filterMenus('SMA/MA')" class="relative inline-flex items-center justify-center p-0.5 mb-2 me-2 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-teal-300 to-lime-300 group-hover:from-teal-300 group-hover:to-lime-300 dark:text-white dark:hover:text-gray-900 focus:ring-4 focus:outline-none focus:ring-lime-200 dark:focus:ring-lime-800">
-            <span class="relative px-5 py-2.5 transition-all ease-in duration-75 bg-white dark:bg-gray-900 rounded-md group-hover:bg-opacity-0">
-                Lumi. SMA/MA
-            </span>
-        </button>
-        <button onclick="filterMenus('LMF (Landbouw Movie Festival)')" class="relative inline-flex items-center justify-center p-0.5 mb-2 me-2 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-red-500 to-yellow-500 group-hover:from-red-500 group-hover:to-yellow-500 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-yellow-200 dark:focus:ring-yellow-800">
-            <span class="relative px-5 py-2.5 transition-all ease-in duration-75 bg-white dark:bg-gray-900 rounded-md group-hover:bg-opacity-0">
-                LMF
-            </span>
-        </button>
-        <button onclick="filterMenus('LPC (Landbouw Photography Contest)')" class="relative inline-flex items-center justify-center p-0.5 mb-2 me-2 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-pink-500 to-purple-500 group-hover:from-pink-500 group-hover:to-purple-500 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-purple-200 dark:focus:ring-purple-800">
-            <span class="relative px-5 py-2.5 transition-all ease-in duration-75 bg-white dark:bg-gray-900 rounded-md group-hover:bg-opacity-0">
-                LPC
-            </span>
-        </button>
-    </div>       
+    
+        @foreach ($categories as $category)
+            <button onclick="filterMenus('{{ $category->id }}')" class="relative inline-flex items-center justify-center p-0.5 mb-2 me-2 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-blue-500 to-purple-500 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800">
+                <span class="relative px-5 py-2.5 transition-all ease-in duration-75 bg-white dark:bg-gray-900 rounded-md group-hover:bg-opacity-0">
+                    {{ $category->name }}
+                </span>
+            </button>
+        @endforeach
+    </div>    
 </div>
-<script>
-function filterMenus(filter) {
-    const menuItems = document.querySelectorAll('.menu-item');
-    menuItems.forEach(function (item) {
-        const tingkat = item.getAttribute('data-tingkat');
-        const mataPelajaran = item.getAttribute('data-mata-pelajaran');
-
-        // Filter berdasarkan tingkat atau mata pelajaran
-        if (tingkat === filter || mataPelajaran === filter || filter === 'all') {
-            item.style.display = 'block'; // Tampilkan item
-            item.setAttribute('data-aos', 'fade-up'); // Aktifkan AOS
-        } else {
-            item.style.display = 'none'; // Sembunyikan item
-            item.removeAttribute('data-aos'); // Nonaktifkan AOS
-        }
-    });
-
-    // Refresh AOS jika tersedia
-    if (typeof AOS !== 'undefined') {
-        AOS.refresh();
-    }
-}
-</script>
 <div class="grid gap-8 sm:grid-cols-2 lg:grid-cols-3 p-3 md:p-4 xl:p-5" id="menu-container">
     @foreach ($menus as $menu)    
     <div class="bg-white border rounded-lg shadow-md dark:bg-gray-800 dark:border-gray-700 menu-item" 
          data-aos="fade-up"
          data-aos-anchor-placement="top-bottom" 
-         data-tingkat="{{ $menu->tingkat }}"
+         data-category="{{ $menu->menu_category_id }}"
          data-mata-pelajaran="{{ $menu->mata_pelajaran }}">
          
-        <!-- Kondisi untuk menyesuaikan gaya thumbnail -->
         <div class="p-2 flex justify-center">
             <a href="{{ route('menu.show', $menu) }}" class="block w-full h-48">
                 <img 
@@ -116,8 +75,8 @@ function filterMenus(filter) {
                     </a>
                     <p class="text-gray-600 dark:text-gray-300 hover:text-violet-800 ">
                         <a href="#" class="text-sm">
-                            <small>Tingkat</small> <br>
-                            {{ $menu->tingkat }}
+                            <small>Kategori</small> <br>
+                            {{ $menu->menuCategory->name ?? 'Tanpa Kategori' }}
                         </a>
                     </p>
                 </div>
@@ -137,46 +96,23 @@ function filterMenus(filter) {
     </div>
     @endforeach
 </div>
-        <script>
-            document.addEventListener('DOMContentLoaded', function () {
-                document.querySelectorAll('.bg-blue-100').forEach(function (element) {
-                    let kuotaNow = parseInt(element.textContent.trim());
-                    if (kuotaNow <= 5) {
-                        element.classList.remove('bg-blue-100', 'dark:bg-blue-200');
-                        element.classList.add('bg-red-300');
-                    }
-                });
-            });
-        </script>
-        </div>
-    </div>
-</div>
-</div>
-@endsection
-@section('scripts')
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
-    function filterMenus(tingkat) {
+    function filterMenus(categoryId) {
         document.querySelectorAll('.menu-item').forEach(function (item) {
-            if (item.getAttribute('data-tingkat') === tingkat || tingkat === 'all') {
+            let itemCategory = item.getAttribute('data-category');
+
+            if (parseInt(itemCategory) === parseInt(categoryId) || categoryId === 'all') {
                 item.style.display = 'block';
+                item.setAttribute('data-aos', 'fade-up');
             } else {
                 item.style.display = 'none';
+                item.removeAttribute('data-aos');
             }
         });
-    }
-</script>
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-        const swalElement = document.querySelector('.swal');
-        const message = swalElement ? swalElement.getAttribute('data-swal') : null;
-        if (message) {
-            Swal.fire({
-                icon: 'success',
-                title: 'Berhasil',
-                text: message,
-            });
+
+        if (typeof AOS !== 'undefined') {
+            AOS.refresh();
         }
-    });
+    }
 </script>
 @endsection
