@@ -37,5 +37,13 @@ class TemplateProvider extends ServiceProvider
 
             $view->with('config', $config);
         });
+
+        View::composer('front.registrasi.create', function($view){
+            $configKeys = ['nama-bank', 'nomor-rekening', 'nama-pemilik-rekening', 'logo-bank'];
+            
+            $config = Config::whereIn('name', $configKeys)->pluck('value', 'name');
+
+            $view->with('config', $config);
+        });
     }
 }

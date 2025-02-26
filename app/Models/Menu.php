@@ -13,6 +13,7 @@ class Menu extends Model
         'tingkat',
         'menu_category_id',
         'deskripsi',
+        'short_code',
         'harga',
         'icon',
         'thumbnail',

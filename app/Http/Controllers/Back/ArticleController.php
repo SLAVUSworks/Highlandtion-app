@@ -41,13 +41,10 @@ class ArticleController extends Controller
             'publish_date'  => 'required|date',
         ]);
 
-        // Generate slug from title
         $validated['slug'] = Str::slug($request->title);
 
-        // Set user_id
         $validated['user_id'] = auth()->user()->id;
 
-        // Handle image upload
         if ($request->file('img')) {
             $validated['img'] = $request->file('img')->store('articles', 'public');
       
@@ -80,15 +77,13 @@ class ArticleController extends Controller
             'publish_date'  => 'required|date',
         ]);
 
-        // Generate slug from title
         $validated['slug'] = Str::slug($request->title);
 
         $data['user_id'] = auth()->user()->id;
 
-        // Handle image upload
         if ($request->file('img', 'public')) {
             if ($article->img) {
-                Storage::delete($article->img); // Delete old image
+                Storage::delete($article->img);
             }
             if ($request->hasFile('img')) {
                 $validated['img'] = $request->file('img')->store('articles', 'public');

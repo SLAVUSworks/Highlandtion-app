@@ -9,11 +9,11 @@
         @csrf
         <div class="mb-4">
             <label for="mata_pelajaran" class="block text-gray-700">Mata Pelajaran</label>
-            <input type="text" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm" name="mata_pelajaran" id="mata_pelajaran" required>
+            <input type="text" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm p-2" name="mata_pelajaran" id="mata_pelajaran" required>
         </div>
         <div class="mb-4">
             <label for="menu_category_id" class="block text-gray-700">Kategori Menu</label>
-            <select class="mt-1 block w-full border-gray-300 rounded-md shadow-sm" name="menu_category_id" id="menu_category_id" required>
+            <select class="mt-1 block w-full border-gray-300 rounded-md shadow-sm p-2" name="menu_category_id" id="menu_category_id" required>
                 <option value="" disabled selected>Pilih Kategori</option>
                 @foreach($menuCategories as $category)
                     <option value="{{ $category->id }}">{{ $category->name }}</option>
@@ -22,11 +22,25 @@
         </div>
         <div class="mb-4">
             <label for="deskripsi" class="block text-gray-700">Deskripsi</label>
-            <input type="text" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm" name="deskripsi" id="deskripsi" required>
+            <input type="text" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm p-2" name="deskripsi" id="deskripsi" required>
         </div>
         <div class="mb-4">
+            <label for="short_code_1" class="block text-gray-700">Kode Singkat</label>
+            <div class="flex space-x-2">
+                <input type="text" maxlength="1" id="short_code_1" 
+                       class="w-14 h-14 text-center text-2xl uppercase border-2 border-gray-400 rounded-md focus:border-blue-500 focus:ring-2 focus:ring-blue-300 transition-all" required>
+                <input type="text" maxlength="1" id="short_code_2" 
+                       class="w-14 h-14 text-center text-2xl uppercase border-2 border-gray-400 rounded-md focus:border-blue-500 focus:ring-2 focus:ring-blue-300 transition-all" required>
+                <input type="text" maxlength="1" id="short_code_3" 
+                       class="w-14 h-14 text-center text-2xl uppercase border-2 border-gray-400 rounded-md focus:border-blue-500 focus:ring-2 focus:ring-blue-300 transition-all" required>
+                <input type="text" maxlength="1" id="short_code_4" 
+                       class="w-14 h-14 text-center text-2xl uppercase border-2 border-gray-400 rounded-md focus:border-blue-500 focus:ring-2 focus:ring-blue-300 transition-all" required>
+            </div>
+            <input type="hidden" name="short_code" id="short_code">
+        </div>    
+        <div class="mb-4">
             <label for="tingkat" class="block text-gray-700">Tingkat</label>
-            <select class="mt-1 block w-full border-gray-300 rounded-md shadow-sm" name="tingkat" id="tingkat" required>
+            <select class="mt-1 block w-full border-gray-300 rounded-md shadow-sm p-2" name="tingkat" id="tingkat" required>
             <option value="SD">SD</option>
             <option value="SMP/MTs">SMP/MTs</option>
             <option value="SMA/MA">SMA/MA</option>
@@ -34,23 +48,26 @@
         </div>
         <div class="mb-4">
             <label for="harga" class="block text-gray-700">Harga</label>
-            <input type="number" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm" name="harga" id="harga" required>
+            <div class="relative">
+            <span class="absolute inset-y-0 left-0 pl-3 flex items-center text-gray-500">Rp</span>
+            <input type="number" class="mt-1 block w-full pl-10 border-gray-300 rounded-md shadow-sm p-2" name="harga" id="harga" required>
+            </div>
         </div>
         <div class="mb-4">
             <label for="kuota" class="block text-gray-700">Kuota</label>
-            <input type="number" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm" name="kuota" id="kuota" required>
+            <input type="number" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm p-2" name="kuota" id="kuota" required>
         </div>
         <div class="mb-4">
             <label for="icon" class="block text-gray-700">Icon</label>
-            <input type="file" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm" name="icon" id="icon" required>
+            <input type="file" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm p-2" name="icon" id="icon" required>
         </div>
         <div class="mb-4">
             <label for="thumbnail" class="block text-gray-700">Thumbnail</label>
-            <input type="file" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm" name="thumbnail" id="thumbnail" required>
+            <input type="file" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm p-2" name="thumbnail" id="thumbnail" required>
         </div>
         <div class="mb-4">
             <label for="status" class="block text-gray-700">Pendaftaran</label>
-            <select class="mt-1 block w-full border-gray-300 rounded-md shadow-sm" name="status" id="status" required>
+            <select class="mt-1 block w-full border-gray-300 rounded-md shadow-sm p-2" name="status" id="status" required>
             <option value="buka">Menerima</option>
             <option value="tutup">Ditutup</option>
             </select>
@@ -58,5 +75,29 @@
         <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Simpan</button>
     </form>
 </div>
-<script src="https://cdn.tailwindcss.com"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const inputs = document.querySelectorAll("[id^=short_code_]");
+    
+        inputs.forEach((input, index) => {
+            input.addEventListener("input", function() {
+                this.value = this.value.toUpperCase();
+                if (this.value.length === 1 && index < inputs.length - 1) {
+                    inputs[index + 1].focus();
+                }
+                updateShortCode();
+            });
+    
+            input.addEventListener("keydown", function(e) {
+                if (e.key === "Backspace" && !this.value && index > 0) {
+                    inputs[index - 1].focus();
+                }
+            });
+        });
+    
+        function updateShortCode() {
+            document.getElementById("short_code").value = Array.from(inputs).map(input => input.value).join("").toUpperCase();
+        }
+    });
+</script>
 @endsection

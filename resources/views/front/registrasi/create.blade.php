@@ -13,7 +13,6 @@
         @csrf
         <input type="hidden" name="menu_id" value="{{ $menu->id }}">
 
-        <!-- Personal Information Section -->
         <div class="space-y-4">
             <h2 class="text-xl font-semibold text-gray-800 text-left">Data Diri</h2>
             <div>
@@ -44,24 +43,23 @@
             </div>
         </div>
 
-        <!-- Payment Information Section -->
         <div class="space-y-4">
             <h2 class="text-xl font-semibold text-gray-800 text-left">Informasi Pembayaran</h2>
+            <h4 class="text-red-600 text-left">Lakukan Pembayaran Sebesar Rp.{{ number_format($menu->harga, 0, ',', '.') }} Ke Rekening Tertera:</h4>
             <div>
                 <div class="space-y-4 w-full">
                     <div class="flex items-center space-x-4 w-full">
-                        <img src="https://alumni.sv.ugm.ac.id/wp-content/uploads/sites/1262/2016/03/logo-BRI.png" alt="Bank Logo" class="w-32 h-32">
+                        <img src="{{ $config['logo-bank'] }}" alt="Bank Logo" class="w-32 h-32">
                         <div class="w-full text-left">
-                            <h3 class="text-2xl font-bold text-gray-800">Bank BRI</h3>
+                            <h3 class="text-2xl font-bold text-gray-800">{{ $config['nama-bank'] }}</h3>
                             <p class="text-xl font-semibold text-gray-600 copyable" onclick="copyText(this)">
-                                001501017539536
+                                {{ $config['nomor-rekening'] }}
                             </p>
-                            <p class="text-xl text-gray-600">a.n. Highlandtion</p>
+                            <p class="text-xl text-gray-600">{{ $config['nama-pemilik-rekening'] }}</p>
                         </div>
                     </div>
                 </div>
                 
-                <!-- SweetAlert2 -->
                 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
                  @if(session('success'))

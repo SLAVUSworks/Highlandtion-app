@@ -17,6 +17,7 @@ return new class extends Migration
             $table->enum('tingkat', ['SD', 'SMP/MTs', 'SMA/MA']);
             $table->foreignId('menu_category_id')->index()->constrained('menu_categories')->onDelete('cascade');
             $table->text('deskripsi')->nullable();
+            $table->string('short_code')->nullable();
             $table->decimal('harga', 10, 2);
             $table->enum('status', ['buka', 'tutup'])->default('buka');
             $table->unsignedInteger('kuota')->default(0);

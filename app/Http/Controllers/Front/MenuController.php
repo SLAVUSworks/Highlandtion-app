@@ -19,6 +19,7 @@ class MenuController extends Controller
 
     public function show(Menu $menu)
     {
-        return view('front.menu.show', compact('menu'));
+        $category = MenuCategory::all();
+        return view('front.menu.show', compact('menu', 'category'));
     }
 }

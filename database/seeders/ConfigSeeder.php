@@ -46,6 +46,22 @@ class ConfigSeeder extends Seeder
                 'name' => 'footer-contact',
                 'value' => 'detail kontak',
             ],
+            [
+                'name' => 'nama-bank',
+                'value' => 'BANK ABCD',
+            ],
+            [
+                'name' => 'nomor-rekening',
+                'value' => '123456789',
+            ],
+            [
+                'name' => 'nama-pemilik-rekening',
+                'value' => 'a/n SLAVUS',
+            ],
+            [
+                'name' => 'logo-bank',
+                'value' => 'default.png',
+            ],
         ]);
     }
 }

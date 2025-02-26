@@ -65,12 +65,12 @@
                     </button>
                     <ul class="submenu space-y-1 ml-6 {{ request()->routeIs('back.menu*') ? '' : 'hidden' }}">
                         <li>
-                        <a href="{{ route('back.menu.index') }}" class="block p-2 text-gray-200 hover:bg-gray-700 rounded-lg {{ request()->routeIs('back.menu.index') ? 'bg-gray-700' : '' }}">
+                        <a href="{{ route('back.menu.index') }}" class="block p-1 text-gray-200 hover:bg-gray-700 rounded-lg {{ request()->routeIs('back.menu.index') ? 'bg-gray-700' : '' }}">
                             Daftar Event
                         </a>
                         </li>
                         <li>
-                        <a href="{{ route('back.menu-category.index') }}" class="block p-2 text-gray-200 hover:bg-gray-700 rounded-lg {{ request()->routeIs('back.menu-category.index') ? 'bg-gray-700' : '' }}">
+                        <a href="{{ route('back.menu-category.index') }}" class="block p-1 text-gray-200 hover:bg-gray-700 rounded-lg {{ request()->routeIs('back.menu-category.index') ? 'bg-gray-700' : '' }}">
                             Daftar Kategori
                         </a>
                         </li>
@@ -83,12 +83,12 @@
                     </button>
                     <ul class="submenu space-y-1 ml-6 {{ request()->routeIs('back.ruangan.*') ? '' : 'hidden' }}">
                         <li>
-                        <a href="{{ route('back.ruangan.index') }}" class="block p-2 text-gray-200 hover:bg-gray-700 rounded-lg {{ request()->routeIs('back.ruangan.index') ? 'bg-gray-700' : '' }}">
+                        <a href="{{ route('back.ruangan.index') }}" class="block p-1 text-gray-200 hover:bg-gray-700 rounded-lg {{ request()->routeIs('back.ruangan.index') ? 'bg-gray-700' : '' }}">
                             Daftar Ruangan
                         </a>
                         </li>
                         <li>
-                        <a href="{{ route('back.ruangan.create') }}" class="block p-2 text-gray-200 hover:bg-gray-700 rounded-lg {{ request()->routeIs('back.ruangan.create') ? 'bg-gray-700' : '' }}">
+                        <a href="{{ route('back.ruangan.create') }}" class="block p-1 text-gray-200 hover:bg-gray-700 rounded-lg {{ request()->routeIs('back.ruangan.create') ? 'bg-gray-700' : '' }}">
                             Tambah Ruangan
                         </a>
                         </li>
@@ -120,37 +120,33 @@
                     <span>Teknis</span>
                 </button>
                 <ul class="submenu space-y-1 ml-6">
-                    <li>
-                        <a href="{{ route('back.users.index') }}" class="grid grid-cols-[24px,1fr] items-center gap-3 p-2 text-gray-200 hover:bg-gray-700 rounded-lg {{ request()->routeIs('back.users.index') ? 'bg-gray-700' : '' }}">
-                            <i class="fa-solid fa-users text-gray-400"></i>
-                            <span>
-                                @if(auth()->user()->role != 1)
-                                    Profil
-                                @else
-                                    Daftar Admin
-                                @endif
-                            </span>
-                        </a>
-                    </li>
-                </ul>                
-                <ul class="submenu space-y-1 ml-6">
+                <li>
+                    <a href="{{ route('back.users.index') }}" class="grid grid-cols-[24px,1fr] items-center gap-3 p-2 text-gray-200 hover:bg-gray-700 rounded-lg {{ request()->routeIs('back.users.index') ? 'bg-gray-700' : '' }}">
+                        <i class="fa-solid fa-users text-gray-400"></i>
+                        <span>
+                            @if(auth()->user()->role != 1)
+                                Profil
+                            @else
+                                Daftar Admin
+                            @endif
+                        </span>
+                    </a>
+                </li>
                     <li>
                         <a href="{{ route('back.config.index') }}" class="grid grid-cols-[24px,1fr] items-center gap-3 p-2 text-gray-200 hover:bg-gray-700 rounded-lg {{ request()->routeIs('back.config.index') ? 'bg-gray-700' : '' }}">
                             <i class="fa-solid fa-list text-gray-400"></i>
                             <span>Konfigurasi</span>
                         </a>
                     </li>
-                </ul>
-                <ul class="submenu space-y-1 ml-6">
-                    <li>
-                        <a href="{{ route('back.export.index') }}" class="grid grid-cols-[24px,1fr] items-center gap-3 p-2 text-gray-200 hover:bg-gray-700 rounded-lg {{ request()->routeIs('back.export.index') ? 'bg-gray-700' : '' }}">
-                            <i class="fa-solid fa-file-export text-gray-400"></i>
-                            <span>Rekap Data</span>
-                        </a>
-                    </li>
-                </ul>
+                <li>
+                    <a href="{{ route('back.export.index') }}" class="grid grid-cols-[24px,1fr] items-center gap-3 p-2 text-gray-200 hover:bg-gray-700 rounded-lg {{ request()->routeIs('back.export.index') ? 'bg-gray-700' : '' }}">
+                        <i class="fa-solid fa-file-export text-gray-400"></i>
+                        <span>Rekap Data</span>
+                    </a>
                 </li>
-            </ul>
+            </li>
+        </ul>
+    </ul>                
             </div>
             <div class="absolute bottom-0 left-0 mb-2 ml-2 mr-6 flex items-center">
                 <img src="https://github.com/SLAVUSworks/HL-Web-ICON/blob/master/slavusworks.png?raw=true" alt="SLAVUSworks" class="w-12 h-12 ml-2">
@@ -159,7 +155,6 @@
         </nav>
 
 
-        <!-- Content -->
         <main class="ml-64 pt-20 p-6">
             <div class="bg-white p-6 rounded shadow">
                 @yield('content')
@@ -200,19 +195,17 @@
                 'heading', '|', 'bold', 'italic', 'link', 'bulletedList', 'numberedList', 'blockQuote',
                 '|', 'undo', 'redo', '|', 'alignment', 'imageUpload', 'mediaEmbed', 'codeBlock'
             ],
-            height: 400, // Tinggi default editor
+            height: 400,
         })
             .then(editor => {
-                // Sinkronisasi nilai editor dengan textarea
                 const form = document.querySelector("form");
                 form.addEventListener("submit", function () {
                     document.querySelector("#desc").value = editor.getData();
                 });
 
-                // Buat editor resizable
                 const editorElement = document.querySelector(".ck-editor__editable");
-                editorElement.style.resize = "both"; // Izinkan perubahan ukuran
-                editorElement.style.overflow = "auto"; // Aktifkan scroll jika diperlukan
+                editorElement.style.resize = "both"; 
+                editorElement.style.overflow = "auto";
             })
             .catch(error => {
                 console.error(error);
