@@ -3,14 +3,17 @@
 @section('title', 'Edit Menu')
 
 @section('content')
+
 @if ($errors->any())
-    <div class="alert alert-danger">
-        <ul>
-            @foreach ($errors->all() as $error)
-                <li>{{ $error }}</li>
-            @endforeach
-        </ul>
-    </div>
+@foreach ($errors->all() as $error)
+<script>
+    Swal.fire({
+        icon: 'error',
+        title:'Gagal',
+        text: "{{ $error }}",
+    });
+</script>
+@endforeach
 @endif
 
 <div class="container mx-auto px-4 py-6">
@@ -37,8 +40,7 @@
                     </option>
                 @endforeach
             </select>
-        </div>
-        
+        </div> 
         <div class="mb-4">
             <label for="tingkat" class="block text-sm font-medium text-gray-700">Tingkat</label>
             <select class="mt-1 p-2 block w-full border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500" name="tingkat" id="tingkat" required>
@@ -49,7 +51,10 @@
         </div>
         <div class="mb-4">
             <label for="harga" class="block text-sm font-medium text-gray-700">Harga</label>
-            <input type="number" class="mt-1 p-2 block w-full border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500" name="harga" id="harga" value="{{ $menu->harga }}" required>
+            <div class="relative">
+                <span class="absolute inset-y-0 left-0 pl-3 flex items-center text-gray-500">Rp</span>
+                <input type="number" class="mt-1 block w-full pl-10 border-gray-300 rounded-md shadow-sm p-2" name="harga" id="harga" value="{{ $menu->harga }}" required>
+            </div>
         </div>
         <div class="mb-4">
             <label for="kuota" class="block text-sm font-medium text-gray-700">Kuota</label>

@@ -147,15 +147,26 @@
             </li>
         </ul>
     </ul>                
-            </div>
-            <div class="absolute bottom-0 left-0 mb-2 ml-2 mr-6 flex items-center">
-                <img src="https://github.com/SLAVUSworks/HL-Web-ICON/blob/master/slavusworks.png?raw=true" alt="SLAVUSworks" class="w-12 h-12 ml-2">
-                <p class="text-xs text-right">HL-Web App v1.0 Made and Maintained by <a href="https://github.com/SLAVUSworks" target="_blank" rel="noopener noreferrer" class="text-blue-400">SLAVUSworks</a></p>
-            </div>
-        </nav>
+</div>
+<div class="absolute bottom-0 left-0 mb-2 ml-2 mr-6 flex items-center">
+    <img src="https://github.com/SLAVUSworks/HL-Web-ICON/blob/master/slavusworks.png?raw=true" alt="SLAVUSworks" class="w-12 h-12 ml-2">
+    <p class="text-xs text-right">HL-Web App v1.0 Made and Maintained by <a href="https://github.com/SLAVUSworks" target="_blank" rel="noopener noreferrer" class="text-blue-400">SLAVUSworks</a></p>
+</div>
+</nav>
 
 
         <main class="ml-64 pt-20 p-6">
+            @if ($errors->any())
+            @foreach ($errors->all() as $error)
+            <script>
+                Swal.fire({
+                    icon: 'error',
+                    title:'Gagal',
+                    text: "{{ $error }}",
+                });
+            </script>
+            @endforeach
+            @endif
             <div class="bg-white p-6 rounded shadow">
                 @yield('content')
             </div>

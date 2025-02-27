@@ -30,48 +30,52 @@
 
         <div class="p-4 bg-white shadow rounded">
             <h2 class="text-xl font-semibold">Kuota Ruangan</h2>
-            <table class="min-w-full border-collapse border border-gray-300">
+            <div class="overflow-x-auto bg-white shadow-md rounded-lg mt-2">
+            <table class="w-full border-collapse">
                 <thead>
-                    <tr>
-                        <th class="border px-4 py-2">No</th>
-                        <th class="border px-4 py-2">Name</th>
-                        <th class="border px-4 py-2">Kuota Total</th>
-                        <th class="border px-4 py-2">Kuota Terpakai</th>
+                    <tr class="bg-gray-200 text-gray-700">
+                        <th class="px-4 py-2 text-left">No</th>
+                        <th class="px-4 py-2 text-left">Name</th>
+                        <th class="px-4 py-2 text-left">Kuota Total</th>
+                        <th class="px-4 py-2 text-left">Kuota Terpakai</th>
                     </tr>
                 </thead>
                 <tbody id="ruanganTable">
                     @foreach($kuotaPerRuangan as $item)
-                        <tr>
-                            <td class="border px-4 py-2">{{ $item->id }}</td>
-                            <td class="border px-4 py-2">{{ $item->name }}</td>
-                            <td class="border px-4 py-2">{{ $item->kuota }}</td>
-                            <td class="border px-4 py-2">{{ $item->kuota_now }}</td>
-                        </tr>
+                    <tr class="border-t hover:bg-gray-100 transition">
+                        <td class="px-4 py-2">{{ $item->id }}</td>
+                        <td class="px-4 py-2">{{ $item->name }}</td>
+                        <td class="px-4 py-2">{{ $item->kuota }}</td>
+                        <td class="px-4 py-2">{{ $item->kuota_now }}</td>
+                    </tr>
                     @endforeach
                 </tbody>
             </table>
+            </div>
         </div>
 
         <div class="p-4 bg-white shadow rounded">
             <h2 class="text-xl font-semibold">Kuota Perlombaan</h2>
-            <table class="min-w-full border-collapse border border-gray-300">
+            <div class="overflow-x-auto bg-white shadow-md rounded-lg mt-2">
+            <table class="w-full border-collapse">
                 <thead>
-                    <tr>
-                        <th class="border px-4 py-2">No</th>
-                        <th class="border px-4 py-2">Name</th>
-                        <th class="border px-4 py-2">Kuota Total</th>
+                    <tr class="bg-gray-200 text-gray-700">
+                        <th class="px-4 py-2 text-left">No</th>
+                        <th class="px-4 py-2 text-left">Name</th>
+                        <th class="px-4 py-2 text-left">Kuota Total</th>
                     </tr>
                 </thead>
                 <tbody id="menuTable">
                     @foreach($kuotaPerMenu as $item)
-                        <tr>
-                            <td class="border px-4 py-2">{{ $item->id }}</td>
-                            <td class="border px-4 py-2">{{ $item->name }} - {{ $item->tingkat }}</td>
-                            <td class="border px-4 py-2">{{ $item->kuota }}</td>
-                        </tr>
+                    <tr class="border-t hover:bg-gray-100 transition">
+                        <td class="px-4 py-2">{{ $item->id }}</td>
+                        <td class="px-4 py-2">{{ $item->name }} - {{ $item->tingkat }}</td>
+                        <td class="px-4 py-2">{{ $item->kuota }}</td>
+                    </tr>
                     @endforeach
                 </tbody>
             </table>
+            </div>
         </div>
     </div>
 </div>

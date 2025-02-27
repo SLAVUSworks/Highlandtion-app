@@ -5,37 +5,37 @@
 @section('content')
 <div class="container mx-auto px-4 py-6">
     <h1 class="text-2xl font-bold mb-4">Daftar Artikel</h1>
-    <a href="{{ route('back.articles.create') }}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mb-4 inline-block">
+    <a href="{{ route('back.articles.create') }}" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg mb-4 inline-block">
         Tambah Artikel
     </a>
-    <table class="table-auto w-full border-collapse border border-gray-300">
-        <thead class="bg-gray-200">
-            <tr>
-                <th class="border border-gray-300 px-4 py-2">Judul</th>
-                <th class="border border-gray-300 px-4 py-2">Deskripsi</th>
-                <th class="border border-gray-300 px-4 py-2">Status</th>
-                <th class="border border-gray-300 px-4 py-2">Tanggal Publikasi</th>
-                <th class="border border-gray-300 px-4 py-2">Aksi</th>
+    <table class="w-full border-collapse">
+        <thead>
+            <tr class="bg-gray-200 text-gray-700">
+                <th class="px-4 py-2 text-left">Judul</th>
+                <th class="px-4 py-2 text-left">Deskripsi</th>
+                <th class="px-4 py-2 text-left">Status</th>
+                <th class="px-4 py-2 text-left">Tanggal Publikasi</th>
+                <th class="px-4 py-2 text-center">Aksi</th>
             </tr>
         </thead>
         <tbody>
             @foreach($articles as $article)
-            <tr class="hover:bg-gray-100">
-                <td class="border border-gray-300 px-4 py-2">{{ $article->title }}</td>
-                <td class="border border-gray-300 px-4 py-2">{{ Str::limit($article->desc, 50) }}</td>
-                <td class="border border-gray-300 px-4 py-2">{{ ucfirst($article->status) }}</td>
-                <td class="border border-gray-300 px-4 py-2">{{ $article->publish_date }}</td>
-                <td class="border border-gray-300 px-4 py-2 text-center">
-                    <a href="{{ route('back.articles.edit', $article) }}" class="inline-block bg-yellow-500 text-white py-1 px-3 rounded hover:bg-yellow-600">
-                        Edit
-                    </a>
-                    <form action="{{ route('back.articles.destroy', $article) }}" method="POST" class="inline-block">
-                        @csrf
-                        @method('DELETE')
-                        <button type="submit" class="inline-block bg-red-500 text-white py-1 px-3 rounded hover:bg-red-600" onclick="return confirm('Hapus artikel ini?')">
-                            Hapus
-                        </button>
-                    </form>
+            <tr class="border-t hover:bg-gray-100 transition">
+                <td class="px-4 py-2">{{ $article->title }}</td>
+                <td class="px-4 py-2">{{ Str::limit($article->desc, 50) }}</td>
+                <td class="px-4 py-2">{{ ucfirst($article->status) }}</td>
+                <td class="px-4 py-2">{{ $article->publish_date }}</td>
+                <td class="px-4 py-2 text-center">
+                    <div class="flex justify-center space-x-2">
+                        <a href="{{ route('back.articles.edit', $article) }}" class="bg-yellow-500 hover:bg-yellow-600 text-white px-3 py-1 rounded-lg transition">Edit</a>
+                        <form action="{{ route('back.articles.destroy', $article) }}" method="POST" class="inline-block">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="bg-red-600 hover:bg-red-700 text-white px-3 py-1 rounded-lg transition" onclick="return confirm('Hapus artikel ini?')">
+                                Hapus
+                            </button>
+                        </form>
+                    </div>
                 </td>
             </tr>
             @endforeach

@@ -62,30 +62,37 @@ class RegistrasiController extends Controller
 
     public function store(Request $request)
     {
-    
-
         $registrasi = Registrasi::create($request->all());
+    
         if ($registrasi->status === 'approved') {
+            if ($registrasi->ruangan->kuota_now >= $registrasi->ruangan->kuota) {
+                return redirect()->back()->with('error', 'Kuota ruangan sudah penuh!');
+            }
+    
             $registrasi->menu?->updateKuotaNow();
             $registrasi->ruangan?->updateKuotaNow();
         }
-
+    
         return redirect()->back()->with('success', 'Registrasi berhasil ditambahkan!');
     }
-
+    
     public function update(Request $request, $id)
     {
         $registrasi = Registrasi::findOrFail($id);
-
+    
         $validated = $request->validate([
             'ruangan_id' => 'required|exists:ruangans,id',
         ]);
-
+    
+        $ruangan = Ruangan::findOrFail($validated['ruangan_id']);
+    
+        if ($ruangan->kuota_now >= $ruangan->kuota) {
+            return redirect()->back()->with('error', 'Kuota ruangan sudah penuh!');;
+        }
+    
         $uniqueCode = 'HL-' . $registrasi->created_at->format('dm') . $registrasi->menu_id . $validated['ruangan_id'] . $registrasi->created_at->format('Hi');
-
-        
+    
         $filename = basename($registrasi->bukti_transfer);
-
         $source_path = "public/" . $registrasi->bukti_transfer;
         $target_path = "public/bukti_transfer/approved/" . $filename;
     
@@ -101,7 +108,57 @@ class RegistrasiController extends Controller
         return redirect()->route('back.registrasis.card', $registrasi->id)
             ->with('success', 'Registrasi berhasil diverifikasi.');
     }
+    
+    public function reject($id)
+    {
+        $registrasi = Registrasi::findOrFail($id);
+    
+        $filename = basename($registrasi->bukti_transfer);
+        $source_path = "public/" . $registrasi->bukti_transfer;
+        $target_path = "public/bukti_transfer/rejected/" . $filename;
+        Storage::move($source_path, $target_path);
+    
+        $registrasi->update([
+            'status' => 'rejected',
+            'bukti_transfer' => "bukti_transfer/rejected/" . $filename,
+        ]);
+    
+        return redirect()->route('back.registrasis.index')
+            ->with('error', 'Registrasi ditolak.');
+    }
 
+    public function restore($id)
+    {
+        $registrasi = Registrasi::findOrFail($id);
+    
+        $filename = basename($registrasi->bukti_transfer);
+        $source_path = "public/" . $registrasi->bukti_transfer;
+        $target_path = "public/bukti_transfer/pending/" . $filename;
+    
+        Storage::move($source_path, $target_path);
+    
+        $registrasi->update([
+            'status' => 'pending',
+            'bukti_transfer' => "bukti_transfer/pending/" . $filename,
+        ]);
+    
+        return response()->json(['message' => 'Registrasi berhasil dipulihkan.'], 200);
+    }
+
+    public function destroy($id)
+    {
+        $registrasi = Registrasi::findOrFail($id);
+    
+        if (Storage::exists("public/" . $registrasi->bukti_transfer)) {
+            Storage::delete("public/" . $registrasi->bukti_transfer);
+        }
+    
+        $registrasi->delete();
+    
+        return redirect()->route('back.registrasis.index')
+            ->with('success', 'Registrasi berhasil dihapus.');
+    }
+    
     public function showCard($id)
     {
         $registrasi = Registrasi::with(['menu', 'ruangan'])->findOrFail($id);
@@ -115,7 +172,6 @@ class RegistrasiController extends Controller
     
         $htmlContent = view('back.registrasi.pdf', compact('registrasi'))->render();
         
-        // Inisialisasi DomPDF
         $pdf = Pdf::loadHTML($htmlContent);
     
         return $pdf->download("Kartu_Registrasi_{$registrasi->registration_code}.pdf");

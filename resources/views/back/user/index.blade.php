@@ -74,24 +74,24 @@
         </div>
         @endif
         
-        <table class="min-w-full bg-white shadow rounded-lg">
+        <table class="w-full border-collapse">
             <thead>
-                <tr>
-                    <th class="py-2 px-4 border-b">No</th>
-                    <th class="py-2 px-4 border-b">Nama</th>
-                    <th class="py-2 px-4 border-b">Email</th>
-                    <th class="py-2 px-4 border-b">Role</th>
-                    <th class="py-2 px-4 border-b">Dibuat Pada</th>
-                    <th class="py-2 px-4 border-b">Fungsi</th>
+                <tr class="bg-gray-200 text-gray-700">
+                    <th class="px-4 py-2 text-left">No</th>
+                    <th class="px-4 py-2 text-left">Nama</th>
+                    <th class="px-4 py-2 text-left">Email</th>
+                    <th class="px-4 py-2 text-left">Role</th>
+                    <th class="px-4 py-2 text-left">Dibuat Pada</th>
+                    <th class="px-4 py-2 text-center">Fungsi</th>
                 </tr>
             </thead>
             <tbody>
                 @foreach ($users as $item)
-                <tr>
-                    <td class="py-2 px-4 border-b">{{ $loop->iteration }}</td>
-                    <td class="py-2 px-4 border-b">{{ $item->nickname }}</td>
-                    <td class="py-2 px-4 border-b">{{ $item->email }}</td>
-                    <td class="py-2 px-4 border-b">
+                <tr class="border-t hover:bg-gray-100 transition">
+                    <td class="px-4 py-2">{{ $loop->iteration }}</td>
+                    <td class="px-4 py-2">{{ $item->nickname }}</td>
+                    <td class="px-4 py-2">{{ $item->email }}</td>
+                    <td class="px-4 py-2">
                         @if ($item->role == 1)
                             Admin
                         @elseif ($item->role == 2)
@@ -100,13 +100,13 @@
                             Assistant
                         @endif
                     </td>
-                    <td class="py-2 px-4 border-b">{{ $item->created_at }}</td>
-                    <td class="py-2 px-4 border-b">
+                    <td class="px-4 py-2">{{ $item->created_at }}</td>
+                    <td class="px-4 py-2 text-center">
                         <div class="flex justify-center space-x-2">
-                            <button class="bg-gray-500 text-white px-4 py-2 rounded" data-bs-toggle="modal" data-bs-target="#modalUpdate{{ $item->id }}">Edit</button>
+                            <button class="bg-gray-500 text-white px-3 py-1 rounded-lg hover:bg-gray-600 transition" data-bs-toggle="modal" data-bs-target="#modalUpdate{{ $item->id }}">Edit</button>
                             @if (auth()->user()->role == 1)
                                 @if ($item->id != auth()->user()->id)
-                                    <button class="bg-red-500 text-white px-4 py-2 rounded" data-bs-toggle="modal" data-bs-target="#modalDelete{{ $item->id }}">Delete</button>
+                                    <button class="bg-red-500 text-white px-3 py-1 rounded-lg hover:bg-red-600 transition" data-bs-toggle="modal" data-bs-target="#modalDelete{{ $item->id }}">Delete</button>
                                 @endif
                             @endif
                         </div>
@@ -114,7 +114,7 @@
                 </tr>
                 @endforeach
             </tbody>
-        </table>
+        </table>        
     </div>
 
     @else
@@ -185,7 +185,6 @@
             </div>
         </div>
     </div>
-
     @endforeach
     @endif
     @include('back.user.create-modal')

@@ -69,6 +69,9 @@ Route::middleware('auth')->group(function () {
 
         Route::get('registrasis', [BackRegistrasiController::class, 'index'])->name('registrasis.index');
         Route::get('registrasis/{registrasi}/edit', [BackRegistrasiController::class, 'edit'])->name('registrasis.edit');
+        Route::put('registrasis/{registrasi}/reject', [BackRegistrasiController::class, 'reject'])->name('registrasis.reject');
+        Route::put('registrasis/{registrasi}/restore', [BackRegistrasiController::class, 'restore'])->name('registrasis.restore');
+        Route::delete('registrasis/{registrasi}', [BackRegistrasiController::class, 'destroy'])->name('registrasis.destroy');
         Route::put('registrasis/{registrasi}', [BackRegistrasiController::class, 'update'])->name('registrasis.update');
         Route::get('registrasis/{registrasi}/card', [BackRegistrasiController::class, 'showCard'])->name('registrasis.card');
         Route::get('registrasis/{registrasi}/kirim-pesan-whatsapp', [BackRegistrasiController::class, 'sendWhatsAppMessage'])->name('registrasis.kirimPesan');

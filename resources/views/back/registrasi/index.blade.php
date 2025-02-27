@@ -6,8 +6,7 @@
 <div class="container mx-auto px-4 py-6">
     <h1 class="text-2xl font-bold mb-4">Daftar Registrasi</h1>
 
-    <!-- Cards for Counts -->
-    <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6">
+    <div class="grid grid-cols-1 sm:grid-cols-4 gap-4 mb-6">
         <div class="bg-blue-100 border border-blue-300 rounded-lg p-4">
             <h2 class="text-lg font-semibold text-blue-800">Pendaftar</h2>
             <p id="total-pendaftar" class="text-2xl font-bold text-blue-900">0</p>
@@ -15,6 +14,10 @@
         <div class="bg-green-100 border border-green-300 rounded-lg p-4">
             <h2 class="text-lg font-semibold text-green-800">Terdaftar</h2>
             <p id="total-terdaftar" class="text-2xl font-bold text-green-900">0</p>
+        </div>
+        <div class="bg-red-100 border border-red-300 rounded-lg p-4">
+            <h2 class="text-lg font-semibold text-red-800">Rejected</h2>
+            <p id="total-reject" class="text-2xl font-bold text-red-900">0</p>
         </div>
         <div class="bg-yellow-100 border border-yellow-300 rounded-lg p-4">
             <h2 class="text-lg font-semibold text-yellow-800">Pending</h2>
@@ -44,41 +47,50 @@
             </select>
         </div>
 
-        <table class="table-auto w-full border-collapse border border-gray-300">
+        <div class="overflow-x-auto bg-white shadow-md rounded-lg mt-6">
+        <table class="w-full border-collapse rounded">
             <thead>
-                <tr class="bg-gray-100">
-                    <th class="border border-gray-300 px-4 py-2">Nama</th>
-                    <th class="border border-gray-300 px-4 py-2">Asal Sekolah</th>
-                    <th class="border border-gray-300 px-4 py-2">Email</th>
-                    <th class="border border-gray-300 px-4 py-2">Menu</th>
-                    <th class="border border-gray-300 px-4 py-2">Status</th>
-                    <th class="border border-gray-300 px-4 py-2">Aksi</th>
+                <tr class="bg-gray-200 text-gray-700">
+                    <th class="px-4 py-2 text-left">No</th>
+                    <th class="px-4 py-2 text-left">Nama</th>
+                    <th class="px-4 py-2 text-left">Asal Sekolah</th>
+                    <th class="px-4 py-2 text-left">Menu</th>
+                    <th class="px-4 py-2 text-left">Status</th>
+                    <th class="px-4 py-2 text-center">Aksi</th>
                 </tr>
             </thead>
             <tbody>
-                {{-- @dd($registrasis) --}}
                 @foreach($registrasis as $registrasi)
-                <tr>
-                    <td class="border border-gray-300 px-4 py-2">{{ $registrasi->nama }}</td>
-                    <td class="border border-gray-300 px-4 py-2">{{ $registrasi->asal_sekolah }}</td>
-                    <td class="border border-gray-300 px-4 py-2">{{ $registrasi->email }}</td>
-                    <td class="border border-gray-300 px-4 py-2">{{ $registrasi->menu->mata_pelajaran }} Tingkat {{ $registrasi->menu->tingkat }}</td>
-                    <td class="border border-gray-300 px-4 py-2">
+                <tr class="border-t hover:bg-gray-100 transition">
+                    <td class="px-4 py-2">{{ $loop->iteration }}</td>
+                    <td class="px-4 py-2">{{ $registrasi->nama }}</td>
+                    <td class="px-4 py-2">{{ $registrasi->asal_sekolah }}</td>
+                    <td class="px-4 py-2">{{ $registrasi->menu->mata_pelajaran }} Tingkat {{ $registrasi->menu->tingkat }}</td>
+                    <td class="px-4 py-2">
                         <span class="{{ $registrasi->status == 'approved' ? 'text-green-600' : 'text-red-600' }}">
                             {{ ucfirst($registrasi->status) }}
                         </span>
                     </td>
-                    <td class="border border-gray-300 px-4 py-2">
-                        @if($registrasi->status == 'pending' || $registrasi->status == 'rejected')
-                            <a href="{{ route('back.registrasis.edit', $registrasi->id) }}" class="text-blue-600 hover:underline">Verifikasi</a>
+                    <td class="px-4 py-2 text-center">
+                        @if($registrasi->status == 'pending')
+                            <a href="{{ route('back.registrasis.edit', $registrasi->id) }}" class="bg-blue-500 text-white px-3 py-1 rounded-lg hover:bg-blue-600 transition">
+                                Verifikasi
+                            </a>
+                        @elseif($registrasi->status == 'rejected')
+                            <a href="{{ route('back.registrasis.edit', $registrasi->id) }}" class="bg-yellow-500 text-white px-3 py-1 rounded-lg hover:bg-yellow-600 transition">
+                                Evaluasi
+                            </a>
                         @else
-                            <a href="{{ route('back.registrasis.card', $registrasi->id) }}" class="text-blue-600 hover:underline">Kartu Peserta</a>
+                            <a href="{{ route('back.registrasis.card', $registrasi->id) }}" class="bg-green-500 text-white px-3 py-1 rounded-lg hover:bg-green-600 transition">
+                                Kartu
+                            </a>
                         @endif
                     </td>
                 </tr>
                 @endforeach
             </tbody>
         </table>
+        </div>
     </div>
 </div>
 
@@ -91,6 +103,7 @@
         const menuFilter = $("#filter-menu");
         const totalPendaftar = $("#total-pendaftar");
         const totalTerdaftar = $("#total-terdaftar");
+        const totalReject = $("#total-reject");
         const totalPending = $("#total-pending");
 
         function fetchRegistrasiData() {
@@ -107,31 +120,35 @@
                     let pendaftarCount = 0;
                     let terdaftarCount = 0;
                     let pendingCount = 0;
+                    let rejectCount = 0;
 
                     data.forEach((registrasi) => {
                         tableRows += `
-                            <tr>
-                                <td class="border border-gray-300 px-4 py-2">${registrasi.nama}</td>
-                                <td class="border border-gray-300 px-4 py-2">${registrasi.asal_sekolah}</td>
-                                <td class="border border-gray-300 px-4 py-2">${registrasi.email}</td>
-                                <td class="border border-gray-300 px-4 py-2">${registrasi.menu.mata_pelajaran} Tingkat ${registrasi.menu.tingkat}</td>
-                                <td class="border border-gray-300 px-4 py-2">
+                            <tr class="border-t hover:bg-gray-100 transition">
+                                <td class="px-4 py-2">${pendaftarCount + 1}</td>
+                                <td class="px-4 py-2">${registrasi.nama}</td>
+                                <td class="px-4 py-2">${registrasi.asal_sekolah}</td>
+                                <td class="px-4 py-2">${registrasi.menu.mata_pelajaran} Tingkat ${registrasi.menu.tingkat}</td>
+                                <td class="px-4 py-2">
                                     <span class="${registrasi.status === "approved" ? "text-green-600" : "text-red-600"}">
                                         ${registrasi.status.charAt(0).toUpperCase() + registrasi.status.slice(1)}
                                     </span>
                                 </td>
-                                <td class="border border-gray-300 px-4 py-2">
-                                    ${
-                                        registrasi.status === "pending" || registrasi.status === "rejected"
-                                            ? `<a href="/back/registrasis/${registrasi.id}/edit" class="text-blue-600 hover:underline">Verifikasi</a>`
-                                            : `<a href="/back/registrasis/${registrasi.id}/card" class="text-blue-600 hover:underline">Kartu Peserta</a>`
-                                    }
+                                <td class="px-4 py-2 text-center">
+                                        ${
+                                            registrasi.status === "pending" 
+                                                ? `<a href="/back/registrasis/${registrasi.id}/edit" class="bg-blue-500 text-white px-3 py-1 rounded-lg hover:bg-blue-600 transition">Verifikasi</a>`
+                                                : registrasi.status === "rejected"
+                                                    ? `<a href="/back/registrasis/${registrasi.id}/edit" class="bg-yellow-500 text-white px-3 py-1 rounded-lg hover:bg-yellow-600 transition">Evaluasi</a>`
+                                                    : `<a href="/back/registrasis/${registrasi.id}/card" class="bg-green-500 text-white px-3 py-1 rounded-lg hover:bg-green-600 transition">Kartu</a>`
+                                        }
                                 </td>
                             </tr>
                         `;
 
                         pendaftarCount++;
                         if (registrasi.status === "approved") terdaftarCount++;
+                        if (registrasi.status === "rejected") rejectCount++;
                         if (registrasi.status === "pending") pendingCount++;
                     });
 
@@ -139,6 +156,7 @@
                     totalPendaftar.text(pendaftarCount);
                     totalTerdaftar.text(terdaftarCount);
                     totalPending.text(pendingCount);
+                    totalReject.text(rejectCount);
                 },
                 error: function (xhr, status, error) {
                     console.error("Error fetching data:", error);

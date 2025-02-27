@@ -6,7 +6,7 @@
 @section('content')
 <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
     <div class="flex justify-between flex-wrap items-center pt-3 pb-2 mb-3 border-b">
-        <h1 class="text-2xl">Konfigurasi</h1>
+        <h1 class="text-2xl font-bold mb-4">Konfigurasi</h1>
     </div>
     <div class="mt-3">
         @if ($errors->any())
@@ -28,38 +28,33 @@
         @endif
     </div>
 
-    <!-- Parent Categories Table -->
-    <table class="table-auto w-full mb-4 border-collapse border border-gray-200">
+    <table class="w-full border-collapse">
         <thead>
-            <tr class="bg-gray-100">
-                <th class="border border-gray-200 px-4 py-2">No</th>
-                <th class="border border-gray-200 px-4 py-2">Nama</th>
-                <th class="border border-gray-200 px-4 py-2">Value</th>
-                <th class="border border-gray-200 px-4 py-2">Fungsi</th>
+            <tr class="bg-gray-200 text-gray-700">
+                <th class="px-4 py-2 text-left">No</th>
+                <th class="px-4 py-2 text-left">Name</th>
+                <th class="px-4 py-2 text-left">Value</th>
+                <th class="px-4 py-2 text-center">Aksi</th>
             </tr>
         </thead>
         <tbody>
-            {{-- Loop through parent categories --}}
             @foreach ($config as $item => $key)
-                <tr>
-                    <td class="border border-gray-200 px-4 py-2">{{ $config->firstItem() + $item }}</td>
-                    <td class="border border-gray-200 px-4 py-2">{{ $key->name }}</td>
-                    <td class="border border-gray-200 px-4 py-2">{{ $key->value }}</td>
-                    <td class="border border-gray-200 px-4 py-2">
-                        <div class="text-center">
-                            <button class="btn btn-secondary" onclick="openModal('modalUpdate{{ $key->id }}')">Edit</button>
-                        </div>
-                    </td>
-                </tr>
+            <tr class="border-t hover:bg-gray-100 transition">
+                <td class="px-4 py-2">{{ $config->firstItem() + $item }}</td>
+                <td class="px-4 py-2">{{ $key->name }}</td>
+                <td class="px-4 py-2">{{ Str::limit($key->value, 50) }}</td> 
+                <td class="px-4 py-2 text-center">
+                    <button class="bg-gray-500 text-white px-3 py-1 rounded-lg hover:bg-gray-600 transition" onclick="openModal('modalUpdate{{ $key->id }}')">Edit</button>
+                </td>
+            </tr>
             @endforeach
         </tbody>
-    </table>
+    </table>    
 
-    <div>
+    <div class="mt-3">
         {{ $config->links() }}
     </div>
 
-    {{-- Modal Update --}}
     @include('back.config.update-modal')
 
 </main>
