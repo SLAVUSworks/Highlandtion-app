@@ -2,10 +2,10 @@
     <!-- Modal -->
 <div class="fixed inset-0 z-50 flex items-center justify-center overflow-auto bg-black bg-opacity-50 hidden" id="modalUpdate{{ $item->id }}">
     <div class="bg-white rounded-lg shadow-lg w-1/2">
-        <div class="bg-green-500 text-white p-4 rounded-t-lg">
+        <div class="bg-green-500 text-white p-4 rounded-t-lg flex justify-between items-center">
             <h1 class="text-lg font-semibold">Edit Pengguna</h1>
-            <button type="button" class="text-white close-modal" data-bs-target="#modalUpdate{{ $item->id }}">&times;</button>
-        </div>
+            <button type="button" class="text-white text-xl font-bold close-modal" data-bs-target="#modalUpdate{{ $item->id }}">&times;</button>
+        </div>        
         <div class="p-4">
             <form action="{{ url('back/users/'.$item->id) }}" method="post" enctype="multipart/form-data">
                 @method('PUT')

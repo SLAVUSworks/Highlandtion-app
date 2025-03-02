@@ -13,9 +13,9 @@
                 @if (auth()->user()->role == 1)
                     <p class="text-gray-500">Admin</p>
                 @elseif (auth()->user()->role == 2)
-                    <p class="text-gray-500">Head</p>
+                    <p class="text-gray-500">Moderator</p>
                 @else (auth()->user()->role == 3)
-                    <p class="text-gray-500">Assistant</p>
+                    <p class="text-gray-500">Verifikator</p>
                 @endif
             </div>
         </div>
@@ -46,9 +46,9 @@
                             @if (auth()->user()->role == 1)
                                 Admin
                             @elseif (auth()->user()->role == 2)
-                                Head
+                                Moderator
                             @else (auth()->user()->role == 3)
-                                Assistant
+                                Verifikator
                             @endif
                         </p>
                     </div>

@@ -22,44 +22,20 @@
                 </div>
             </div>
             <!-- Author Info -->
-            <div class="mb-6 shadow-lg rounded-lg bg-white dark:bg-gray-800" data-aos="fade-in">
-                <div class="flex flex-wrap">
-                    <div class="w-full md:w-1/3 p-4">
-                        <img class="w-full h-auto rounded-full object-cover" src="{{ asset('storage/'.$article->user->avatar) }}" alt="{{ $article->user->nickname }}">
-                    </div>
-                    <div class="w-full md:w-2/3 p-6">
-                        <h4 class="text-lg font-bold text-gray-900 dark:text-white">Penulis</h4>
-                        <hr class="my-4 border-gray-300 dark:border-gray-700">
-                        <div class="space-y-3">
-                            <div class="flex justify-between">
-                                <span class="font-medium text-gray-600 dark:text-gray-400">Panggilan</span>
-                                <span class="text-gray-800 dark:text-gray-300">{{ $article->user->nickname }}</span>
-                            </div>
-                            <div class="flex justify-between">
-                                <span class="font-medium text-gray-600 dark:text-gray-400">Nama Lengkap</span>
-                                <span class="text-gray-800 dark:text-gray-300">{{ $article->user->full_name }}</span>
-                            </div>
-                            <div class="flex justify-between">
-                                <span class="font-medium text-gray-600 dark:text-gray-400">Email</span>
-                                <span class="text-gray-800 dark:text-gray-300">{{ $article->user->email }}</span>
-                            </div>
-                            <div class="flex justify-between">
-                                <span class="font-medium text-gray-600 dark:text-gray-400">Register</span>
-                                <span class="text-gray-800 dark:text-gray-300">
-                                    @if ($article->user->role == 1)
-                                        Admin
-                                    @elseif ($article->user->role == 2)
-                                        Head
-                                    @else
-                                        Assistant
-                                    @endif
-                                </span>
-                            </div>
-                            <div>
-                                <small class="text-gray-500 dark:text-gray-400">Terdaftar Pada {{ date('d-m-Y', strtotime($article->user->created_at)) }}</small>
-                            </div>
-                        </div>
-                    </div>
+            <div class="mb-6 shadow-lg rounded-lg bg-white dark:bg-gray-800 p-4 flex items-center space-x-4" data-aos="fade-in">
+                <img class="w-16 h-16 rounded-full object-cover aspect-square" src="{{ asset('storage/'.$article->user->avatar) }}" alt="{{ $article->user->nickname }}">
+                <div>
+                    <h4 class=" text-left text-lg font-bold text-gray-900 dark:text-white">Artikel ini Ditulis Oleh {{ $article->user->nickname }}</h4>
+                    <p class="text-left text-sm text-gray-500 dark:text-gray-400">
+                        @if ($article->user->role == 1)
+                            Admin
+                        @elseif ($article->user->role == 2)
+                            Head
+                        @else
+                            Verifikator
+                        @endif
+                        - Email : {{ $article->user->email }}
+                    </p>
                 </div>
             </div>
         </div>

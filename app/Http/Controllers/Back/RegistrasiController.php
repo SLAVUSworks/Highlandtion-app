@@ -90,7 +90,8 @@ class RegistrasiController extends Controller
             return redirect()->back()->with('error', 'Kuota ruangan sudah penuh!');;
         }
     
-        $uniqueCode = 'HL-' . $registrasi->created_at->format('dm') . $registrasi->menu_id . $validated['ruangan_id'] . $registrasi->created_at->format('Hi');
+        $menu = $registrasi->menu;
+        $uniqueCode = 'HL-' . $registrasi->created_at->format('dm') . $menu->short_code . $validated['ruangan_id'] . $registrasi->updated_at->format('Hi');
     
         $filename = basename($registrasi->bukti_transfer);
         $source_path = "public/" . $registrasi->bukti_transfer;

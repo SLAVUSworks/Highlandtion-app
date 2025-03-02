@@ -1,10 +1,10 @@
 <!-- Modal -->
 <div class="fixed inset-0 z-50 flex items-center justify-center overflow-auto bg-black bg-opacity-50 hidden" id="modalCreate">
     <div class="bg-white rounded-lg shadow-lg w-1/2">
-        <div class="bg-green-500 text-white p-4 rounded-t-lg">
+        <div class="bg-green-500 text-white p-4 rounded-t-lg flex justify-between items-center">
             <h1 class="text-lg font-semibold">Tambah Pengguna</h1>
-            <button type="button" class="text-white close-modal" data-bs-target="#modalCreate">&times;</button>
-        </div>
+            <button type="button" class="text-white text-xl font-bold close-modal" data-bs-target="#modalCreate">&times;</button>
+        </div>        
         <div class="p-4">
             <form action="{{ url('back/users') }}" method="post">
                 @csrf
@@ -41,8 +41,8 @@
                     <select name="role" id="role" class="w-full p-2 border rounded @error('role') border-red-500 @enderror" value="{{ old('role') }}">
                         <option value="" hidden>Select</option>
                         <option value="1" class="btn">Admin</option>
-                        <option value="2" class="btn">Head</option>
-                        <option value="3" class="btn">Assistant</option>
+                        <option value="2" class="btn">Moderator</option>
+                        <option value="3" class="btn">Verifikator</option>
                     </select>
                     @error('role')
                     <div class="text-red-500 mt-2 text-sm">

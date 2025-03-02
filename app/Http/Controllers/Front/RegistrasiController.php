@@ -61,4 +61,26 @@ class RegistrasiController extends Controller
     {
         return view('front.registrasi.card', compact('registrasi'));
     }
+    
+    public function trackForm()
+    {
+        return view('front.registrasi.track');
+    }
+
+    public function track(Request $request)
+    {
+        $request->validate([
+            'nama' => 'required|string|max:255',
+            'nomor_hp' => 'required|string|max:20',
+        ]);
+
+        $registrasi = Registrasi::where('nama', $request->nama)
+            ->where('nomor_hp', $request->nomor_hp)
+            ->first();
+
+        if (!$registrasi) {
+            return redirect()->back()->with('error', 'Data tidak ditemukan!');
+        }
+
+    return redirect()->route('registrasi.card', ['registrasi' => $registrasi->id]);    }
 }

@@ -95,9 +95,9 @@
                         @if ($item->role == 1)
                             Admin
                         @elseif ($item->role == 2)
-                            Head
+                            Moderator
                         @else
-                            Assistant
+                            Verifikator
                         @endif
                     </td>
                     <td class="px-4 py-2">{{ $item->created_at }}</td>
@@ -132,9 +132,9 @@
                     @if ($item->role == 1)
                         Admin
                     @elseif ($item->role == 2)
-                        Head
+                        Moderator
                     @else
-                        Assistant
+                        Verifikator
                     @endif
                 </p>
                 <div class="flex justify-center space-x-2 mt-4">
@@ -169,9 +169,9 @@
                             @if ($item->role == 1)
                                 Admin
                             @elseif ($item->role == 2)
-                                Head
+                                Moderator
                             @else
-                                Assistant
+                                Verifikator
                             @endif
                         </p>
                     </div>

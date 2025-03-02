@@ -15,30 +15,53 @@
 
         <div class="space-y-4">
             <h2 class="text-xl font-semibold text-gray-800 text-left">Data Diri</h2>
+            <ul class="list-decimal list-outside ml-5 text-left">
+                <li class="text-red-600">Satu Form Hanya Untuk Satu Nama/Peserta!</li>
+                <li>Jika Bukti Satu Pembayaran Untuk Lebih Dari Satu Peserta, Maka Ulang Pengisian Form Sebanyak Peserta yang Didaftarkan.</li>
+                <li>Pastikan Bukti Pembayaran yang Anda Masukkan Sesuai.</li>
+            </ul>                      
             <div>
-                <label for="nama" class="block text-sm font-medium text-gray-700 text-left">Nama Lengkap</label>
-                <input type="text" id="nama" name="nama" required 
-                       class="mt-1 block w-full border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500 p-2 text-lg">
-            </div>
+                <div>
+                    <label for="nama" class="block text-sm font-medium text-gray-700 text-left">Nama Lengkap</label>
+                    <input type="text" id="nama" name="nama" required 
+                           class="mt-1 block w-full border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500 p-2 text-lg"
+                           placeholder="ex*: Slava Slavus">
+                </div>
+                
+                <script>
+                    document.getElementById('nama').addEventListener('keydown', function (e) {
+                        if (!/^[a-zA-Z\s\b]$/.test(e.key)) {
+                            e.preventDefault();
+                        }
+                    });
+                
+                    document.getElementById('nama').addEventListener('input', function (e) {
+                        this.value = this.value.replace(/[^A-Za-z\s]/g, '');
+                    });
+                </script>            
 
             <div>
                 <label for="asal_sekolah" class="block text-sm font-medium text-gray-700 text-left">Asal Sekolah</label>
                 <input type="text" id="asal_sekolah" name="asal_sekolah" required 
-                       class="mt-1 block w-full border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500 p-2 text-lg">
+                       class="mt-1 block w-full border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500 p-2 text-lg"
+                       placeholder="ex*: SMAN 1 BUKITTINGGI">
             </div>
 
             <div>
                 <label for="email" class="block text-sm font-medium text-gray-700 text-left">Email</label>
                 <input type="email" id="email" name="email" required 
-                       class="mt-1 block w-full border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500 p-2 text-lg">
+                       class="mt-1 block w-full border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500 p-2 text-lg"
+                       placeholder="ex*: slavaslavus@email.com">
             </div>
 
             <div>
-                <label for="nomor_hp" class="block text-sm font-medium text-gray-700 text-left">Nomor HP</label>
+                <label for="nomor_hp" class="block text-sm font-medium text-gray-700 text-left">Nomor WhatsApp</label>
                 <div class="flex">
                     <span class="inline-flex items-center px-3 rounded-l-md border border-r-0 border-gray-300 bg-gray-50 text-gray-500 text-lg">+62</span>
-                    <input type="text" id="nomor_hp" name="nomor_hp" required 
-                           class="mt-1 block w-full border-gray-300 rounded-r-lg shadow-sm focus:ring-blue-500 focus:border-blue-500 p-2 text-lg">
+                    <input type="text" id="nomor_hp" name="nomor_hp" required class="mt-1 block w-full border-gray-300 rounded-r-lg shadow-sm focus:ring-blue-500 focus:border-blue-500 p-2 text-lg"
+                        placeholder="ex: 81234567890" 
+                        inputmode="numeric" 
+                        oninput="this.value = this.value.replace(/[^0-9]/g, '')">
                 </div>
             </div>
         </div>
