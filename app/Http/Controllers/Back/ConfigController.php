@@ -8,11 +8,6 @@ use App\Http\Controllers\Controller;
 
 class ConfigController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('admin');
-    }
-
     public function index()
     {
         return view('back.config.index', [

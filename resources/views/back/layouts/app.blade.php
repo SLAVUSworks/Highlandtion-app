@@ -17,31 +17,48 @@
 <body class="bg-gray-100">
     <div id="app">
         <nav id="nav-dash" class="fixed top-0 z-50 w-full bg-white shadow flex items-center justify-between px-6 py-3 h-16">
-            <a href="{{ route('back.menu.index') }}"> <h1 class="text-lg font-bold text-black">Highlandtion Web Config's</h1></a>
-            <div class="relative">
-            <button id="user-menu-button" class="focus:outline-none flex items-center">
-                <img src="{{ url('storage/' . Auth::user()->avatar) }}" alt="Profile Picture" class="rounded-full w-10 h-10">
-            </button>
-            <script>
-                document.getElementById('user-menu-button').addEventListener('click', function() {
-                    document.getElementById('user-menu').classList.toggle('hidden');
-                });
-            </script>
-            <div id="user-menu" class="absolute right-0 mt-2 w-48 bg-white rounded shadow-lg hidden">
-                <div class="px-4 py-2 border-b">
-                <p class="text-sm text-gray-700 font-bold">{{ Auth::user()->nickname }}</p>
-                <p class="text-sm text-gray-500">{{ Auth::user()->email }}</p>
-                <p class="text-sm text-gray-500">Role: 
-                    @if(Auth::user()->role == 1) Admin @elseif(Auth::user()->role == 2) Head @else Assistant @endif
-                </p>
+            <a href="{{ route('back.dashboard.index') }}" class="flex items-center space-x-2">
+                <i class="fas fa-cog text-gray-800 text-2xl"></i>
+                <h1 class="text-lg font-bold text-white leading-tight">
+                    {{ $config['app_name'] }}<br>
+                    <span class="text-l">Web Control Panel</span> <span class="text-xs font-thin">v2.1</span>
+                </h1>
+            </a>                        
+        
+            <div class="flex items-center space-x-4">
+                <div class="relative">
+                    <button id="notif-button" class="relative focus:outline-none">
+                        <i class="fas fa-bell text-gray-800 text-2xl"></i>
+                        <span id="notif-count" class="absolute -top-2 -right-2 bg-red-600 text-white text-xs font-bold rounded-full px-1 hidden">0</span>
+                    </button>
+                    <div id="notif-menu" class="absolute right-0 mt-2 w-64 bg-white rounded shadow-lg hidden">
+                        <div id="notif-content" class="p-2 text-sm text-gray-700">
+                            <p class="text-gray-500 text-center">Tidak ada notifikasi</p>
+                        </div>
+                    </div>
                 </div>
-                <form action="{{ route('logout') }}" method="POST">
-                @csrf
-                <button type="submit" class="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Logout</button>
-                </form>
-            </div>
+        
+                <div class="relative">
+                    <button id="user-menu-button" class="focus:outline-none flex items-center">
+                        <img src="{{ url('storage/' . Auth::user()->avatar) }}" alt="Profile Picture" class="rounded-full w-10 h-10">
+                    </button>
+                    <div id="user-menu" class="absolute right-0 mt-2 w-48 bg-white rounded shadow-lg hidden">
+                        <div class="px-4 py-2 border-b">
+                            <p class="text-sm text-gray-700 font-bold">{{ Auth::user()->nickname }}</p>
+                            <p class="text-sm text-gray-500">{{ Auth::user()->email }}</p>
+                            <p class="text-sm text-gray-500">Role: 
+                                @if(Auth::user()->role == 1) Admin @elseif(Auth::user()->role == 2) Head @else Assistant @endif
+                            </p>
+                        </div>
+                        <form action="{{ route('logout') }}" method="POST">
+                            @csrf
+                            <button type="submit" class="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Logout</button>
+                        </form>
+                    </div>
+                </div>
             </div>
         </nav>
+        
 
         <nav id="nav-dash" class="fixed top-0 left-0 z-40 w-64 h-screen pt-20 bg-gray-800 text-white">
             <div class="h-full px-3 pb-4 overflow-y-auto">
@@ -148,13 +165,11 @@
         </ul>
     </ul>                
 </div>
-<div class="absolute bottom-0 left-0 mb-2 ml-2 mr-6 flex items-center">
-    <img src="https://github.com/SLAVUSworks/HL-Web-ICON/blob/master/slavusworks.png?raw=true" alt="SLAVUSworks" class="w-12 h-12 ml-2">
-    <p class="text-xs text-right">HL-Web App v1.0 Made and Maintained by <a href="https://github.com/SLAVUSworks" target="_blank" rel="noopener noreferrer" class="text-blue-400">SLAVUSworks</a></p>
-</div>
-</nav>
-
-
+    <div class="absolute bottom-0 left-0 mb-2 ml-2 mr-6 flex items-center">
+        <img src="https://github.com/SLAVUSworks/HL-Web-ICON/blob/master/slavusworks.png?raw=true" alt="SLAVUSworks" class="w-12 h-12 ml-2">
+        <p class="text-xs text-right">HL-Web App v1.0 Made and Maintained by <a href="https://github.com/SLAVUSworks" target="_blank" rel="noopener noreferrer" class="text-blue-400">SLAVUSworks</a></p>
+    </div>
+    </nav>
         <main class="ml-64 pt-20 p-6">
             @if ($errors->any())
             @foreach ($errors->all() as $error)
@@ -173,31 +188,31 @@
         </main>
     </div>
 
-    <script>
-        const submenuButtons = document.querySelectorAll('.submenu-button');
-        
-        submenuButtons.forEach(button => {
-            const submenu = button.nextElementSibling;
+<script>
+    const submenuButtons = document.querySelectorAll('.submenu-button');
     
-            button.addEventListener('click', () => {
-                submenu.classList.toggle('hidden');
+    submenuButtons.forEach(button => {
+        const submenu = button.nextElementSibling;
+
+        button.addEventListener('click', () => {
+            submenu.classList.toggle('hidden');
+        });
+    });
+</script>    
+@section('scripts')
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const swalElement = document.querySelector('.swal');
+        const message = swalElement ? swalElement.getAttribute('data-swal') : null;
+        if (message) {
+            Swal.fire({
+                icon: 'success',
+                title: 'Berhasil',
+                text: message,
             });
-        });
-    </script>    
-    @section('scripts')
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const swalElement = document.querySelector('.swal');
-            const message = swalElement ? swalElement.getAttribute('data-swal') : null;
-            if (message) {
-                Swal.fire({
-                    icon: 'success',
-                    title: 'Berhasil',
-                    text: message,
-                });
-            }
-        });
-    </script>
+        }
+    });
+</script>
 <script src="https://cdn.ckeditor.com/ckeditor5/36.0.1/classic/ckeditor.js"></script>
 <script>
     document.addEventListener("DOMContentLoaded", function () {
@@ -223,6 +238,84 @@
             });
     });
 </script>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const notifButton = document.getElementById("notif-button");
+        const notifMenu = document.getElementById("notif-menu");
+
+        notifButton.addEventListener("click", function (event) {
+            notifMenu.classList.toggle("hidden");
+            event.stopPropagation(); 
+        });
+
+        document.addEventListener("click", function () {
+            notifMenu.classList.add("hidden");
+        });
+
+        notifMenu.addEventListener("click", function (event) {
+            event.stopPropagation();
+        });
+
+        function fetchNotifications() {
+            fetch("{{ route('back.registrasi.get') }}?status=pending")
+                .then(response => response.json())
+                .then(data => {
+                    const notifContent = document.getElementById("notif-content");
+                    const notifCount = document.getElementById("notif-count");
+
+                    if (data.length > 0) {
+                        notifCount.textContent = data.length;
+                        notifCount.classList.remove("hidden");
+
+                        notifContent.innerHTML = `
+                            <div class="p-2 font-bold text-sm text-gray-700 border-b">
+                                Pendaftar Baru
+                            </div>
+                        `;
+
+                        data.forEach(reg => {
+                            notifContent.innerHTML += `
+                                <div class="p-2 border-b">
+                                    <p class="text-sm font-bold">${truncateText(reg.nama, 25)}</p>
+                                    <p class="text-xs text-gray-500">${truncateText(reg.asal_sekolah, 25)}</p>
+                                </div>
+                            `;
+                        });
+                    } else {
+                        notifCount.classList.add("hidden");
+                        notifContent.innerHTML = `<p class="text-gray-500 text-center p-2">Tidak ada notifikasi</p>`;
+                    }
+                })
+                .catch(error => console.error("Error fetching notifications:", error));
+        }
+
+        function truncateText(text, maxLength) {
+            return text.length > maxLength ? text.substring(0, maxLength) + "..." : text;
+        }
+
+        setInterval(fetchNotifications, 10000);
+        fetchNotifications();
+    });
+</script>    
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const userMenuButton = document.getElementById("user-menu-button");
+        const userMenu = document.getElementById("user-menu");
+    
+        if (userMenuButton && userMenu) {
+            userMenuButton.addEventListener("click", function (event) {
+                event.stopPropagation();
+                userMenu.classList.toggle("hidden");
+            });
+    
+            document.addEventListener("click", function (event) {
+                if (!userMenu.contains(event.target) && !userMenuButton.contains(event.target)) {
+                    userMenu.classList.add("hidden");
+                }
+            });
+        }
+    });
+</script>           
     @endsection
 <script src="{{ asset('js/admin.js') }}"></script>
     @yield('scripts')

@@ -4,7 +4,6 @@
 
 
 <div class="border border-gray-300 m-5 rounded-lg p-6 bg-white">
-        <!-- Judul dan Link -->
         <div class="text-center mb-6">
             <h1 class="text-xl font-bold text-blue-800">Informasi dan Status Registrasi</h1>
             <p class="text-sm text-gray-600">
@@ -17,23 +16,22 @@
         <div class="flex items-center justify-between">
             <div class="flex items-center my-1">
                 <span class="mr-3 rounded-full bg-white w-8 h-8">
-                    <img src="https://github.com/SLAVUSworks/HL-Web-ICON/blob/master/hl2.png?raw=true" class="h-8 p-1">
+                    <img src="{{ $config['app_favicon'] }}" class="h-8 p-1">
                 </span>
-                <h2 class="font-medium">Highlandtion</h2>
+                <h2 class="font-medium">{{ $config['app_name'] }}</h2>
             </div>
-            <div class="ml-auto text-blue-800">2.1</div>
         </div>
         <div class="border-b border-dashed border-b-2 my-5"></div>
         <div class="flex items-center">
             <div class="flex flex-col text-left">
                 <div class="flex-auto text-xs text-gray-400 my-1">
-                    <span class="mr-1">HL</span><span>2.1</span>
+                    <span class="mr-1">{{ $config['app_name'] }}</span>
                 </div>
                 <div class="w-full flex-none text-lg text-blue-800 font-bold leading-none">SMAN 1 LANDBOUW</div>
                 <div class="text-xs">Bukittinggi</div>
             </div>
             <div class="flex flex-col ml-auto">
-                <img src="https://github.com/SLAVUSworks/HL-Web-ICON/blob/master/hl2.png?raw=true" class="w-20 p-1">
+                <img src="{{ $config['app_favicon'] }}" class="w-20 p-1">
             </div>
         </div>        
         <div class="border-b border-dashed border-b-2 my-5 pt-5">

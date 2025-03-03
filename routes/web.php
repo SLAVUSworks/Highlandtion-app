@@ -60,37 +60,36 @@ Route::middleware('auth')->group(function () {
     Route::prefix('back')->name('back.')->group(function () {
         Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard.index');
 
-        Route::resource('menu', MenuController::class);
+        Route::resource('menu', MenuController::class)->middleware('role:1,2');
 
-        Route::resource('menu-category', MenuCategoryController::class);
+        Route::resource('menu-category', MenuCategoryController::class)->middleware('role:1,2');
     
-        Route::resource('ruangan', RuanganController::class);
+        Route::resource('ruangan', RuanganController::class)->middleware('role:1,2');
 
         Route::resource('users', UserController::class);
         Route::get('/profile', [UserController::class, 'show']);
 
-        Route::resource('/config', ConfigController::class)->only([
-            'index', 'update'
-        ]);
+        Route::resource('/config', ConfigController::class)->only(['index', 'update'])->middleware('role:1');
 
         Route::get('registrasis', [BackRegistrasiController::class, 'index'])->name('registrasis.index');
         Route::get('registrasis/{registrasi}/edit', [BackRegistrasiController::class, 'edit'])->name('registrasis.edit');
         Route::put('registrasis/{registrasi}/reject', [BackRegistrasiController::class, 'reject'])->name('registrasis.reject');
         Route::put('registrasis/{registrasi}/restore', [BackRegistrasiController::class, 'restore'])->name('registrasis.restore');
         Route::delete('registrasis/{registrasi}', [BackRegistrasiController::class, 'destroy'])->name('registrasis.destroy');
+        Route::get('/registrasis/pending', [BackRegistrasiController::class, 'getPendingRegistrations'])->name('registrasi.get');
         Route::put('registrasis/{registrasi}', [BackRegistrasiController::class, 'update'])->name('registrasis.update');
         Route::get('registrasis/{registrasi}/card', [BackRegistrasiController::class, 'showCard'])->name('registrasis.card');
         Route::get('registrasis/{registrasi}/kirim-pesan-whatsapp', [BackRegistrasiController::class, 'sendWhatsAppMessage'])->name('registrasis.kirimPesan');
 
         Route::get('/registrasi-data', [BackRegistrasiController::class, 'getRegistrasiData']);
 
-        Route::resource('articles', ArticleController::class);
+        Route::resource('articles', ArticleController::class)->middleware('role:1,2');
         
-        Route::get('/contact', [ContactPageController::class, 'index'])->name('contact.index');
-        Route::put('/contact', [ContactPageController::class, 'update'])->name('contact.update');
+        Route::get('/contact', [ContactPageController::class, 'index'])->name('contact.index')->middleware('role:1,2');
+        Route::put('/contact', [ContactPageController::class, 'update'])->name('contact.update')->middleware('role:1,2');
         
-        Route::get('/export', [ExportController::class, 'showExportPage'])->name('export.index'); 
-        Route::get('/export-csv', [ExportController::class, 'exportCsv'])->name('export.csv');
+        Route::get('/export', [ExportController::class, 'showExportPage'])->name('export.index')->middleware('role:1'); 
+        Route::get('/export-csv', [ExportController::class, 'exportCsv'])->name('export.csv')->middleware('role:1');
     });
 
     Route::group(['prefix' => 'laravel-filemanager', 'middleware' => ['web', 'auth']], function () {

@@ -39,14 +39,12 @@ class UserController extends Controller
         $data = $request->validated();
         
         $request->validate([
-            // Other validation rules
-            'avatar' => 'nullable|image|max:512', // Adjusted validation rules for avatar
+            'avatar' => 'nullable|image|max:512',
         ]);
 
         if ($request->hasFile('avatar')) {
             $avatar = $request->file('avatar');
             
-            // Validate file type
             $allowedFileTypes = ['jpeg', 'jpg', 'png', 'gif'];
             $extension = $avatar->getClientOriginalExtension();
             
@@ -54,7 +52,6 @@ class UserController extends Controller
                 return back()->withErrors(['avatar' => 'The avatar must be an image (JPEG, JPG, PNG, GIF).'])->withInput();
             }
             
-            // If validation passes, move the file to the desired location
             $avatarPath = $avatar->store('avatars', 'public');
             $data['avatar'] = $avatarPath;
         }
@@ -65,7 +62,6 @@ class UserController extends Controller
         
         $user = User::findOrFail($id);
         
-        // Log data to debug
         Log::info('Data before update:', $data);
         
         $user->update([
@@ -73,10 +69,9 @@ class UserController extends Controller
             'full_name' => $data['full_name'],
             'email' => $data['email'],
             'password' => $data['password'] ?? $user->password,
-            'avatar' => $data['avatar'] ?? $user->avatar, // Use ?? operator to maintain existing avatar if it's not being updated
+            'avatar' => $data['avatar'] ?? $user->avatar,
         ]);
 
-        // Log updated user
         Log::info('Updated user:', $user->toArray());
 
         return back()->with('success', 'Pengguna Sudah Diedit!');

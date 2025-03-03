@@ -8,11 +8,6 @@ use Illuminate\Support\Facades\Response;
 
 class ExportController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('admin');
-    }
-
     public function showExportPage()
     {
         $totalPendaftar = Registrasi::count();

@@ -17,16 +17,16 @@ class RuanganController extends Controller
 
     public function create()
     {
-        $menus = Menu::all(); // Ambil semua menu untuk dropdown
+        $menus = Menu::all();
         return view('back.ruangan.create', compact('menus'));
     }
 
     public function store(Request $request)
     {
         $request->validate([
-            'nama_ruangan' => 'required',
-            'kuota' => 'required|integer',
-            'menu_id' => 'required|exists:menus,id',
+            'nama_ruangan'  => 'required',
+            'kuota'         => 'required|integer',
+            'menu_id'       => 'required|exists:menus,id',
         ]);
 
         Ruangan::create($request->all());
@@ -41,14 +41,12 @@ class RuanganController extends Controller
 
     public function update(Request $request, Ruangan $ruangan)
     {
-        // Validasi input
         $request->validate([
-            'nama_ruangan' => 'required',
-            'kuota' => 'required|integer',
-            'menu_id' => 'required|exists:menus,id',
+            'nama_ruangan'  => 'required',
+            'kuota'         => 'required|integer',
+            'menu_id'       => 'required|exists:menus,id',
         ]);
     
-        // Update data
         $ruangan->update($request->all());
     
         return redirect()->route('back.ruangan.index')->with('success', 'Ruangan berhasil diperbarui!');

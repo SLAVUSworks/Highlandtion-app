@@ -52,6 +52,13 @@ class RegistrasiController extends Controller
         return response()->json($registrasis);
     }
     
+    public function getPendingRegistrations()
+    {
+        $registrasis = Registrasi::where('status', 'pending')->get(['id', 'nama', 'asal_sekolah']);
+    
+        return response()->json($registrasis);
+    }
+    
 
     public function edit($id)
     {

@@ -45,5 +45,37 @@ class TemplateProvider extends ServiceProvider
 
             $view->with('config', $config);
         });
+
+        View::composer('back.registrasi.pdf', function($view){
+            $configKeys = ['app_name'];
+            
+            $config = Config::whereIn('name', $configKeys)->pluck('value', 'name');
+
+            $view->with('config', $config);
+        });
+
+        View::composer('back.registrasi.card', function($view){
+            $configKeys = ['app_name','app_favicon'];
+            
+            $config = Config::whereIn('name', $configKeys)->pluck('value', 'name');
+
+            $view->with('config', $config);
+        });
+
+        View::composer('back.layouts.app', function($view){
+            $configKeys = ['app_name','app_favicon'];
+            
+            $config = Config::whereIn('name', $configKeys)->pluck('value', 'name');
+
+            $view->with('config', $config);
+        });
+        
+        View::composer('front.registrasi.card', function($view){
+            $configKeys = ['app_name','app_favicon'];
+            
+            $config = Config::whereIn('name', $configKeys)->pluck('value', 'name');
+
+            $view->with('config', $config);
+        });
     }
 }
