@@ -19,6 +19,8 @@ class Registrasi extends Model
         'ruangan_id',
         'status',
         'registration_code',
+        'is_notified',
+        'note'
     ];
 
     // Default status

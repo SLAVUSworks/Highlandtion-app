@@ -1,13 +1,11 @@
 function copyText(element) {
-    // Salin teks ke clipboard
     const tempInput = document.createElement("textarea");
-    tempInput.value = element.textContent.trim(); // Ambil teks tanpa spasi di luar
+    tempInput.value = element.textContent.trim();
     document.body.appendChild(tempInput);
     tempInput.select();
     document.execCommand("copy");
     document.body.removeChild(tempInput);
 
-    // Tampilkan notifikasi menggunakan SweetAlert2
     Swal.fire({
         icon: 'success',
         title: 'Berhasil!',
@@ -20,7 +18,7 @@ function copyText(element) {
 }
 
 document.querySelector('form').addEventListener('submit', function(event) {
-    event.preventDefault(); // Mencegah pengiriman form langsung
+    event.preventDefault();
 
     Swal.fire({
         title: 'Apakah Anda yakin?',
@@ -33,7 +31,7 @@ document.querySelector('form').addEventListener('submit', function(event) {
         cancelButtonText: 'Batal'
     }).then((result) => {
         if (result.isConfirmed) {
-            this.submit(); // Kirim form jika pengguna mengonfirmasi
+            this.submit();
         }
     });
 });

@@ -80,7 +80,9 @@ Route::middleware('auth')->group(function () {
         Route::put('registrasis/{registrasi}', [BackRegistrasiController::class, 'update'])->name('registrasis.update');
         Route::get('registrasis/{registrasi}/card', [BackRegistrasiController::class, 'showCard'])->name('registrasis.card');
         Route::get('registrasis/{registrasi}/kirim-pesan-whatsapp', [BackRegistrasiController::class, 'sendWhatsAppMessage'])->name('registrasis.kirimPesan');
-
+        Route::put('/registrasi/{registrasi}/save-note', [BackRegistrasiController::class, 'saveNote'])->name('registrasi.saveNote');
+        Route::put('/registrasi/{registrasi}/mark-as-notified', [BackRegistrasiController::class, 'markAsNotified'])->name('registrasi.markAsNotified');
+        
         Route::get('/registrasi-data', [BackRegistrasiController::class, 'getRegistrasiData']);
 
         Route::resource('articles', ArticleController::class)->middleware('role:1,2');

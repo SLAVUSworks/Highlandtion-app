@@ -174,6 +174,25 @@ class RegistrasiController extends Controller
         return view('back.registrasi.card', compact('registrasi'));
     }
 
+    public function saveNote(Request $request, $id)
+    {
+        $registrasi = Registrasi::findOrFail($id);
+        $registrasi->note = $request->note;
+        $registrasi->save();
+    
+        return redirect()->back()->with('success', 'Catatan berhasil disimpan.');
+    }
+    
+    public function markAsNotified(Request $request, $id)
+    {
+        $registrasi = Registrasi::findOrFail($id);
+        $registrasi->note = $request->note;
+        $registrasi->is_notified = true;
+        $registrasi->save();
+    
+        return redirect()->back()->with('success', 'Pesan ditandai sebagai sudah dikirim.');
+    }
+
     public function generatePdf($id)
     {
         $registrasi = Registrasi::findOrFail($id);
