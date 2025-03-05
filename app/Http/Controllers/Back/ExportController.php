@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Models\Registrasi;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Http\Request;
+use App\Exports\AdvanceExport;
+use Maatwebsite\Excel\Facades\Excel;
 
 class ExportController extends Controller
 {
@@ -65,18 +67,16 @@ class ExportController extends Controller
         $callback = function () use ($columns, $columnLabels) {
             $file = fopen('php://output', 'w');
     
-            $headerLabels = array_map(fn($col) => $columnLabels[$col] ?? ucfirst(str_replace('_', ' ', $col)), $columns);
-            fputcsv($file, $headerLabels);
+            fputcsv($file, array_map(fn($col) => $columnLabels[$col] ?? ucfirst(str_replace('_', ' ', $col)), $columns));
     
             $index = 1;
+    
             Registrasi::with(['menu.menuCategory', 'menu.ruangan'])->chunk(1000, function ($rows) use ($file, $columns, &$index) {
                 foreach ($rows as $row) {
-                    $data = [$index++];
+                    $data = [$index++]; 
     
                     foreach ($columns as $column) {
-                        if ($column === 'No') {
-                            continue;
-                        }
+                        if ($column === 'No') continue;
     
                         if (strpos($column, 'menu.') === 0) {
                             $relasiField = str_replace('menu.', '', $column);
@@ -84,7 +84,7 @@ class ExportController extends Controller
                             if ($relasiField === 'menu_category.name') {
                                 $data[] = $row->menu?->menuCategory?->name ?? '-';
                             } elseif ($relasiField === 'ruangan') {
-                                $data[] = $row->menu?->ruangan?->pluck('nama_ruangan')->implode(', ') ?? '-';
+                                $data[] = $row->ruangan_id ? $row->menu?->ruangan->pluck('nama_ruangan')->implode(', ') : '-';
                             } else {
                                 $data[] = $row->menu?->$relasiField ?? '-';
                             }
@@ -101,6 +101,13 @@ class ExportController extends Controller
         };
     
         return response()->stream($callback, 200, $headers);
-    }      
+    }
+    
+    
+    public function advanceExport(Request $request)
+    {
+        $groupBy = $request->query('groupBy', 'kategori');
+        return Excel::download(new AdvanceExport($groupBy), 'Advance_Export.xlsx');
+    }
 }
 

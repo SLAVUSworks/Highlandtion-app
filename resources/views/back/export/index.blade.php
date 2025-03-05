@@ -39,10 +39,16 @@
 
 <canvas id="chart" class="w-full mb-6"></canvas>
 
-<button id="downloadCsv" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">
-    <i class="fa-solid fa-file-excel mr-3"></i> Unduh Rekap Data
-</button>
+<div class="flex justify-start mt-4">
+    <button id="downloadCsv" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">
+        <i class="fa-solid fa-file-excel mr-3"></i> Standard Export  
+    </button>
+    <button type="button" id="openAdvanceExport" class="ml-2 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+        <i class="fa-solid fa-file-excel mr-3"></i> Advance Export
+    </button>
+</div>
 
+{{-- Standard Export --}}
 <div id="exportModal" class="fixed inset-0 bg-gray-800 bg-opacity-50 flex justify-center items-center hidden">
     <div class="bg-white p-6 rounded-lg shadow-lg w-96">
         <h2 class="text-xl font-bold mb-4">Pilih Kolom</h2>
@@ -70,6 +76,61 @@
     </div>
 </div>
 
+{{-- Advance Export --}}
+<div id="advanceExportModal" class="fixed inset-0 bg-gray-800 bg-opacity-50 flex justify-center items-center hidden">
+    <div class="bg-white p-6 rounded-lg shadow-lg w-96">
+        <h2 class="text-xl font-bold mb-4">Advance Export</h2>
+
+        <form id="advanceExportForm">
+            <label class="block mb-2 font-semibold">Pilih Parameter Pengelompokan</label>
+            <p class="font-thin text-sm mb-2">Data akan dipisah Per-Sheet berdasarkan Parameter dipilih.</p>
+            <select id="groupBy" name="groupBy" class="w-full p-2 border rounded">
+                <option value="ruangan">Ruangan</option>
+                <option value="kategori">Kategori</option>
+                <option value="mata_pelajaran">Mata Pelajaran</option>
+                <option value="tingkat">Tingkat</option>
+                <option value="status">Status</option>
+            </select>
+
+            <div class="flex justify-end mt-4">
+                <button type="button" id="cancelAdvanceExport" class="mr-2 bg-gray-400 text-white px-3 py-2 rounded-lg hover:bg-gray-500">
+                    Batal
+                </button>
+                <button type="submit" class="bg-green-500 text-white px-3 py-2 rounded-lg hover:bg-green-600">
+                    Download XLSX
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        const modal = $("#advanceExportModal");
+        const openBtn = $("#openAdvanceExport");
+        const cancelBtn = $("#cancelAdvanceExport");
+        const exportForm = $("#advanceExportForm");
+
+        openBtn.on("click", function () {
+            modal.removeClass("hidden");
+        });
+
+        cancelBtn.on("click", function () {
+            modal.addClass("hidden");
+        });
+
+        exportForm.on("submit", function (e) {
+            e.preventDefault();
+
+            const groupBy = $("#groupBy").val();
+            const exportUrl = "{{ route('back.export.advance') }}?groupBy=" + encodeURIComponent(groupBy);
+
+            window.location.href = exportUrl;
+            modal.addClass("hidden");
+        });
+    });
+</script>
+
 <script>
     $(document).ready(function () {
         const modal = $("#exportModal");
@@ -96,7 +157,11 @@
                 .get();
 
             if (selectedColumns.length === 0) {
-                alert("Pilih minimal satu kolom!");
+                Swal.fire({
+                    icon: 'warning',
+                    title: 'Peringatan',
+                    text: 'Pilih minimal satu kolom!',
+                });
                 return;
             }
 

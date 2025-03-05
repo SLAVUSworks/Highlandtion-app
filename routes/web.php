@@ -94,6 +94,7 @@ Route::middleware('auth')->group(function () {
         
         Route::get('/export', [ExportController::class, 'showExportPage'])->name('export.index')->middleware('role:1'); 
         Route::get('/registrasi-export', [ExportController::class, 'exportCsv'])->name('export.csv')->middleware('role:1');
+        Route::get('/advance-export', [ExportController::class, 'advanceExport'])->name('export.advance')->middleware('role:1');
     });
 
     Route::group(['prefix' => 'laravel-filemanager', 'middleware' => ['web', 'auth']], function () {
