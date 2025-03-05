@@ -6,6 +6,18 @@
 
 <h1 class="text-2xl font-bold mb-4">Rekapitulasi Data Pendaftar</h1>
 
+@if ($errors->any())
+@foreach ($errors->all() as $error)
+<script>
+    Swal.fire({
+        icon: 'error',
+        title:'Gagal',
+        text: "{{ $error }}",
+    });
+</script>
+@endforeach
+@endif
+
 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
     <div class="bg-white shadow rounded-lg p-4">
         <h2 class="text-lg font-bold">Total Pendaftar</h2>
@@ -43,6 +55,7 @@
                 <label><input type="checkbox" name="columns[]" value="menu.menu_category.name"> Kategori</label>
                 <label><input type="checkbox" name="columns[]" value="menu.mata_pelajaran"> Mata Pelajaran</label>
                 <label><input type="checkbox" name="columns[]" value="menu.tingkat"> Tingkat</label>
+                <label><input type="checkbox" name="columns[]" value="menu.ruangan"> Ruangan</label>
                 <label><input type="checkbox" name="columns[]" value="status"> Status</label>
                 <label><input type="checkbox" name="columns[]" value="registration_code"> Kode Registrasi</label>
                 <label><input type="checkbox" name="columns[]" value="created_at"> Didaftarkan</label>

@@ -48,6 +48,7 @@ class ExportController extends Controller
             'menu.menu_category.name' => 'Kategori',
             'menu.mata_pelajaran' => 'Mata Pelajaran',
             'menu.tingkat' => 'Tingkat',
+            'menu.ruangan' => 'Ruangan',
             'status' => 'Status',
             'registration_code' => 'Kode Registrasi',
             'created_at' => 'Didaftarkan',
@@ -68,7 +69,7 @@ class ExportController extends Controller
             fputcsv($file, $headerLabels);
     
             $index = 1;
-            Registrasi::with(['menu.menuCategory'])->chunk(1000, function ($rows) use ($file, $columns, &$index) {
+            Registrasi::with(['menu.menuCategory', 'menu.ruangan'])->chunk(1000, function ($rows) use ($file, $columns, &$index) {
                 foreach ($rows as $row) {
                     $data = [$index++];
     
@@ -82,6 +83,8 @@ class ExportController extends Controller
     
                             if ($relasiField === 'menu_category.name') {
                                 $data[] = $row->menu?->menuCategory?->name ?? '-';
+                            } elseif ($relasiField === 'ruangan') {
+                                $data[] = $row->menu?->ruangan?->pluck('nama_ruangan')->implode(', ') ?? '-';
                             } else {
                                 $data[] = $row->menu?->$relasiField ?? '-';
                             }
