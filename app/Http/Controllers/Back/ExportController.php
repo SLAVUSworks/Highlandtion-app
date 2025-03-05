@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Back;
 use App\Http\Controllers\Controller;
 use App\Models\Registrasi;
 use Illuminate\Support\Facades\Response;
+use Illuminate\Http\Request;
 
 class ExportController extends Controller
 {
@@ -29,53 +30,74 @@ class ExportController extends Controller
         ]);
     }
     
-
-    public function exportCsv()
+    public function exportCsv(Request $request)
     {
+        $columns = $request->query('columns', []);
+    
+        if (empty($columns)) {
+            return back()->with('error', 'Pilih setidaknya satu kolom untuk diekspor.');
+        }
+    
+        array_unshift($columns, 'No');
+    
+        $columnLabels = [
+            'id' => 'ID',
+            'nama' => 'Nama',
+            'asal_sekolah' => 'Asal Sekolah',
+            'nomor_hp' => 'Nomor HP',
+            'menu.menu_category.name' => 'Kategori',
+            'menu.mata_pelajaran' => 'Mata Pelajaran',
+            'menu.tingkat' => 'Tingkat',
+            'status' => 'Status',
+            'registration_code' => 'Kode Registrasi',
+            'created_at' => 'Didaftarkan',
+            'updated_at' => 'Diperbarui',
+        ];
+    
         $fileName = 'registrasi_data.csv';
-
+    
         $headers = [
             'Content-Type' => 'text/csv',
             'Content-Disposition' => "attachment; filename=\"$fileName\"",
         ];
-
-        $callback = function () {
+    
+        $callback = function () use ($columns, $columnLabels) {
             $file = fopen('php://output', 'w');
-
-            fputcsv($file, [
-                'ID',
-                'Nama',
-                'Asal Sekolah',
-                'Nomor HP',
-                'Mata Pelajaran',
-                'Tingkat',
-                'Status',
-                'Kode Registrasi',
-                'Didaftarkan',
-                'Diperbarui'
-            ]);
-
-            Registrasi::with('menu')->chunk(1000, function ($rows) use ($file) {
+    
+            $headerLabels = array_map(fn($col) => $columnLabels[$col] ?? ucfirst(str_replace('_', ' ', $col)), $columns);
+            fputcsv($file, $headerLabels);
+    
+            $index = 1;
+            Registrasi::with(['menu.menuCategory'])->chunk(1000, function ($rows) use ($file, $columns, &$index) {
                 foreach ($rows as $row) {
-                    fputcsv($file, [
-                        $row->id,
-                        $row->nama,
-                        $row->asal_sekolah,
-                        '"' . $row->nomor_hp . '"',
-                        $row->menu->mata_pelajaran ?? '-',
-                        $row->menu->tingkat ?? '-',
-                        $row->status,
-                        $row->registration_code ?? '-',
-                        $row->created_at,
-                        $row->updated_at ?? '-'
-                    ]);
+                    $data = [$index++];
+    
+                    foreach ($columns as $column) {
+                        if ($column === 'No') {
+                            continue;
+                        }
+    
+                        if (strpos($column, 'menu.') === 0) {
+                            $relasiField = str_replace('menu.', '', $column);
+    
+                            if ($relasiField === 'menu_category.name') {
+                                $data[] = $row->menu?->menuCategory?->name ?? '-';
+                            } else {
+                                $data[] = $row->menu?->$relasiField ?? '-';
+                            }
+                        } else {
+                            $data[] = $row->$column ?? '-';
+                        }
+                    }
+    
+                    fputcsv($file, $data);
                 }
             });
-
+    
             fclose($file);
         };
-
-        return Response::stream($callback, 200, $headers);
-    }
+    
+        return response()->stream($callback, 200, $headers);
+    }      
 }
 

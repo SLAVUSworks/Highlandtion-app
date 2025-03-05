@@ -14,12 +14,12 @@
 
                     <div class="mb-4">
                         <label for="email" class="block text-gray-700 text-left">{{ __('Email Address') }}</label>
-                        <input id="email" type="email" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm @error('email') border-red-500 @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
+                        <input id="email" type="email" class="mt-1 block w-full border-gray-300 rounded-md p-2 shadow-sm @error('email') border-red-500 @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
                     </div>
 
                     <div class="mb-4">
                         <label for="password" class="block text-gray-700 text-left">{{ __('Password') }}</label>
-                        <input id="password" type="password" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm @error('password') border-red-500 @enderror" name="password" required autocomplete="current-password">
+                        <input id="password" type="password" class="mt-1 block w-full border-gray-300 rounded-md p-2 shadow-sm @error('password') border-red-500 @enderror" name="password" required autocomplete="current-password">
                         @error('email')
                         <span class="text-red-500 text-sm mt-1">
                             <strong>{{ $message }}</strong>
@@ -34,7 +34,7 @@
 
                     <div class="mb-4">
                         <div class="flex items-center">
-                            <input class="form-check-input h-4 w-4 text-indigo-600 transition duration-150 ease-in-out" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
+                            <input class="form-check-input h-4 w-4 text-blue-600 transition duration-150 ease-in-out" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
                             <label class="ml-2 block text-gray-900" for="remember">
                                 {{ __('Remember Me') }}
                             </label>
@@ -42,15 +42,9 @@
                     </div>
 
                     <div class="flex items-center justify-between">
-                        <button type="submit" class="bg-indigo-600 text-white py-2 px-4 rounded-md hover:bg-indigo-700">
+                        <button type="submit" class="bg-blue-600 text-white py-2 px-4 w-full rounded-md hover:bg-blue-700">
                             {{ __('Login') }}
                         </button>
-
-                        @if (Route::has('password.request'))
-                            <a class="text-indigo-600 hover:text-indigo-700 whitespace-nowrap" href="#">
-                                {{ __('Lupa Password? Tanya Atmint') }}
-                            </a>
-                        @endif
                     </div>
                 </form>
             </div>

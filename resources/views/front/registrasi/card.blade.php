@@ -39,7 +39,7 @@
         <div class="flex items-center mb-5 text-sm text-left">
             <div class="flex flex-col">
                 <span class="text-sm">Tiket</span>
-                <div class="font-semibold">{{ $registrasi->menu->mata_pelajaran }}</div>
+                <div class="font-semibold">{{ $registrasi->menu->menuCategory->name }} - {{ $registrasi->menu->mata_pelajaran }}</div>
             </div>
             <div class="flex flex-col ml-auto items-end">
                 <span class="text-sm">Tingkat</span>

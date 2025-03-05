@@ -31,7 +31,7 @@
             type="text"
             id="search-input"
             class="border border-gray-300 rounded-lg px-4 py-2 h-10 w-full"
-            placeholder="Cari berdasarkan nama, asal sekolah, atau email..."
+            placeholder="Cari berdasarkan nama atau asal sekolah..."
             />
             <select id="filter-status" class="border border-gray-300 rounded-lg px-4 py-2 h-10">
             <option value="">Semua Status</option>
@@ -65,7 +65,7 @@
                     <td class="px-4 py-2">{{ $loop->iteration }}</td>
                     <td class="px-4 py-2">{{ $registrasi->nama }}</td>
                     <td class="px-4 py-2">{{ $registrasi->asal_sekolah }}</td>
-                    <td class="px-4 py-2">{{ $registrasi->menu->mata_pelajaran }} Tingkat {{ $registrasi->menu->tingkat }}</td>
+                    <td class="px-4 py-2">{{ $registrasi->menu->menuCategory->name }} - {{ $registrasi->menu->short_code}}</td>
                     <td class="px-4 py-2">
                         <span class="{{ $registrasi->status == 'approved' ? 'text-green-600' : 'text-red-600' }}">
                             {{ ucfirst($registrasi->status) }}
@@ -128,7 +128,7 @@
                                 <td class="px-4 py-2">${pendaftarCount + 1}</td>
                                 <td class="px-4 py-2">${registrasi.nama}</td>
                                 <td class="px-4 py-2">${registrasi.asal_sekolah}</td>
-                                <td class="px-4 py-2">${registrasi.menu.mata_pelajaran} Tingkat ${registrasi.menu.tingkat}</td>
+                                <td class="px-4 py-2">${registrasi.menu.menu_category?.name ?? 'Tanpa Kategori'} - ${registrasi.menu.short_code}</td>
                                 <td class="px-4 py-2">
                                     <span class="${registrasi.status === "approved" ? "text-green-600" : "text-red-600"}">
                                         ${registrasi.status.charAt(0).toUpperCase() + registrasi.status.slice(1)}

@@ -82,8 +82,10 @@ Route::middleware('auth')->group(function () {
         Route::get('registrasis/{registrasi}/kirim-pesan-whatsapp', [BackRegistrasiController::class, 'sendWhatsAppMessage'])->name('registrasis.kirimPesan');
         Route::put('/registrasi/{registrasi}/save-note', [BackRegistrasiController::class, 'saveNote'])->name('registrasi.saveNote');
         Route::put('/registrasi/{registrasi}/mark-as-notified', [BackRegistrasiController::class, 'markAsNotified'])->name('registrasi.markAsNotified');
-        
+        Route::get('/registrasisApproved', [BackRegistrasiController::class, 'indexApproved'])->name('registrasis.indexApproved');
+
         Route::get('/registrasi-data', [BackRegistrasiController::class, 'getRegistrasiData']);
+        Route::get('/registrasi-approved-data', [BackRegistrasiController::class, 'getApprovedData']);
 
         Route::resource('articles', ArticleController::class)->middleware('role:1,2');
         
@@ -91,7 +93,7 @@ Route::middleware('auth')->group(function () {
         Route::put('/contact', [ContactPageController::class, 'update'])->name('contact.update')->middleware('role:1,2');
         
         Route::get('/export', [ExportController::class, 'showExportPage'])->name('export.index')->middleware('role:1'); 
-        Route::get('/export-csv', [ExportController::class, 'exportCsv'])->name('export.csv')->middleware('role:1');
+        Route::get('/registrasi-export', [ExportController::class, 'exportCsv'])->name('export.csv')->middleware('role:1');
     });
 
     Route::group(['prefix' => 'laravel-filemanager', 'middleware' => ['web', 'auth']], function () {

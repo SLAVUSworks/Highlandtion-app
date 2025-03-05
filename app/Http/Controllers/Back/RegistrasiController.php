@@ -14,6 +14,7 @@ use App\Models\Menu;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
+use App\Models\MenuCategory;
 
 class RegistrasiController extends Controller
 {
@@ -32,7 +33,7 @@ class RegistrasiController extends Controller
         $status = $request->get('status', '');
         $menuId = $request->get('menu', '');
     
-        $query = Registrasi::with('menu')
+        $query = Registrasi::with(['menu.menuCategory'])
             ->where(function ($q) use ($search) {
                 $q->where('nama', 'like', "%$search%")
                   ->orWhere('asal_sekolah', 'like', "%$search%")
@@ -219,7 +220,7 @@ class RegistrasiController extends Controller
                 'whatsapp:+62' . $nomorHp,
                 [
                 'from' => $twilioNumber,
-                'body' => "Halo,\n\nPendaftaran anda sudah diverifikasi oleh sektretariat Highlandtion 2.1\n\n" .
+                'body' => "Halo,\n\nPendaftaran anda sudah diverifikasi oleh sektretariat acara\n\n" .
                     "Atas nama {$registrasi->nama}\n" .
                     "Asal sekolah: {$registrasi->asal_sekolah}\n" .
                     "Terdaftar pada: {$registrasi->menu->mata_pelajaran}\n" .
@@ -234,7 +235,39 @@ class RegistrasiController extends Controller
         }
     
         return redirect()->back()->with('success', 'Pesan berhasil dikirim ke WhatsApp!');
-    }    
+    }
+    
+    public function indexApproved()
+    {
+        $registrasis = Registrasi::where('status', 'approved')->get();
+        $menus = Menu::all();
+        $categories = MenuCategory::all();
+    
+        return view('back.registrasi.index-approved', compact('registrasis', 'menus', 'categories'));
+    }
+
+    public function getApprovedData(Request $request)
+    {
+        $search = $request->get('search', '');
+        $menuId = $request->get('menu', '');
+    
+        $query = Registrasi::with(['menu.menuCategory'])
+            ->where('status', 'approved')
+            ->where(function ($q) use ($search) {
+                $q->where('nama', 'like', "%$search%")
+                  ->orWhere('asal_sekolah', 'like', "%$search%")
+                  ->orWhere('email', 'like', "%$search%");
+            });
+    
+        if ($menuId) {
+            $query->where('menu_id', $menuId);
+        }
+        
+        $registrasis = $query->get();
+    
+        return response()->json($registrasis);
+    }
+    
 }
 
 

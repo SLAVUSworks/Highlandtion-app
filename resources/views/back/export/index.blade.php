@@ -31,6 +31,73 @@
     <i class="fa-solid fa-file-excel mr-3"></i> Unduh Rekap Data
 </button>
 
+<div id="exportModal" class="fixed inset-0 bg-gray-800 bg-opacity-50 flex justify-center items-center hidden">
+    <div class="bg-white p-6 rounded-lg shadow-lg w-96">
+        <h2 class="text-xl font-bold mb-4">Pilih Kolom</h2>
+        <form id="exportForm">
+            <div class="grid grid-cols-2 gap-2">
+                <label><input type="checkbox" name="columns[]" value="id" checked> ID</label>
+                <label><input type="checkbox" name="columns[]" value="nama" checked> Nama</label>
+                <label><input type="checkbox" name="columns[]" value="asal_sekolah" checked> Asal Sekolah</label>
+                <label><input type="checkbox" name="columns[]" value="nomor_hp"> Nomor HP</label>
+                <label><input type="checkbox" name="columns[]" value="menu.menu_category.name"> Kategori</label>
+                <label><input type="checkbox" name="columns[]" value="menu.mata_pelajaran"> Mata Pelajaran</label>
+                <label><input type="checkbox" name="columns[]" value="menu.tingkat"> Tingkat</label>
+                <label><input type="checkbox" name="columns[]" value="status"> Status</label>
+                <label><input type="checkbox" name="columns[]" value="registration_code"> Kode Registrasi</label>
+                <label><input type="checkbox" name="columns[]" value="created_at"> Didaftarkan</label>
+                <label><input type="checkbox" name="columns[]" value="updated_at"> Diperbarui</label>
+            </div>
+
+            <div class="flex justify-end mt-4">
+                <button type="button" id="cancelExport" class="mr-2 bg-gray-400 text-white px-3 py-2 rounded-lg hover:bg-gray-500">Batal</button>
+                <button type="submit" class="bg-green-500 text-white px-3 py-2 rounded-lg hover:bg-green-600">Download CSV</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        const modal = $("#exportModal");
+        const downloadBtn = $("#downloadCsv");
+        const cancelBtn = $("#cancelExport");
+        const exportForm = $("#exportForm");
+
+        downloadBtn.on("click", function () {
+            modal.removeClass("hidden");
+        });
+
+        cancelBtn.on("click", function () {
+            modal.addClass("hidden");
+        });
+
+        exportForm.on("submit", function (e) {
+            e.preventDefault();
+
+            const selectedColumns = exportForm
+                .find("input[name='columns[]']:checked")
+                .map(function () {
+                    return $(this).val();
+                })
+                .get();
+
+            if (selectedColumns.length === 0) {
+                alert("Pilih minimal satu kolom!");
+                return;
+            }
+
+            const queryString = selectedColumns.map(col => `columns[]=${encodeURIComponent(col)}`).join("&");
+            const exportUrl = `{{ url('back/registrasi-export') }}?${queryString}`;
+
+            window.location.href = exportUrl;
+
+            modal.addClass("hidden");
+        });
+    });
+</script>
+
+
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
     const labels = @json($pendaftarPerTanggal->pluck('tanggal'));
@@ -81,16 +148,6 @@
 
     const ctx = document.getElementById('chart').getContext('2d');
     new Chart(ctx, config);
-
-    document.getElementById('downloadCsv').addEventListener('click', function () {
-        const url = "{{ route('back.export.csv') }}";
-        const link = document.createElement('a');
-        link.href = url;
-        link.download = 'registrasi_data.csv';
-        document.body.appendChild(link);
-        link.click();
-        link.remove();
-    });
 </script>
 
 @endsection

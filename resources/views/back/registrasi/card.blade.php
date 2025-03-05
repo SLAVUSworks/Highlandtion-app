@@ -63,7 +63,7 @@
             <div class="flex items-center mb-5 p-5 text-sm">
                 <div class="flex flex-col">
                     <span class="text-sm">Tiket</span>
-                    <div class="font-semibold">{{ $registrasi->menu->mata_pelajaran }}</div>
+                    <div class="font-semibold">{{ $registrasi->menu->menuCategory->name }} - {{ $registrasi->menu->mata_pelajaran }}</div>
                 </div>
                 <div class="flex flex-col ml-auto items-end">
                     <span class="text-sm">Tingkat</span>
@@ -110,57 +110,59 @@
         </div>
     </div>
     
-    <div class="border border-gray-300 rounded-lg p-6 bg-white mt-4">
-        <h2 class="text-lg font-semibold text-gray-800 mb-4">Status Pengiriman Pesan</h2>
+    <div class="flex gap-4 pt-6">
+        <div class="border border-gray-300 rounded-lg p-6 bg-white flex-1">
+            <h2 class="text-lg font-semibold text-gray-800 mb-4">Status Pengiriman Pesan</h2>
     
-        <form action="{{ route('back.registrasi.saveNote', $registrasi->id) }}" method="POST" class="space-y-3">
-            @csrf
-            @method('PUT')
+            <form action="{{ route('back.registrasi.saveNote', $registrasi->id) }}" method="POST" class="space-y-3">
+                @csrf
+                @method('PUT')
     
-            <label for="note" class="block text-sm font-medium text-gray-700">Catatan:</label>
-            <textarea id="note" name="note" rows="2"
-                class="w-full p-2 border rounded-md focus:ring-blue-500 focus:border-blue-500">{{ old('note', $registrasi->note) }}</textarea>
+                <label for="note" class="block text-sm font-medium text-gray-700">Catatan:</label>
+                <textarea id="note" name="note" rows="2"
+                    class="w-full p-2 border rounded-md focus:ring-blue-500 focus:border-blue-500">{{ old('note', $registrasi->note) }}</textarea>
     
-            <div class="flex gap-2">
-                <button type="submit" class="w-full bg-gray-500 text-white px-4 py-2 rounded-md hover:bg-gray-600 transition">
-                    Simpan Catatan
-                </button>
-    
-                @if (!$registrasi->is_notified)
-                    <button formaction="{{ route('back.registrasi.markAsNotified', $registrasi->id) }}" 
-                        class="w-full bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 transition">
-                        Tandai Sudah Dikirim
+                <div class="flex gap-2">
+                    <button type="submit" class="w-full bg-gray-500 text-white px-4 py-2 rounded-md hover:bg-gray-600 transition">
+                        Simpan Catatan
                     </button>
-                @endif
-            </div>
-        </form>
     
-        @if ($registrasi->is_notified)
-            <p class="text-green-500 font-semibold mt-4">Pesan sudah dikirim.</p>
-        @endif
+                    @if (!$registrasi->is_notified)
+                        <button formaction="{{ route('back.registrasi.markAsNotified', $registrasi->id) }}" 
+                            class="w-full bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 transition">
+                            Tandai Sudah Dikirim
+                        </button>
+                    @endif
+                </div>
+            </form>
     
-        <p class="mt-2 text-sm text-gray-700"><strong>Catatan:</strong> {{ $registrasi->note }}</p>
-    </div>    
+            @if ($registrasi->is_notified)
+                <p class="text-green-500 font-semibold mt-4">Pesan sudah dikirim.</p>
+            @endif
     
-    <div class="grid grid-cols-2 md:grid-cols-4 gap-3 mt-4">
-        <a href="{{ route('back.registrasis.kirimPesan', $registrasi->id) }}"
-            class="text-center px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 transition">
-            Kirim ke WhatsApp
-        </a>
-        <a target="_blank"
-            href="https://wa.me/{{ preg_replace('/^0/', '62', '62' . ltrim($registrasi->nomor_hp, '0')) }}?text=Halo%2C%0A%0APendaftaran%20anda%20sudah%20diverifikasi%20oleh%20sektretariat%20Highlandtion%202.1%0A%0AAtas%20nama%20{{ $registrasi->nama }}%0AAsal%20sekolah%20{{ $registrasi->asal_sekolah }}%0ATerdaftar%20pada%20{{ $registrasi->menu->mata_pelajaran }}%0ANomor%20Registrasi%20{{ $registrasi->registration_code }}%0A%0AKartu%20dapat%20di%20unduh%20melalui%20{{ route('registrasis.pdf', $registrasi->id) }}%0A%0AKami%20tunggu%20kehadiran%20mu%20~"
-            class="text-center px-4 py-2 bg-green-500 text-white rounded-md hover:bg-green-600 transition">
-            Kirim Manual ke WhatsApp
-        </a>
-        <a href="{{ route('registrasis.pdf', $registrasi->id) }}" target="_blank"
-            class="text-center px-4 py-2 bg-red-500 text-white rounded-md hover:bg-red-600 transition">
-            Show PDF
-        </a>
-        <a href="{{ route('back.registrasis.index') }}"
-            class="text-center px-4 py-2 bg-gray-500 text-white rounded-md hover:bg-gray-600 transition">
-            Kembali
-        </a>
-    </div>    
+            <p class="mt-2 text-sm text-gray-700"><strong>Catatan:</strong> {{ $registrasi->note }}</p>
+        </div>
+    
+        <div class="flex flex-col gap-3">
+            <a href="{{ route('back.registrasis.kirimPesan', $registrasi->id) }}"
+                class="text-center px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 transition">
+                Kirim ke WhatsApp
+            </a>
+            <a target="_blank"
+                href="https://wa.me/{{ preg_replace('/^0/', '62', '62' . ltrim($registrasi->nomor_hp, '0')) }}?text=Halo%2C%0A%0APendaftaran%20anda%20sudah%20diverifikasi%20oleh%20sektretariat%20Highlandtion%202.1%0A%0AAtas%20nama%20{{ $registrasi->nama }}%0AAsal%20sekolah%20{{ $registrasi->asal_sekolah }}%0ATerdaftar%20pada%20{{ $registrasi->menu->mata_pelajaran }}%0ANomor%20Registrasi%20{{ $registrasi->registration_code }}%0A%0AKartu%20dapat%20di%20unduh%20melalui%20{{ route('registrasis.pdf', $registrasi->id) }}%0A%0AKami%20tunggu%20kehadiran%20mu%20~"
+                class="text-center px-4 py-2 bg-green-500 text-white rounded-md hover:bg-green-600 transition">
+                Kirim Manual ke WhatsApp
+            </a>
+            <a href="{{ route('registrasis.pdf', $registrasi->id) }}" target="_blank"
+                class="text-center px-4 py-2 bg-red-500 text-white rounded-md hover:bg-red-600 transition">
+                Tampilkan PDF
+            </a>
+            <a href="{{ route('back.registrasis.index') }}"
+                class="text-center px-4 py-2 bg-gray-500 text-white rounded-md hover:bg-gray-600 transition">
+                Kembali
+            </a>
+        </div>
+    </div>      
 </div>
 <script src="https://cdn.tailwindcss.com"></script>
 @endsection

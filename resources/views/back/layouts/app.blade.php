@@ -133,11 +133,26 @@
                                 </ul>
                             </li>
                             <li>
-                                <a href="{{ route('back.registrasis.index') }}"
-                                    class="grid grid-cols-[24px,1fr] items-center gap-3 p-2 text-gray-200 hover:bg-gray-700 rounded-lg {{ request()->routeIs('back.registrasis.index') ? 'bg-gray-700' : '' }}">
+                                <button
+                                    class="submenu-button grid grid-cols-[24px,1fr] items-center gap-3 p-2 text-gray-200 hover:bg-gray-700 rounded-lg w-full text-left">
                                     <i class="fa-solid fa-person text-gray-400"></i>
                                     <span>Registrasi</span>
-                                </a>
+                                </button>
+                                <ul
+                                    class="submenu space-y-1 ml-6 {{ request()->routeIs('back.registrasis.*') ? '' : 'hidden' }}">
+                                    <li>
+                                        <a href="{{ route('back.registrasis.index') }}"
+                                            class="block p-1 text-gray-200 hover:bg-gray-700 rounded-lg {{ request()->routeIs('back.registrasis.index') ? 'bg-gray-700' : '' }}">
+                                            Daftar Registrasi
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="{{ route('back.registrasis.indexApproved') }}"
+                                            class="block p-1 text-gray-200 hover:bg-gray-700 rounded-lg {{ request()->routeIs('back.registrasis.indexApproved') ? 'bg-gray-700' : '' }}">
+                                            Index Kartu Peserta
+                                        </a>
+                                    </li>
+                                </ul>
                             </li>
                             <li>
                                 <a href="{{ route('back.articles.index') }}"

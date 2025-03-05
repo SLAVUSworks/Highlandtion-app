@@ -117,7 +117,7 @@
         <div class="details">
             <div>
                 <span>Tiket</span>
-                <div>{{ $registrasi->menu->mata_pelajaran }}</div>
+                <div>{{ $registrasi->menu->menuCategory->name }} - {{ $registrasi->menu->mata_pelajaran }}</div>
             </div>
             <div>
                 <span>Tingkat</span>
