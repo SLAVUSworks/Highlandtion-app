@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="container mx-auto px-4">
-    <h1 class="text-3xl font-bold mb-6 text-gray-900 dark:text-white">Daftar Informasi</h1>
+    <h1 class="mb-6 mt-6 text-3xl font-extrabold text-gray-900">Daftar Informasi</h1>
     
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
         @forelse ($articles as $article)

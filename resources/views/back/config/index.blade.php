@@ -10,23 +10,27 @@
     </div>
     <div class="mt-3">
         @if ($errors->any())
-        <div class="alert alert-danger">
-            <ul>
-                @foreach ($errors->all() as $error)
-                    <li>{{ $error }}</li>
-                @endforeach
-            </ul>
-        </div>
+            <script>
+                Swal.fire({
+                    title: 'Terjadi Kesalahan!',
+                    html: `{!! implode('<br>', $errors->all()) !!}`,
+                    icon: 'error',
+                });
+            </script>
         @endif
-
+    
         @if (session('success'))
-        <div class="my-2">
-            <div class="alert alert-success">
-                {{ session('success') }}
-            </div>
-        </div>
+            <script>
+                Swal.fire({
+                    title: 'Berhasil!',
+                    text: "{{ session('success') }}",
+                    icon: 'success',
+                    timer: 3000,
+                    showConfirmButton: false
+                });
+            </script>
         @endif
-    </div>
+    </div>    
 
     <table class="w-full border-collapse">
         <thead>

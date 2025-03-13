@@ -10,13 +10,13 @@
         <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
         <link rel="stylesheet" href="{{ asset('css/front.css') }}">
     
-        <title>@yield('title', 'Highlandtion')</title>
+        <title>@yield('title', $config['app_name'] )</title>
     </head>
 
 <body class="relative h-screen bg-[#8BBCCC]">
     <div class="bg-pattern"></div>
 
-    <nav class="bg-gray-800 p-4">
+    <nav class="fixed top-0 left-0 w-full bg-gray-800 p-4 z-50 shadow-lg">
         <div class="container mx-auto flex justify-between items-center">
             <a id="top-title" href="/" class="text-white text-lg font-semibold flex items-center space-x-2">
                 <img src="{{ $config['app_favicon'] }}" alt="Logo" class="w-8 mr-2">
@@ -42,7 +42,7 @@
         </div>
     </nav>
 
-    <section class="min-h-screen text-center xl:px-0 flex flex-col justify-center">
+    <section class="min-h-screen mt-[4rem] text-center xl:px-0 flex flex-col justify-center">
         @yield('content')
     </section>
 

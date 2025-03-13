@@ -12,7 +12,7 @@
             <p id="total-pendaftar" class="text-2xl font-bold text-blue-900">0</p>
         </div>
         <div class="bg-green-100 border border-green-300 rounded-lg p-4">
-            <h2 class="text-lg font-semibold text-green-800">Terdaftar</h2>
+            <h2 class="text-lg font-semibold text-green-800">Approved</h2>
             <p id="total-terdaftar" class="text-2xl font-bold text-green-900">0</p>
         </div>
         <div class="bg-red-100 border border-red-300 rounded-lg p-4">

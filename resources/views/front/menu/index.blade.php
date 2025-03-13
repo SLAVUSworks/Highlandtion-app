@@ -3,17 +3,14 @@
 @section('content')
 <header class="relative h-screen bg-fixed bg-center bg-cover flex flex-col justify-center items-center" style="background-image: url('{{ $config['header-background'] }}');">
     <div class="absolute top-0 left-0 m-4">
-        <img src="{{ $config['header-logo-left'] }}" alt="Logo 1" class="w-20 h-20">
+        <img src="{{ $config['header-logo-left'] }}" alt="Logo 1" class="w-full h-20">
     </div>
     <div class="absolute top-0 right-0 m-4">
-        <img src="{{ $config['header-logo-right'] }}" alt="Logo 2" class="w-20 h-20">
+        <img src="{{ $config['header-logo-right'] }}" alt="Logo 2" class="w-full h-20">
     </div>
-    <span class="text-black text-sm max-w-lg mx-auto mb-2 capitalize flex items-center">Ini Tagline <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="text-indigo-600 ml-2 w-5 h-5">
-        <path stroke-linecap="round" stroke-linejoin="round" d="M17.25 8.25 21 12m0 0-3.75 3.75M21 12H3" />
-    </svg>
-    </span>
+    <span class="text-black text-sm max-w-lg mx-auto mb-2 capitalize flex items-center">{{ $config['tagline'] }}</span>
     <h1 id="app" class="text-white text-4xl md:text-5xl xl:text-6xl font-semibold max-w-8xl mx-auto mb-16 leading-snug text-center"></h1>
-    <script src="{{ asset('js/typewriter.js') }}"></script>
+    {!! $config['typewriter'] !!}
 </header>
 
 

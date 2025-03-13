@@ -66,8 +66,9 @@
             <div class="flex flex-col items-start">
                 <span class="">Status</span>
                 <div class="font-semibold 
-                    {{ $registrasi->status === 'pending' ? 'text-red-500' : '' }} 
-                    {{ $registrasi->status === 'approved' ? 'text-green-500' : '' }}">
+                    {{ $registrasi->status === 'pending' ? 'text-yellow-500' : '' }} 
+                    {{ $registrasi->status === 'approved' ? 'text-green-500' : '' }}
+                    {{ $registrasi->status === 'rejected' ? 'text-red-500' : '' }}">
                     {{ ucfirst($registrasi->status) }}
                 </div>
             </div>

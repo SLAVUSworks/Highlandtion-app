@@ -10,11 +10,10 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css"
         integrity="sha512-5Hs3dF2AEPkpNAR7UiOHba+lRSJNeM2ECkwxUIxC1Q/FLycGTbNapWXB4tP889k5T5Ju8fs4b1P5z/iB4nMfSQ=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link rel="icon" type="image/x-icon" href="https://github.com/SLAVUSworks/HL-Web-ICON/blob/master/hl2.png?raw=true">
+    <link rel="icon" type="image/x-icon" href="{{ $config['app_favicon'] }}">
     <link rel="stylesheet" href="https://cdn.ckeditor.com/ckeditor5/44.1.0/ckeditor5.css" crossorigin>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
     <link rel="stylesheet" href="{{ asset('css/admin.css') }}">
 </head>
 
@@ -188,6 +187,13 @@
                                         Daftar Admin
                                         @endif
                                     </span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="{{ url('laravel-filemanager') }}"
+                                    class="grid grid-cols-[24px,1fr] items-center gap-3 p-2 text-gray-200 hover:bg-gray-700 rounded-lg" target="_blank">
+                                    <i class="fa-solid fa-folder text-gray-400"></i>
+                                    <span>Files</span>
                                 </a>
                             </li>
                             <li>

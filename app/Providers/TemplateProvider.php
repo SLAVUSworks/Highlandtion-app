@@ -31,7 +31,7 @@ class TemplateProvider extends ServiceProvider
         });
 
         View::composer('front.menu.index', function($view){
-            $configKeys = ['app_name', 'app_description', 'app_favicon', 'header-background','header-logo-left','header-logo-right','tagline','footer-contact','footer-mpk-smansa-osis','footer-sponsor','footer-ekskul'];
+            $configKeys = ['app_name', 'app_description', 'app_favicon', 'header-background','header-logo-left','header-logo-right','typewriter','tagline','footer-contact','footer-mpk-smansa-osis','footer-sponsor','footer-ekskul'];
             
             $config = Config::whereIn('name', $configKeys)->pluck('value', 'name');
 

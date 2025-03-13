@@ -9,17 +9,29 @@
         Tambah Event/Menu
     </a>
     @if ($errors->any())
-    <div class="bg-red-100 text-red-700 px-4 py-3 rounded mb-4">
-        <ul class="list-disc list-inside">
-            @foreach ($errors->all() as $error)
-                <li>{{ $error }}</li>
-            @endforeach
-        </ul>
-    </div>
+        <script>
+            document.addEventListener("DOMContentLoaded", function() {
+                Swal.fire({
+                    title: "Terjadi Kesalahan!",
+                    html: `{!! implode('<br>', $errors->all()) !!}`,
+                    icon: "error",
+                    confirmButtonText: "OK"
+                });
+            });
+        </script>
     @endif
 
-    <div class="swal" data-swal="{{ session('success') }}"></div>
-
+    @if (session('success'))
+        <script>
+            document.addEventListener("DOMContentLoaded", function() {
+                Swal.fire({
+                    title: "Berhasil!",
+                    text: "{{ session('success') }}",
+                    icon: "success",
+                });
+            });
+        </script>
+    @endif
     <div class="overflow-x-auto bg-white shadow-md rounded-lg">
         <table class="w-full border-collapse">
             <thead>

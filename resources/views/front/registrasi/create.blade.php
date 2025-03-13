@@ -30,7 +30,7 @@
                 
                 <script>
                     document.getElementById('nama').addEventListener('keydown', function (e) {
-                        if (!/^[a-zA-Z\s\b]$/.test(e.key)) {
+                        if (!/^[a-zA-Z\s]$/.test(e.key) && !['Backspace', 'Delete', 'ArrowLeft', 'ArrowRight'].includes(e.key)) {
                             e.preventDefault();
                         }
                     });
@@ -38,7 +38,8 @@
                     document.getElementById('nama').addEventListener('input', function (e) {
                         this.value = this.value.replace(/[^A-Za-z\s]/g, '');
                     });
-                </script>            
+                </script>
+                       
 
             <div>
                 <label for="asal_sekolah" class="block text-sm font-medium text-gray-700 text-left">Asal Sekolah</label>

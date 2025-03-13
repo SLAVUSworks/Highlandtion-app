@@ -11,7 +11,7 @@ class ConfigController extends Controller
     public function index()
     {
         return view('back.config.index', [
-            'config' => Config::paginate(5)
+            'config' => Config::paginate(20)
         ]);
     }
 
