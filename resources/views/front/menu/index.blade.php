@@ -1,6 +1,16 @@
 @extends('front.layouts.app')
 
+
 @section('content')
+@if(($config['app_status'] ?? 1) == 0)
+    <script>
+        window.location.href = "{{ route('maintenance') }}";
+    </script>
+@elseif(($config['app_status'] ?? 1) == 2)
+    <script>
+        window.location.href = "{{ route('regs-closed') }}";
+    </script>
+@else
 <header class="relative h-screen bg-fixed bg-center bg-cover flex flex-col justify-center items-center" style="background-image: url('{{ $config['header-background'] }}');">
     <div class="absolute top-0 left-0 m-4">
         <img src="{{ $config['header-logo-left'] }}" alt="Logo 1" class="w-full h-20">
@@ -113,3 +123,4 @@
     }
 </script>
 @endsection
+@endif

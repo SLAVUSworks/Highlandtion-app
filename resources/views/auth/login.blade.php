@@ -1,4 +1,4 @@
-@extends('front.layouts.app')
+@extends('layouts.app')
 
 @section('content')
 <div class="container mx-auto px-4 h-screen flex items-center justify-center">

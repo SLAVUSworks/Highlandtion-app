@@ -1,86 +1,168 @@
-
 @extends('back.layouts.app')
 
 @section('title', 'Konfigurasi')
 
 @section('content')
-<main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
-    <div class="flex justify-between flex-wrap items-center pt-3 pb-2 mb-3 border-b">
-        <h1 class="text-2xl font-bold mb-4">Konfigurasi</h1>
-    </div>
-    <div class="mt-3">
-        @if ($errors->any())
-            <script>
-                Swal.fire({
-                    title: 'Terjadi Kesalahan!',
-                    html: `{!! implode('<br>', $errors->all()) !!}`,
-                    icon: 'error',
-                });
-            </script>
-        @endif
-    
-        @if (session('success'))
-            <script>
-                Swal.fire({
-                    title: 'Berhasil!',
-                    text: "{{ session('success') }}",
-                    icon: 'success',
-                    timer: 3000,
-                    showConfirmButton: false
-                });
-            </script>
-        @endif
-    </div>    
-
-    <table class="w-full border-collapse">
-        <thead>
-            <tr class="bg-gray-200 text-gray-700">
-                <th class="px-4 py-2 text-left">No</th>
-                <th class="px-4 py-2 text-left">Name</th>
-                <th class="px-4 py-2 text-left">Value</th>
-                <th class="px-4 py-2 text-center">Aksi</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach ($config as $item => $key)
-            <tr class="border-t hover:bg-gray-100 transition">
-                <td class="px-4 py-2">{{ $config->firstItem() + $item }}</td>
-                <td class="px-4 py-2">{{ $key->name }}</td>
-                <td class="px-4 py-2">{{ Str::limit($key->value, 50) }}</td> 
-                <td class="px-4 py-2 text-center">
-                    <button class="bg-gray-500 text-white px-3 py-1 rounded-lg hover:bg-gray-600 transition" onclick="openModal('modalUpdate{{ $key->id }}')">Edit</button>
-                </td>
-            </tr>
-            @endforeach
-        </tbody>
-    </table>    
-
-    <div class="mt-3">
-        {{ $config->links() }}
-    </div>
-
-    @include('back.config.update-modal')
-
-</main>
-
-<script>
-    function openModal(modalId) {
-        const modal = document.getElementById(modalId);
-        if (modal) {
-            modal.classList.remove('hidden');
-            modal.setAttribute('aria-hidden', 'false');
-        }
-    }
-
-    document.querySelectorAll('[data-bs-dismiss="modal"]').forEach(button => {
-        button.addEventListener('click', function () {
-            const modal = button.closest('.fixed.inset-0.z-50');
-            if (modal) {
-                modal.classList.add('hidden');
-                modal.setAttribute('aria-hidden', 'true');
-            }
+<div class="container mx-auto px-4">
+    <h1 class="text-2xl font-bold mb-4">Konfigurasi</h1>
+    @if(session('success'))
+    <script>
+        Swal.fire({
+            icon: 'success',
+            title: 'Success',
+            text: '{{ session('success') }}',
+            timer: 3000,
+            showConfirmButton: false
         });
-    });
-</script>
 
+    </script>
+    @endif
+
+    <form action="{{ route('back.config.update') }}" method="POST" class="space-y-4">
+        @csrf
+
+        <div class="bg-white shadow-md rounded-lg p-6">
+            <h3 class="text-lg font-semibold mb-4">Pengaturan Profil dan Status</h3>
+
+            {{-- Nama Aplikasi --}}
+            <div class="mb-4">
+                <label class="block text-sm font-medium text-gray-700">Nama Aplikasi</label>
+                <input type="text" name="app_name"
+                    class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500"
+                    value="{{ $configs['app_name']->value ?? '' }}">
+            </div>
+
+            {{-- Deskripsi Aplikasi --}}
+            <div class="mb-4">
+                <label class="block text-sm font-medium text-gray-700">Deskripsi Aplikasi</label>
+                <textarea name="app_description"
+                    class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500">{{ $configs['app_description']->value ?? '' }}</textarea>
+            </div>
+
+            {{-- Status Aplikasi --}}
+            <div>
+                <label class="block text-sm font-medium text-gray-700">Status Aplikasi</label>
+                <select name="app_status"
+                    class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500">
+                    <option value="0" {{ ($configs['app_status']->value ?? '') == 0 ? 'selected' : '' }}>Maintenance -
+                        Akses Umum Ditutup</option>
+                    <option value="1" {{ ($configs['app_status']->value ?? '') == 1 ? 'selected' : '' }}>Open - Akses
+                        Umum Dibuka</option>
+                    <option value="2" {{ ($configs['app_status']->value ?? '') == 2 ? 'selected' : '' }}>Ditutup - Akses
+                        Dialihkan ke Laman Informasi</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="bg-white shadow-md rounded-lg p-6">
+            <h3 class="text-lg font-semibold mb-4">Pengaturan Header & Logo</h3>
+
+            {{-- URL Favicon --}}
+            <div class="mb-4">
+                <label class="block text-sm font-medium text-gray-700">URL Favicon</label>
+                <input type="text" name="app_favicon"
+                    class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500"
+                    value="{{ $configs['app_favicon']->value ?? '' }}">
+            </div>
+
+            {{-- Header Background --}}
+            <div class="mb-4">
+                <label class="block text-sm font-medium text-gray-700">URL Header Background</label>
+                <input type="text" name="header-background"
+                    class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500"
+                    value="{{ $configs['header-background']->value ?? '' }}">
+            </div>
+
+            {{-- Header Logo Kiri --}}
+            <div class="mb-4">
+                <label class="block text-sm font-medium text-gray-700">URL Header Logo Kiri</label>
+                <input type="text" name="header-logo-left"
+                    class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500"
+                    value="{{ $configs['header-logo-left']->value ?? '' }}">
+            </div>
+
+            {{-- Header Logo Kanan --}}
+            <div>
+                <label class="block text-sm font-medium text-gray-700">URL Header Logo Kanan</label>
+                <input type="text" name="header-logo-right"
+                    class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500"
+                    value="{{ $configs['header-logo-right']->value ?? '' }}">
+            </div>
+        </div>
+
+        <div class="bg-white shadow-md rounded-lg p-6">
+            <h3 class="text-lg font-semibold mb-4">Typewriter Landing Page & Tagline</h3>
+
+            {{-- Tagline --}}
+            <div class="mb-4">
+                <label class="block text-sm font-medium text-gray-700">Tagline</label>
+                <input type="text" name="tagline"
+                    class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500"
+                    value="{{ $configs['tagline']->value ?? '' }}">
+            </div>
+
+            {{-- Typewriter Text --}}
+            <div>
+                <label class="block text-sm font-medium text-gray-700">Typewriter</label>
+                <textarea name="typewriter"
+                    class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500">{{ $configs['typewriter']->value ?? '' }}</textarea>
+            </div>
+        </div>
+
+        <div class="bg-white shadow-md rounded-lg p-6">
+            <h3 class="text-lg font-semibold mb-4">Kontak Footer</h3>
+
+            {{-- Kontak Footer --}}
+            <div>
+                <label class="block text-sm font-medium text-gray-700">Kontak Footer</label>
+                <textarea name="footer-contact"
+                    class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500">{{ $configs['footer-contact']->value ?? '' }}</textarea>
+            </div>
+        </div>
+
+        <div class="bg-white shadow-md rounded-lg p-6">
+            <h3 class="text-lg font-semibold mb-4">Informasi Bank</h3>
+
+            {{-- Nama Bank --}}
+            <div class="mb-4">
+                <label class="block text-sm font-medium text-gray-700">Nama Bank</label>
+                <input type="text" name="nama-bank"
+                    class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500"
+                    value="{{ $configs['nama-bank']->value ?? '' }}">
+            </div>
+
+            {{-- Nomor Rekening --}}
+            <div class="mb-4">
+                <label class="block text-sm font-medium text-gray-700">Nomor Rekening</label>
+                <input type="text" name="nomor-rekening"
+                    class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500"
+                    value="{{ $configs['nomor-rekening']->value ?? '' }}">
+            </div>
+
+            {{-- Nama Pemilik Rekening --}}
+            <div class="mb-4">
+                <label class="block text-sm font-medium text-gray-700">Nama Pemilik Rekening</label>
+                <input type="text" name="nama-pemilik-rekening"
+                    class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500"
+                    value="{{ $configs['nama-pemilik-rekening']->value ?? '' }}">
+            </div>
+
+            {{-- URL Logo Bank --}}
+            <div>
+                <label class="block text-sm font-medium text-gray-700">URL Logo Bank</label>
+                <input type="text" name="logo-bank"
+                    class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500"
+                    value="{{ $configs['logo-bank']->value ?? '' }}">
+            </div>
+        </div>
+
+
+        {{-- Tombol Simpan --}}
+        <div class="mt-4">
+            <button type="submit" class="w-full bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700">
+                Simpan Pengaturan
+            </button>
+        </div>
+    </form>
+</div>
 @endsection

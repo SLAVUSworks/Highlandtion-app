@@ -22,8 +22,16 @@ class TemplateProvider extends ServiceProvider
      */
     public function boot(): void
     {
+        View::composer('layouts.app', function($view){
+            $configKeys = ['app_name', 'app_description', 'app_favicon','footer-contact','footer-mpk-smansa-osis','footer-sponsor','footer-ekskul'];
+            
+            $config = Config::whereIn('name', $configKeys)->pluck('value', 'name');
+
+            $view->with('config', $config);
+        });
+
         View::composer('front.layouts.app', function($view){
-            $configKeys = ['app_name', 'app_description', 'app_favicon', 'header-background','header-logo-left','header-logo-right','tagline','footer-contact','footer-mpk-smansa-osis','footer-sponsor','footer-ekskul'];
+            $configKeys = ['app_name', 'app_description', 'app_favicon','app_status', 'header-background','header-logo-left','header-logo-right','tagline','footer-contact','footer-mpk-smansa-osis','footer-sponsor','footer-ekskul'];
             
             $config = Config::whereIn('name', $configKeys)->pluck('value', 'name');
 
@@ -31,7 +39,7 @@ class TemplateProvider extends ServiceProvider
         });
 
         View::composer('front.menu.index', function($view){
-            $configKeys = ['app_name', 'app_description', 'app_favicon', 'header-background','header-logo-left','header-logo-right','typewriter','tagline','footer-contact','footer-mpk-smansa-osis','footer-sponsor','footer-ekskul'];
+            $configKeys = ['app_name', 'app_description','app_status','app_favicon', 'header-background','header-logo-left','header-logo-right','typewriter','tagline','footer-contact','footer-mpk-smansa-osis','footer-sponsor','footer-ekskul'];
             
             $config = Config::whereIn('name', $configKeys)->pluck('value', 'name');
 
@@ -72,6 +80,22 @@ class TemplateProvider extends ServiceProvider
         
         View::composer('front.registrasi.card', function($view){
             $configKeys = ['app_name','app_favicon'];
+            
+            $config = Config::whereIn('name', $configKeys)->pluck('value', 'name');
+
+            $view->with('config', $config);
+        });
+
+        View::composer('front.maintenance.index', function($view){
+            $configKeys = ['app_favicon', 'app_status'];
+            
+            $config = Config::whereIn('name', $configKeys)->pluck('value', 'name');
+
+            $view->with('config', $config);
+        });
+
+        View::composer('front.maintenance.regs-closed', function($view){
+            $configKeys = ['app_favicon', 'app_status'];
             
             $config = Config::whereIn('name', $configKeys)->pluck('value', 'name');
 

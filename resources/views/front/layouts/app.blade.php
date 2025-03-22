@@ -1,11 +1,22 @@
 <!DOCTYPE html>
+@if ($config['app_status'] == 0)
+    <script>
+        window.location.href = "{{ url('/maintenance') }}";
+    </script>
+@else
 <html lang="id">
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <script src="https://cdn.tailwindcss.com"></script>
+        {{-- CDN TAILWIND --}}
+        {{-- <script src="https://cdn.tailwindcss.com"></script> --}}
+
+        {{-- LOCAL TAILWIND --}}
+        @vite('resources/css/app.css')
+
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css">
         <link rel="icon" type="image/x-icon" href="{{ $config['app_favicon'] }}">
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
         <script src="https://unpkg.com/typewriter-effect@latest/dist/core.js"></script>
         <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
         <link rel="stylesheet" href="{{ asset('css/front.css') }}">
@@ -79,7 +90,7 @@
             </div>
 
             <div class="flex justify-end items-center mt-8">
-                <p class="text-sm text-right">HL-Web App n Booking System v1.0<br>
+                <p class="text-sm text-right">HL-Web App n Booking System v2.12<br>
                     <small class="text-base">Made & maintained by 
                         <a href="https://github.com/SLAVUSworks" target="_blank" rel="noopener noreferrer" class="text-blue-400">SLAVUSworks</a>
                     </small>
@@ -113,3 +124,4 @@
 </script>
 </body>
 </html>
+@endif

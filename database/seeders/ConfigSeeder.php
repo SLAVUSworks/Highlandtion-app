@@ -23,6 +23,10 @@ class ConfigSeeder extends Seeder
                 'value' => '“Highlandtion” adalah sebuah acara kompetisi yang diadakan oleh OSIS/MPK  SMAN 1 Bukittinggi. Kompetisi ini mencakup bidang akademik dan non-akademik sebagai penyaluran minat, bakat, dan potensi generasi muda khususnya pelajar.',
             ],
             [
+                'name' => 'app_status',
+                'value' => '1',
+            ],
+            [
                 'name' => 'app_favicon',
                 'value' => 'https://github.com/SLAVUSworks/HL-Web-ICON/blob/master/hl2.png?raw=true',
             ],

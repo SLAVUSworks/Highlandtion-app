@@ -49,6 +49,9 @@ Route::get('/contact', [ContactPageController::class, 'show'])->name('contact.sh
 
 Route::get('/registrasi/{id}/pdf', [BackRegistrasiController::class, 'generatePdf'])->name('registrasis.pdf');
 
+Route::get('/maintenance', function () {return view('front.maintenance.index');})->name('maintenance');
+Route::get('/closed', function () {return view('front.maintenance.regs-closed');})->name('regs-closed');
+
 Route::middleware('auth')->group(function () {
     Route::get('/admin', function () {
         if (Auth::check()) {
@@ -69,7 +72,8 @@ Route::middleware('auth')->group(function () {
         Route::resource('users', UserController::class);
         Route::get('/profile', [UserController::class, 'show']);
 
-        Route::resource('/config', ConfigController::class)->only(['index', 'update'])->middleware('role:1');
+        Route::resource('/config', ConfigController::class)->only(['index'])->middleware('role:1');
+        Route::post('/config/update', [ConfigController::class, 'update'])->name('config.update');        
 
         Route::get('registrasis', [BackRegistrasiController::class, 'index'])->name('registrasis.index');
         Route::get('registrasis/{registrasi}/edit', [BackRegistrasiController::class, 'edit'])->name('registrasis.edit');

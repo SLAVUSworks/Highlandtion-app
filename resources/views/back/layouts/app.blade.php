@@ -7,6 +7,8 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>@yield('title', 'Admin Panel')</title>
     <script src="https://cdn.tailwindcss.com"></script>
+
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css"
         integrity="sha512-5Hs3dF2AEPkpNAR7UiOHba+lRSJNeM2ECkwxUIxC1Q/FLycGTbNapWXB4tP889k5T5Ju8fs4b1P5z/iB4nMfSQ=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
@@ -74,47 +76,52 @@
             <div class="h-full px-3 pb-4 overflow-y-auto">
                 <ul class="space-y-1">
                     <li>
-                        <a href="{{ route('back.dashboard.index') }}"
-                            class="grid grid-cols-[24px,1fr] items-center gap-3 p-2 text-gray-200 hover:bg-gray-700 rounded-lg {{ request()->routeIs('back.dashboard.index') ? 'bg-gray-700' : '' }}">
-                            <i class="fa-solid fa-desktop text-gray-400"></i>
-                            <span>Dashboard</span>
+                        <a href="{{ route('back.dashboard.index') }}" class="flex items-center gap-3 p-2 text-gray-200 hover:bg-gray-700 rounded-lg w-full text-left 
+                               {{ request()->routeIs('back.dashboard.index') ? 'bg-gray-700' : '' }}">
+                            <i class="fa-solid fa-desktop text-gray-400 w-[24px] text-center shrink-0"></i>
+                            <span class="truncate">Dashboard</span>
                         </a>
+
                     </li>
                     <li>
                         <button
-                            class="submenu-button grid grid-cols-[24px,1fr] items-center gap-3 p-2 text-gray-200 hover:bg-gray-700 rounded-lg w-full text-left">
-                            <i class="fa-solid fa-bars text-gray-400"></i>
-                            <span>Umum</span>
+                            class="submenu-button flex items-center gap-3 p-2 text-gray-200 hover:bg-gray-700 rounded-lg w-full text-left">
+                            <i class="fa-solid fa-bars text-gray-400 w-[24px] text-center shrink-0"></i>
+                            <span class="truncate">Umum</span>
                         </button>
+
                         <ul class="submenu space-y-1 ml-6">
                             <li>
                                 <button
-                                    class="submenu-button grid grid-cols-[24px,1fr] items-center gap-3 p-2 text-gray-200 hover:bg-gray-700 rounded-lg w-full text-left">
-                                    <i class="fa-solid fa-calendar-days text-gray-400"></i>
-                                    <span>Menu Event</span>
+                                    class="submenu-button flex items-center gap-3 p-2 text-gray-200 hover:bg-gray-700 rounded-lg w-full text-left">
+                                    <i
+                                        class="fa-solid fa-calendar-days text-gray-400 w-[24px] text-center shrink-0"></i>
+                                    <span class="truncate">Menu Event</span>
                                 </button>
+
                                 <ul
                                     class="submenu space-y-1 ml-6 {{ request()->routeIs('back.menu*') ? '' : 'hidden' }}">
-                                    <li>
-                                        <a href="{{ route('back.menu.index') }}"
-                                            class="block p-1 text-gray-200 hover:bg-gray-700 rounded-lg {{ request()->routeIs('back.menu.index') ? 'bg-gray-700' : '' }}">
-                                            Daftar Event
-                                        </a>
-                                    </li>
                                     <li>
                                         <a href="{{ route('back.menu-category.index') }}"
                                             class="block p-1 text-gray-200 hover:bg-gray-700 rounded-lg {{ request()->routeIs('back.menu-category.index') ? 'bg-gray-700' : '' }}">
                                             Daftar Kategori
                                         </a>
                                     </li>
+                                    <li>
+                                        <a href="{{ route('back.menu.index') }}"
+                                            class="block p-1 text-gray-200 hover:bg-gray-700 rounded-lg {{ request()->routeIs('back.menu.index') ? 'bg-gray-700' : '' }}">
+                                            Daftar Event
+                                        </a>
+                                    </li>
                                 </ul>
                             </li>
                             <li>
                                 <button
-                                    class="submenu-button grid grid-cols-[24px,1fr] items-center gap-3 p-2 text-gray-200 hover:bg-gray-700 rounded-lg w-full text-left">
-                                    <i class="fa-solid fa-door-open text-gray-400"></i>
-                                    <span>Ruangan</span>
+                                    class="submenu-button flex items-center gap-3 p-2 text-gray-200 hover:bg-gray-700 rounded-lg w-full text-left">
+                                    <i class="fa-solid fa-door-open text-gray-400 w-[24px] text-center shrink-0"></i>
+                                    <span class="truncate">Ruangan</span>
                                 </button>
+
                                 <ul
                                     class="submenu space-y-1 ml-6 {{ request()->routeIs('back.ruangan.*') ? '' : 'hidden' }}">
                                     <li>
@@ -133,10 +140,11 @@
                             </li>
                             <li>
                                 <button
-                                    class="submenu-button grid grid-cols-[24px,1fr] items-center gap-3 p-2 text-gray-200 hover:bg-gray-700 rounded-lg w-full text-left">
-                                    <i class="fa-solid fa-person text-gray-400"></i>
-                                    <span>Registrasi</span>
+                                    class="submenu-button flex items-center gap-3 p-2 text-gray-200 hover:bg-gray-700 rounded-lg w-full text-left">
+                                    <i class="fa-solid fa-person text-gray-400 w-[24px] text-center shrink-0"></i>
+                                    <span class="truncate">Registrasi</span>
                                 </button>
+
                                 <ul
                                     class="submenu space-y-1 ml-6 {{ request()->routeIs('back.registrasis.*') ? '' : 'hidden' }}">
                                     <li>
@@ -154,60 +162,62 @@
                                 </ul>
                             </li>
                             <li>
-                                <a href="{{ route('back.articles.index') }}"
-                                    class="grid grid-cols-[24px,1fr] items-center gap-3 p-2 text-gray-200 hover:bg-gray-700 rounded-lg {{ request()->routeIs('back.articles.index') ? 'bg-gray-700' : '' }}">
-                                    <i class="fa-solid fa-file text-gray-400"></i>
-                                    <span>Informasi</span>
+                                <a href="{{ route('back.articles.index') }}" class="flex items-center gap-3 p-2 text-gray-200 hover:bg-gray-700 rounded-lg w-full text-left 
+                                           {{ request()->routeIs('back.articles.index') ? 'bg-gray-700' : '' }}">
+                                    <i class="fa-solid fa-file text-gray-400 w-[24px] text-center shrink-0"></i>
+                                    <span class="truncate">Informasi</span>
                                 </a>
                             </li>
                             <li>
-                                <a href="{{ route('back.contact.index') }}"
-                                    class="grid grid-cols-[24px,1fr] items-center gap-3 p-2 text-gray-200 hover:bg-gray-700 rounded-lg {{ request()->routeIs('back.contact.index') ? 'bg-gray-700' : '' }}">
-                                    <i class="fa-solid fa-phone text-gray-400"></i>
-                                    <span>Kontak</span>
+                                <a href="{{ route('back.contact.index') }}" class="flex items-center gap-3 p-2 text-gray-200 hover:bg-gray-700 rounded-lg w-full text-left 
+                                           {{ request()->routeIs('back.contact.index') ? 'bg-gray-700' : '' }}">
+                                    <i class="fa-solid fa-phone text-gray-400 w-[24px] text-center shrink-0"></i>
+                                    <span class="truncate">Kontak</span>
                                 </a>
                             </li>
                         </ul>
                     </li>
                     <li>
                         <button
-                            class="submenu-button grid grid-cols-[24px,1fr] items-center gap-3 p-2 text-gray-200 hover:bg-gray-700 rounded-lg w-full text-left">
-                            <i class="fa-solid fa-gear text-gray-400"></i>
-                            <span>Teknis</span>
+                            class="submenu-button flex items-center gap-3 p-2 text-gray-200 hover:bg-gray-700 rounded-lg w-full text-left">
+                            <i class="fa-solid fa-gear text-gray-400 w-[24px] text-center shrink-0"></i>
+                            <span class="truncate">Teknis</span>
                         </button>
                         <ul class="submenu space-y-1 ml-6">
                             <li>
                                 <a href="{{ route('back.users.index') }}"
-                                    class="grid grid-cols-[24px,1fr] items-center gap-3 p-2 text-gray-200 hover:bg-gray-700 rounded-lg {{ request()->routeIs('back.users.index') ? 'bg-gray-700' : '' }}">
-                                    <i class="fa-solid fa-users text-gray-400"></i>
-                                    <span>
+                                    class="flex items-center gap-3 p-2 text-gray-200 hover:bg-gray-700 rounded-lg w-full text-left 
+                                           {{ request()->routeIs('back.users.index') ? 'bg-gray-700' : '' }}">
+                                    <i class="fa-solid fa-users text-gray-400 w-[24px] text-center shrink-0"></i>
+                                    <span class="truncate">
                                         @if(auth()->user()->role != 1)
-                                        Profil
+                                            Profil
                                         @else
-                                        Daftar Admin
+                                            Daftar Admin
                                         @endif
                                     </span>
                                 </a>
-                            </li>
+                            </li>                            
                             <li>
                                 <a href="{{ url('laravel-filemanager') }}"
-                                    class="grid grid-cols-[24px,1fr] items-center gap-3 p-2 text-gray-200 hover:bg-gray-700 rounded-lg" target="_blank">
-                                    <i class="fa-solid fa-folder text-gray-400"></i>
-                                    <span>Files</span>
+                                    class="flex items-center gap-3 p-2 text-gray-200 hover:bg-gray-700 rounded-lg w-full text-left"
+                                    target="_blank">
+                                    <i class="fa-solid fa-folder text-gray-400 w-[24px] text-center shrink-0"></i>
+                                    <span class="truncate">Files</span>
                                 </a>
                             </li>
                             <li>
-                                <a href="{{ route('back.config.index') }}"
-                                    class="grid grid-cols-[24px,1fr] items-center gap-3 p-2 text-gray-200 hover:bg-gray-700 rounded-lg {{ request()->routeIs('back.config.index') ? 'bg-gray-700' : '' }}">
-                                    <i class="fa-solid fa-list text-gray-400"></i>
-                                    <span>Konfigurasi</span>
+                                <a href="{{ route('back.config.index') }}" class="flex items-center gap-3 p-2 text-gray-200 hover:bg-gray-700 rounded-lg w-full text-left 
+                                           {{ request()->routeIs('back.config.index') ? 'bg-gray-700' : '' }}">
+                                    <i class="fa-solid fa-list text-gray-400 w-[24px] text-center shrink-0"></i>
+                                    <span class="truncate">Konfigurasi</span>
                                 </a>
                             </li>
                             <li>
-                                <a href="{{ route('back.export.index') }}"
-                                    class="grid grid-cols-[24px,1fr] items-center gap-3 p-2 text-gray-200 hover:bg-gray-700 rounded-lg {{ request()->routeIs('back.export.index') ? 'bg-gray-700' : '' }}">
-                                    <i class="fa-solid fa-file-export text-gray-400"></i>
-                                    <span>Rekap Data</span>
+                                <a href="{{ route('back.export.index') }}" class="flex items-center gap-3 p-2 text-gray-200 hover:bg-gray-700 rounded-lg w-full text-left 
+                                           {{ request()->routeIs('back.export.index') ? 'bg-gray-700' : '' }}">
+                                    <i class="fa-solid fa-file-export text-gray-400 w-[24px] text-center shrink-0"></i>
+                                    <span class="truncate">Rekap Data</span>
                                 </a>
                             </li>
                     </li>
@@ -217,7 +227,7 @@
             <div class="absolute bottom-0 left-0 mb-2 ml-2 mr-6 flex items-center">
                 <img src="https://github.com/SLAVUSworks/HL-Web-ICON/blob/master/slavusworks.png?raw=true"
                     alt="SLAVUSworks" class="w-12 h-12 ml-2">
-                <p class="text-xs text-right">HL-Web App v1.0 Made and Maintained by <a
+                <p class="text-xs text-right">HL-Web App v2.12 Made and Maintained by <a
                         href="https://github.com/SLAVUSworks" target="_blank" rel="noopener noreferrer"
                         class="text-blue-400">SLAVUSworks</a></p>
             </div>
@@ -248,9 +258,11 @@
         window.appRoutes = {
             fetchNotifications: "{{ route('back.registrasi.get') }}?status=pending"
         };
+
     </script>
     <script src="{{ asset('js/admin.js') }}"></script>
-    
+
     @yield('scripts')
 </body>
+
 </html>
