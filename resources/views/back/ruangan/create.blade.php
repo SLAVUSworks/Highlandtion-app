@@ -22,7 +22,7 @@
             <select id="menu_id" name="menu_id" 
                     class="block w-full border rounded py-2 px-3 focus:outline-none focus:ring focus:ring-blue-500" required>
                 @foreach($menus as $menu)
-                <option value="{{ $menu->id }}">{{ $menu->mata_pelajaran }} - {{ $menu->tingkat }}</option>
+                <option value="{{ $menu->id }}">{{ $menu->menuCategory->name }} - {{ $menu->mata_pelajaran }} - {{ $menu->tingkat }}</option>
                 @endforeach
             </select>
         </div>

@@ -8,7 +8,7 @@
     <form action="{{ route('back.menu.store') }}" method="POST" enctype="multipart/form-data">
         @csrf
         <div class="mb-4">
-            <label for="mata_pelajaran" class="block text-gray-700">Mata Pelajaran</label>
+            <label for="mata_pelajaran" class="block text-gray-700">Bidang/Mata Pelajaran</label>
             <input type="text" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm p-2" name="mata_pelajaran" id="mata_pelajaran" required>
         </div>
         <div class="mb-4">
@@ -22,7 +22,7 @@
         </div>
         <div class="mb-4">
             <label for="deskripsi" class="block text-gray-700">Deskripsi</label>
-            <input type="text" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm p-2" name="deskripsi" id="deskripsi" required>
+            <textarea type="text" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm p-2" name="deskripsi" id="deskripsi" required></textarea>
         </div>
         <div class="mb-4">
             <label for="short_code_1" class="block text-gray-700">Kode Singkat</label>
@@ -49,9 +49,28 @@
         <div class="mb-4">
             <label for="harga" class="block text-gray-700">Harga</label>
             <div class="relative">
-            <span class="absolute inset-y-0 left-0 pl-3 flex items-center text-gray-500">Rp</span>
-            <input type="number" class="mt-1 block w-full pl-10 border-gray-300 rounded-md shadow-sm p-2" name="harga" id="harga" required>
+                <span class="absolute inset-y-0 left-0 pl-3 flex items-center text-gray-500">Rp</span>
+                <input type="text" class="mt-1 block w-full pl-10 border-gray-300 rounded-md shadow-sm p-2" id="harga" required>
+                <input type="hidden" name="harga" id="hargaHidden">
             </div>
+            
+            <script>
+                document.addEventListener("DOMContentLoaded", function () {
+                    const priceInput = document.getElementById("harga");
+                    const hiddenInput = document.getElementById("hargaHidden");
+            
+                    priceInput.addEventListener("input", function () {
+                        let value = priceInput.value.replace(/\D/g, "");
+                        let formattedValue = new Intl.NumberFormat("id-ID").format(value);
+                        priceInput.value = formattedValue;
+                    });
+            
+                    priceInput.addEventListener("blur", function () {
+                        let cleanValue = priceInput.value.replace(/\D/g, "");
+                        hiddenInput.value = cleanValue;
+                    });
+                });
+            </script>            
         </div>
         <div class="mb-4">
             <label for="kuota" class="block text-gray-700">Kuota</label>

@@ -20,7 +20,7 @@ class RegistrasiController extends Controller
 {
     public function index()
     {
-        $registrasis = Registrasi::with(['menu', 'ruangan'])->get();
+        $registrasis = Registrasi::with(['menu', 'ruangan'])->paginate(100);
         $menus = Menu::all();
     
         return view('back.registrasi.index', compact('registrasis', 'menus'));
@@ -47,10 +47,31 @@ class RegistrasiController extends Controller
         if ($menuId) {
             $query->where('menu_id', $menuId);
         }
-        
-        $registrasis = $query->get();
     
-        return response()->json($registrasis);
+        $registrasis = $query->paginate(100); 
+    
+        $totalPendaftar = Registrasi::count();
+        $totalApproved = Registrasi::where('status', 'approved')->count();
+        $totalPending = Registrasi::where('status', 'pending')->count();
+        $totalRejected = Registrasi::where('status', 'rejected')->count();
+    
+        return response()->json([
+            'data' => $registrasis->items(),
+            'pagination' => [
+                'current_page' => $registrasis->currentPage(),
+                'last_page' => $registrasis->lastPage(),
+                'per_page' => $registrasis->perPage(),
+                'total' => $registrasis->total(),
+                'prev_page_url' => $registrasis->previousPageUrl(),
+                'next_page_url' => $registrasis->nextPageUrl(),
+            ],
+            'counts' => [
+                'pendaftar' => $totalPendaftar,
+                'approved' => $totalApproved,
+                'pending' => $totalPending,
+                'rejected' => $totalRejected,
+            ]
+        ]);
     }
     
     public function getPendingRegistrations()

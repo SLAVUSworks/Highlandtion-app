@@ -41,6 +41,7 @@
                     <th class="px-4 py-2 text-left">Thumbnail</th>
                     <th class="px-4 py-2 text-left">Mata Pelajaran</th>
                     <th class="px-4 py-2 text-left">Tingkat</th>
+                    <th class="px-4 py-2 text-left">Kategori</th>
                     <th class="px-4 py-2 text-left">Harga</th>
                     <th class="px-4 py-2 text-left">Status</th>
                     <th class="px-4 py-2 text-center">Aksi</th>
@@ -58,6 +59,7 @@
                     </td>
                     <td class="px-4 py-2">{{ $menu->mata_pelajaran }}</td>
                     <td class="px-4 py-2">{{ $menu->tingkat }}</td>
+                    <td class="px-4 py-2">{{ $menu->menuCategory->name }}</td>
                     <td class="px-4 py-2">Rp.{{ number_format($menu->harga, 0, ',', '.') }}</td>
                     <td class="px-4 py-2">
                         <span class="px-2 py-1 text-white text-sm font-semibold rounded 

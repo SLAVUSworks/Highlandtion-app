@@ -22,7 +22,7 @@
                 <td class="px-4 py-2">{{ $loop->iteration }}</td>
                 <td class="px-4 py-2">{{ $ruangan->nama_ruangan }}</td>
                 <td class="px-4 py-2">{{ $ruangan->kuota }}</td>
-                <td class="px-4 py-2">{{ $ruangan->menu->mata_pelajaran }} - {{ $ruangan->menu->tingkat }}</td>
+                <td class="px-4 py-2">{{ $ruangan->menu->menuCategory->name }} - {{ $ruangan->menu->mata_pelajaran }} - {{ $ruangan->menu->tingkat }}</td>
                 <td class="px-4 py-2 text-center">
                     <div class="flex justify-center space-x-2">
                     <a href="{{ route('back.ruangan.edit', $ruangan) }}" class="bg-yellow-500 text-white px-3 py-1 rounded-lg hover:bg-yellow-600 transition">Edit</a>
@@ -52,3 +52,5 @@
 </script>
 @endif
 @endsection
+
+

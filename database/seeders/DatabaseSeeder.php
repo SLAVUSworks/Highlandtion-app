@@ -7,7 +7,7 @@ use Illuminate\Database\Seeder;
 use Database\Seeders\UserSeeder;
 use Database\Seeders\ConfigSeeder;
 use Database\Seeders\ContactPageSeeder;
-
+use Database\Seeders\RegistrasiSeeder;
 class DatabaseSeeder extends Seeder
 {
     /**
@@ -20,6 +20,7 @@ class DatabaseSeeder extends Seeder
         $this->call(UserSeeder::class);
         $this->call(ConfigSeeder::class);
         $this->call(ContactPageSeeder::class);
+        $this->call(RegistrasiSeeder::class);
         
     }
 }

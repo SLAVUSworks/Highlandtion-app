@@ -149,7 +149,7 @@
                 Kirim ke WhatsApp
             </a>
             <a target="_blank"
-                href="https://wa.me/{{ preg_replace('/^0/', '62', '62' . ltrim($registrasi->nomor_hp, '0')) }}?text=Halo%2C%0A%0APendaftaran%20anda%20sudah%20diverifikasi%20oleh%20sektretariat%20Highlandtion%202.1%0A%0AAtas%20nama%20{{ $registrasi->nama }}%0AAsal%20sekolah%20{{ $registrasi->asal_sekolah }}%0ATerdaftar%20pada%20{{ $registrasi->menu->mata_pelajaran }}%0ANomor%20Registrasi%20{{ $registrasi->registration_code }}%0A%0AKartu%20dapat%20di%20unduh%20melalui%20{{ route('registrasis.pdf', $registrasi->id) }}%0A%0AKami%20tunggu%20kehadiran%20mu%20~"
+                href="https://wa.me/{{ preg_replace('/^0/', '62', '62' . ltrim($registrasi->nomor_hp, '0')) }}?text=Halo%2C%0A%0APendaftaran%20Anda%20Telah%20Diverifikasi%20oleh%20Sektretariat%20{{ $config['app_name'] }}%0A%0AAtas%20nama%20{{ $registrasi->nama }}%0AAsal%20sekolah%20{{ $registrasi->asal_sekolah }}%0ATerdaftar%20pada%20{{ $registrasi->menu->mata_pelajaran }}%0ANomor%20Registrasi%20{{ $registrasi->registration_code }}%0A%0AKartu%20dapat%20di%20unduh%20melalui%20{{ route('registrasis.pdf', $registrasi->id) }}%0A%0AKami%20tunggu%20kehadiran%20mu%20~"
                 class="text-center px-4 py-2 bg-green-500 text-white rounded-md hover:bg-green-600 transition">
                 Kirim Manual ke WhatsApp
             </a>

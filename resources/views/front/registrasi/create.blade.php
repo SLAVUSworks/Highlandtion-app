@@ -22,7 +22,7 @@
             </ul>                      
             <div>
                 <div>
-                    <label for="nama" class="block text-sm font-medium text-gray-700 text-left">Nama Lengkap</label>
+                    <label for="nama" class="block text-sm font-medium text-gray-700 text-left mb-2">Nama Lengkap</label>
                     <input type="text" id="nama" name="nama" required 
                            class="mt-1 block w-full border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500 p-2 text-lg"
                            placeholder="ex*: Slava Slavus">
@@ -42,21 +42,21 @@
                        
 
             <div>
-                <label for="asal_sekolah" class="block text-sm font-medium text-gray-700 text-left">Asal Sekolah</label>
+                <label for="asal_sekolah" class="block text-sm font-medium text-gray-700 text-left mt-2 mb-2">Asal Sekolah</label>
                 <input type="text" id="asal_sekolah" name="asal_sekolah" required 
                        class="mt-1 block w-full border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500 p-2 text-lg"
                        placeholder="ex*: SMAN 1 BUKITTINGGI">
             </div>
 
             <div>
-                <label for="email" class="block text-sm font-medium text-gray-700 text-left">Email</label>
+                <label for="email" class="block text-sm font-medium text-gray-700 text-left mt-2 mb-2">Email</label>
                 <input type="email" id="email" name="email" required 
                        class="mt-1 block w-full border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500 p-2 text-lg"
                        placeholder="ex*: slavaslavus@email.com">
             </div>
 
             <div>
-                <label for="nomor_hp" class="block text-sm font-medium text-gray-700 text-left">Nomor WhatsApp</label>
+                <label for="nomor_hp" class="block text-sm font-medium text-gray-700 text-left mt-2 mb-2">Nomor WhatsApp</label>
                 <div class="flex">
                     <span class="inline-flex items-center px-3 rounded-l-md border border-r-0 border-gray-300 bg-gray-50 text-gray-500 text-lg">+62</span>
                     <input type="text" id="nomor_hp" name="nomor_hp" required class="mt-1 block w-full border-gray-300 rounded-r-lg shadow-sm focus:ring-blue-500 focus:border-blue-500 p-2 text-lg"
@@ -109,19 +109,53 @@
                 <script src="{{ asset('js/registrasi.js') }}"></script>
                 
                 </div>
-                <label for="bukti_transfer" class="block text-sm font-medium text-gray-700 text-left mt-3">Bukti Transfer - <i>Max 2MB</i></label>
-                <input type="file" id="bukti_transfer" name="bukti_transfer" required 
-                       class="mt-1 block w-full border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500 text-lg"
-                       accept="image/*" onchange="validateFileSize(this)">
+                <label for="bukti_transfer" class="block text-sm font-medium text-gray-700 text-left mt-3">
+                    Bukti Transfer - <i>Max 2MB</i>
+                </label>
+                
+                <div class="relative mt-1 flex items-center">  
+                    <label for="bukti_transfer" class="cursor-pointer bg-blue-500 text-white px-4 py-2 rounded-lg shadow-sm 
+                                                      hover:bg-blue-600 transition duration-200">
+                        Pilih File
+                    </label>
+                
+                    <span id="file-name" class="ml-3 text-gray-600">Tidak ada file dipilih</span>
+                
+                    <input type="file" id="bukti_transfer" name="bukti_transfer" required accept="image/*" 
+                           class="hidden" onchange="updateFileName(this); validateFileSize(this); previewImage(this);">
+                </div>
+                
+                <img id="preview" class="mt-3 hidden w-32 h-32 object-cover rounded-lg border border-gray-300" />
+                
                 <script>
+                    function updateFileName(input) {
+                        const fileName = input.files.length > 0 ? input.files[0].name : "Tidak ada file dipilih";
+                        document.getElementById("file-name").textContent = fileName;
+                    }
+                
                     function validateFileSize(input) {
                         const file = input.files[0];
-                        if (file.size > 2 * 1024 * 1024) {
+                        if (file && file.size > 2 * 1024 * 1024) {
                             alert('Ukuran File Harus Kecil dari 2MB');
                             input.value = '';
+                            document.getElementById("file-name").textContent = "Tidak ada file dipilih";
+                            document.getElementById("preview").classList.add("hidden");
                         }
                     }
-                </script>
+                
+                    function previewImage(input) {
+                        const file = input.files[0];
+                        if (file) {
+                            const reader = new FileReader();
+                            reader.onload = function (e) {
+                                const preview = document.getElementById("preview");
+                                preview.src = e.target.result;
+                                preview.classList.remove("hidden");
+                            };
+                            reader.readAsDataURL(file);
+                        }
+                    }
+                </script>                                            
             </div>
             <button type="submit" class="w-full bg-blue-500 text-white text-sm font-medium px-6 py-3 rounded-lg hover:bg-blue-600 transition duration-200">Kirim Pendaftaran</button>
             <script src="{{ asset('js/registrasi.js') }}"></script>

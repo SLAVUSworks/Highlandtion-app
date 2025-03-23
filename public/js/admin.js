@@ -63,14 +63,21 @@ document.addEventListener("DOMContentLoaded", function () {
                 if (data.length > 0) {
                     notifCount.textContent = data.length;
                     notifCount.classList.remove("hidden");
+    
                     notifContent.innerHTML = `<div class="p-2 font-bold text-lg text-gray-700 border-b">Pendaftar Baru</div>`;
+    
+                    const displayedNotifications = data.slice(0, 10);
                     
-                    data.forEach(reg => {
+                    displayedNotifications.forEach(reg => {
                         notifContent.innerHTML += `<div class="p-2 border-b">
                             <p class="text-sm font-bold">${truncateText(reg.nama, 25)}</p>
                             <p class="text-xs text-gray-500">${truncateText(reg.asal_sekolah, 25)}</p>
                         </div>`;
                     });
+    
+                    if (data.length > 10) {
+                        notifContent.innerHTML += `<div class="p-2 text-center text-gray-500">+${data.length - 10} Notifikasi</div>`;
+                    }
                 } else {
                     notifCount.classList.add("hidden");
                     notifContent.innerHTML = `<p class="text-gray-500 text-center p-2">Tidak ada notifikasi</p>`;
@@ -82,8 +89,9 @@ document.addEventListener("DOMContentLoaded", function () {
     function truncateText(text, maxLength) {
         return text.length > maxLength ? text.substring(0, maxLength) + "..." : text;
     }
+    
     setInterval(fetchNotifications, 10000);
-    fetchNotifications();
+    fetchNotifications();    
 
     // User Menu
     const userMenuButton = document.getElementById("user-menu-button");
