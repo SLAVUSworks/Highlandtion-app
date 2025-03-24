@@ -16,31 +16,31 @@ class ConfigSeeder extends Seeder
         Config::insert([
             [
                 'name' => 'app_name',
-                'value' => 'Highlandtion',
+                'value' => 'SLAVUSworks',
             ],
             [
                 'name' => 'app_description',
-                'value' => '“Highlandtion” adalah sebuah acara kompetisi yang diadakan oleh OSIS/MPK  SMAN 1 Bukittinggi. Kompetisi ini mencakup bidang akademik dan non-akademik sebagai penyaluran minat, bakat, dan potensi generasi muda khususnya pelajar.',
+                'value' => 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, voluptates.',
             ],
             [
                 'name' => 'app_status',
-                'value' => '1',
+                'value' => '0',
             ],
             [
                 'name' => 'app_favicon',
-                'value' => 'https://github.com/SLAVUSworks/HL-Web-ICON/blob/master/hl2.png?raw=true',
+                'value' => 'https://inilink.localhost/gambar.png',
             ],
             [
                 'name' => 'header-background',
-                'value' => 'https://safebooru.org//images/3092/e4da0905431f44463d193968b91d949ebe41a9cf.jpg',
+                'value' => 'https://inilink.localhost/gambar.png',
             ],
             [
                 'name' => 'header-logo-left',
-                'value' => 'https://github.com/SLAVUSworks/HL-Web-ICON/blob/master/hl2.png?raw=true',
+                'value' => 'https://inilink.localhost/gambar.png',
             ],
             [
                 'name' => 'header-logo-right',
-                'value' => 'https://github.com/SLAVUSworks/HL-Web-ICON/blob/master/smansa.png?raw=true',
+                'value' => 'https://inilink.localhost/gambar.png',
             ],
             [
                 'name' => 'tagline',
@@ -56,16 +56,17 @@ class ConfigSeeder extends Seeder
                         loop: true
                     });
 
-                    typewriter.typeString('Highlandtion <u style="text-decoration: red underline;">2.1</u>')
+                    typewriter
+                        .typeString('SLAVUSworks')
                         .pauseFor(2500)
                         .deleteAll()
-                        .typeString('<strong>High</strong>')
+                        .typeString('<strong>SLAVUS</strong>')
                         .pauseFor(1000)
                         .deleteAll()
-                        .typeString('<strong>Landbouw</strong>')
+                        .typeString('<strong>works</strong>')
                         .pauseFor(1000)
                         .deleteAll()
-                        .typeString('<strong>Competition</strong>')
+                        .typeString('<strong>Test 1234</strong>')
                         .pauseFor(1000)
                         .start();
                 </script>
@@ -89,7 +90,7 @@ class ConfigSeeder extends Seeder
             ],
             [
                 'name' => 'logo-bank',
-                'value' => 'default.png',
+                'value' => 'https://inilink.localhost/gambar.png',
             ],
         ]);
     }
