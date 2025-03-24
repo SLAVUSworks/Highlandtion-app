@@ -30,6 +30,10 @@ use App\Http\Controllers\Front\RegistrasiController;
 |
 */
 
+Route::get('.env', function () {
+    return redirect('https://youtu.be/dQw4w9WgXcQ?si=UggPYhVqC1PPvszv');
+});
+
 Route::get('/', [FrontMenuController::class, 'index'])->name('menu.index');
 
 Route::get('/menu/{menu}', [FrontMenuController::class, 'show'])->name('menu.show');

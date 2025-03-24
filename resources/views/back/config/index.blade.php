@@ -103,8 +103,8 @@
 
             {{-- Typewriter Text --}}
             <div>
-                <label class="block text-sm font-medium text-gray-700">Typewriter</label>
-                <textarea name="typewriter"
+                <label class="block text-sm font-medium text-gray-700">Typewriter - Efek Typewriter di Laman Utama, <a href="https://www.npmjs.com/package/typewriter-effect#examples" target="_blank" rel="noopener noreferrer" class="text-blue-600">Cara Kustomisasinya</a></label>
+                <textarea cols="20" rows="20" name="typewriter"
                     class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500">{{ $configs['typewriter']->value ?? '' }}</textarea>
             </div>
         </div>
@@ -114,8 +114,8 @@
 
             {{-- Kontak Footer --}}
             <div>
-                <label class="block text-sm font-medium text-gray-700">Kontak Footer</label>
-                <textarea name="footer-contact"
+                <label class="block text-sm font-medium text-gray-700">Kontak Footer - Dapat Menggunakan <a href="https://www.w3schools.com/HTML/html_lists.asp" target="_blank" rel="noopener noreferrer" class="text-blue-600">Tag List HTML</a></label>
+                <textarea cols="10" rows="10" name="footer-contact"
                     class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500">{{ $configs['footer-contact']->value ?? '' }}</textarea>
             </div>
         </div>

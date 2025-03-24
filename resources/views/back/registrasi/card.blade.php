@@ -144,6 +144,11 @@
         </div>
     
         <div class="flex flex-col gap-3">
+            <a href="#" data-id="{{ $registrasi->id }}" data-nomor_hp="{{ $registrasi->nomor_hp }}" 
+                data-email="{{ $registrasi->email }}" data-bukti="{{ asset('storage/' . $registrasi->bukti_transfer) }}"
+                class="detail-btn text-center px-4 py-2 bg-purple-500 text-white rounded-md hover:bg-purple-600 transition">
+                Detail
+            </a>            
             <a href="{{ route('back.registrasis.kirimPesan', $registrasi->id) }}"
                 class="text-center px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 transition">
                 Kirim ke WhatsApp
@@ -164,5 +169,41 @@
         </div>
     </div>      
 </div>
-<script src="https://cdn.tailwindcss.com"></script>
+<div id="detailModal" class="fixed inset-0 bg-gray-800 bg-opacity-50 hidden flex justify-center items-center">
+    <div class="bg-white p-6 rounded-lg shadow-lg w-200 max-h-[80vh] overflow-y-auto relative">
+        <h2 class="text-xl font-bold mb-4">Detail Registrasi</h2>
+        <p><strong>Nomor HP:</strong> <span id="modalNomorHp"></span></p>
+        <p><strong>Email:</strong> <span id="modalEmail"></span></p>
+        <p><strong>Bukti Transfer:</strong></p>
+        <img id="modalBukti" class="w-full mt-2 rounded-lg shadow" src="" alt="Bukti Transfer">
+        <button id="closeModal" class="mt-4 bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600 transition w-full">
+            Tutup
+        </button>
+    </div>
+</div>
+<script>
+    $(document).ready(function () {
+        $(".detail-btn").click(function () {
+            let nomorHp = $(this).data("nomor_hp");
+            let email = $(this).data("email");
+            let bukti = $(this).data("bukti");
+
+            $("#modalNomorHp").text(nomorHp);
+            $("#modalEmail").text(email);
+            $("#modalBukti").attr("src", bukti);
+
+            $("#detailModal").removeClass("hidden");
+        });
+
+        $("#closeModal").click(function () {
+            $("#detailModal").addClass("hidden");
+        });
+
+        $("#detailModal").click(function (e) {
+            if ($(e.target).is("#detailModal")) {
+                $(this).addClass("hidden");
+            }
+        });
+    });
+</script>
 @endsection
