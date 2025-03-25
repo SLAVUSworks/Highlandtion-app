@@ -76,7 +76,7 @@
                 </div>
                 <div>
                     <h3 class="text-2xl font-semibold">Kontak</h3>
-                    <p class="text-xl">{{ $config['footer-contact'] }}</p>
+                    <p class="text-xl">{!! $config['footer-contact'] !!}</p>
                 </div>
             </div>
 

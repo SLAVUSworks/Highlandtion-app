@@ -16,9 +16,10 @@
                     </div>
                     <h1 class="text-2xl font-bold text-gray-900 dark:text-dark mb-4">{{ $article->title }}</h1>
                     <div class="text-gray-700 dark:text-dark text-left break-words">
-                        {!! $article->desc !!}
-                    </div>
-                                       
+                        <div class="prose">
+                            {!! $article->desc !!}
+                        </div>                        
+                    </div>                                       
                 </div>
             </div>
             <!-- Author Info -->
@@ -30,7 +31,7 @@
                         @if ($article->user->role == 1)
                             Admin
                         @elseif ($article->user->role == 2)
-                            Head
+                            Moderator
                         @else
                             Verifikator
                         @endif

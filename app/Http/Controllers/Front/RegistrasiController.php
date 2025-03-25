@@ -33,9 +33,7 @@ class RegistrasiController extends Controller
         if ($reg) {
             return redirect()->back()->with(
                 'error', 
-                $request->nama . ' dengan email ' . $request->email . ' asal sekolah ' . $reg->asal_sekolah . 
-                ' sudah terdaftar di ' . $reg->menu->mata_pelajaran . ' - ' . $reg->menu->tingkat . 
-                '. Jika merasa belum pernah mendaftar silahkan hubungi panitia.'
+                'Data ini sudah pernah didaftarkan. Jika ragu, silahkan pastikan melalui Panitia.'
             );
         }
     

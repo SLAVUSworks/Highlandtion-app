@@ -56,7 +56,7 @@
                             <p class="text-sm text-gray-500">{{ Auth::user()->email }}</p>
                             <p class="text-sm text-gray-500">Role:
                                 @php
-                                $roles = [1 => 'Admin', 2 => 'Head', 3 => 'Assistant'];
+                                $roles = [1 => 'Admin', 2 => 'Moderator', 3 => 'Verifikator'];
                                 @endphp
                                 {{ $roles[Auth::user()->role] ?? 'Unknown' }}
                             </p>

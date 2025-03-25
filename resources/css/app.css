@@ -1,2 +1,4 @@
+@import 'ckeditor-tailwind-reset/ckeditor-tailwind-reset';
+@plugin "@tailwindcss/typography";
 @import "tailwindcss";
 @source "../views";

@@ -40,7 +40,7 @@ Route::get('/menu/{menu}', [FrontMenuController::class, 'show'])->name('menu.sho
 
 Route::get('/registrasi/{menu}', [RegistrasiController::class, 'create'])->name('registrasi.create');
 Route::post('/registrasi', [RegistrasiController::class, 'store'])->name('registrasi.store');
-Route::get('/registrasi/{registrasi}/card', [RegistrasiController::class, 'show'])->name('registrasi.card');
+Route::get('/registrasi/{registrasi}/card', [RegistrasiController::class, 'show'])->name('registrasi.card'); 
 Route::get('/track', [RegistrasiController::class, 'trackForm'])->name('registrasi.trackForm');
 Route::post('/track', [RegistrasiController::class, 'track'])->name('registrasi.track');
 

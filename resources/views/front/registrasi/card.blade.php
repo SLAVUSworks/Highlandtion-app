@@ -49,7 +49,20 @@
         <div class="flex items-center mb-4">
             <div class="flex flex-col text-sm text-left">
                 <span class="">Nama Peserta</span>
-                <div class="font-semibold">{{ $registrasi->nama }}</div>
+                @php
+                function censorName($name) {
+                    if (strlen($name) <= 2) {
+                        return str_repeat('*', strlen($name));
+                    }
+                    
+                    $firstChar = $name[0];
+                    $lastChar = $name[strlen($name) - 1];
+                    $censored = $firstChar . str_repeat('*', strlen($name) - 2) . $lastChar;
+
+                    return $censored;
+                }
+                @endphp
+                <div class="font-semibold">{{ censorName($registrasi->nama) }}</div>
             </div>
             <div class="flex flex-col mx-auto text-sm items-center justify-center">
                 <span class=""></span>
