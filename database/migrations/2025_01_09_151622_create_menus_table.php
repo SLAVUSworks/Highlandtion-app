@@ -1,0 +1,38 @@
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+return new class extends Migration
+{
+    /**
+     * Run the migrations.
+     */
+    public function up(): void
+    {
+        Schema::create('menus', function (Blueprint $table) {
+            $table->id();
+            $table->string('mata_pelajaran');
+            $table->enum('tingkat', ['SD', 'SMP/MTs', 'SMA/MA']);
+            $table->foreignId('menu_category_id')->index()->constrained('menu_categories')->onDelete('cascade');
+            $table->text('deskripsi')->nullable();
+            $table->string('short_code')->nullable();
+            $table->decimal('harga', 10, 2);
+            $table->enum('status', ['buka', 'tutup'])->default('buka');
+            $table->unsignedInteger('kuota')->default(0);
+            $table->unsignedInteger('kuota_now')->nullable()->default(null);
+            $table->string('icon')->nullable();
+            $table->string('thumbnail')->nullable();
+            $table->timestamps();
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     */
+    public function down(): void
+    {
+        Schema::dropIfExists('menus');
+    }
+};
