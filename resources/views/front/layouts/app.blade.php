@@ -57,8 +57,8 @@
         @yield('content')
     </section>
 
-    <footer class="bg-gray-800 text-white py-8 rounded-t-3xl" data-aos="fade-up">
-        <div class="container mx-auto">
+    <footer class="bg-gray-800 text-white py-8" data-aos="fade-up">
+        <div class="container p-5 mx-auto">
             <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
                 <div>
                     <h3 class="text-2xl font-semibold">{{ $config['app_name'] }}</h3>
