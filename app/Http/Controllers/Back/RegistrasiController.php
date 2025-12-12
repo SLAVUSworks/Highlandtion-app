@@ -20,7 +20,7 @@ class RegistrasiController extends Controller
 {
     public function index()
     {
-        $registrasis = Registrasi::with(['menu', 'ruangan'])->orderBy('created_at','asc')->paginate(100);
+        $registrasis = Registrasi::with(['menu', 'ruangan'])->orderBy('created_at','desc')->paginate(100);
         $menus = Menu::all();
     
         return view('back.registrasi.index', compact('registrasis', 'menus'));
@@ -34,7 +34,7 @@ class RegistrasiController extends Controller
         $menuId = $request->get('menu', '');
     
         $query = Registrasi::with(['menu.menuCategory'])
-            ->orderBy('created_at','asc')
+            ->orderBy('created_at','desc')
             ->where(function ($q) use ($search) {
                 $q->where('nama', 'like', "%$search%")
                   ->orWhere('asal_sekolah', 'like', "%$search%")
@@ -77,7 +77,7 @@ class RegistrasiController extends Controller
     
     public function getPendingRegistrations()
     {
-        $registrasis = Registrasi::where('status', 'pending')->get(['id', 'nama', 'asal_sekolah']);
+        $registrasis = Registrasi::where('status', 'pending')->orderBy('created_at','desc')->get(['id', 'nama', 'asal_sekolah','created_at']);
     
         return response()->json($registrasis);
     }

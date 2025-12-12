@@ -27,7 +27,7 @@
                 <i class="fas fa-cog text-gray-800 text-2xl"></i>
                 <h1 class="text-lg font-bold text-white leading-tight">
                     {{ $config['app_name'] }}<br>
-                    <span class="text-l">Web Control Panel</span> <span class="text-xs font-thin">v2.1</span>
+                    <span class="text-l">Web Control Panel</span> <span class="text-xs font-thin">v2.2</span>
                 </h1>
             </a>
 
@@ -46,25 +46,48 @@
                 </div>
 
                 <div class="relative">
-                    <button id="user-menu-button" class="focus:outline-none flex items-center">
+                    <button id="user-menu-button" class="focus:outline-none flex items-center gap-2">
                         <img src="{{ url('storage/' . Auth::user()->avatar) }}" alt="Profile Picture"
-                            class="rounded-full w-10 h-10">
+                            class="rounded-full w-10 h-10 object-cover ring-2 ring-white shadow-md">
                     </button>
-                    <div id="user-menu" class="absolute right-0 mt-2 w-48 bg-white rounded shadow-lg hidden">
-                        <div class="px-4 py-2 border-b">
-                            <p class="text-sm text-gray-700 font-bold">{{ Auth::user()->nickname }}</p>
-                            <p class="text-sm text-gray-500">{{ Auth::user()->email }}</p>
-                            <p class="text-sm text-gray-500">Role:
-                                @php
-                                $roles = [1 => 'Admin', 2 => 'Moderator', 3 => 'Verifikator'];
-                                @endphp
-                                {{ $roles[Auth::user()->role] ?? 'Unknown' }}
-                            </p>
+
+                    <div id="user-menu"
+                        class="absolute right-0 mt-3 w-72 bg-white rounded-xl shadow-lg border border-gray-100 hidden transition-all duration-150">
+                        <div class="px-4 py-4 border-b bg-gray-50 rounded-t-xl">
+                            <div class="flex items-center gap-3">
+                                <div
+                                    class="w-24 aspect-square rounded-full overflow-hidden flex-shrink-0 ring-2 ring-white shadow-md">
+                                    <img src="{{ url('storage/' . Auth::user()->avatar) }}"
+                                        class="w-full h-full object-cover">
+                                </div>
+                                <div>
+                                    <p class="text-sm font-semibold text-gray-900 break-all">
+                                        {{ Auth::user()->nickname }}
+                                    </p>
+
+                                    <p class="text-xs text-gray-600 break-all flex items-center gap-2">
+                                        <i class="fa-solid fa-envelope text-gray-500"></i>
+                                        {{ Auth::user()->email }}
+                                    </p>
+
+                                    <p class="text-xs text-gray-600 mt-3 flex items-center gap-2">
+                                        <i class="fa-solid fa-id-badge text-gray-500"></i>
+                                        Role:
+                                        @php
+                                        $roles = [1 => 'Admin', 2 => 'Moderator', 3 => 'Verifikator'];
+                                        @endphp
+                                        <span class="font-medium">{{ $roles[Auth::user()->role] ?? 'Unknown' }}</span>
+                                    </p>
+                                </div>
+                            </div>
                         </div>
-                        <form action="{{ route('logout') }}" method="POST">
+                        <form action="{{ route('logout') }}" method="POST" class="rounded-b-xl">
                             @csrf
                             <button type="submit"
-                                class="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Logout</button>
+                                class="flex w-full items-center gap-2 px-4 py-3 text-sm text-red-600 hover:bg-red-50 transition-all">
+                                <i class="fa-solid fa-right-from-bracket"></i>
+                                Logout
+                            </button>
                         </form>
                     </div>
                 </div>
@@ -155,7 +178,7 @@
                                     <li>
                                         <a href="{{ route('back.registrasis.indexApproved') }}"
                                             class="block p-1 text-gray-200 hover:bg-gray-700 rounded-lg {{ request()->routeIs('back.registrasis.indexApproved') ? 'bg-gray-700' : '' }}">
-                                            Index Kartu Peserta
+                                            Kartu Peserta
                                         </a>
                                     </li>
                                 </ul>
@@ -184,19 +207,18 @@
                         </button>
                         <ul class="submenu space-y-1 ml-6">
                             <li>
-                                <a href="{{ route('back.users.index') }}"
-                                    class="flex items-center gap-3 p-2 text-gray-200 hover:bg-gray-700 rounded-lg w-full text-left 
+                                <a href="{{ route('back.users.index') }}" class="flex items-center gap-3 p-2 text-gray-200 hover:bg-gray-700 rounded-lg w-full text-left 
                                            {{ request()->routeIs('back.users.index') ? 'bg-gray-700' : '' }}">
                                     <i class="fa-solid fa-users text-gray-400 w-[24px] text-center shrink-0"></i>
                                     <span class="truncate">
                                         @if(auth()->user()->role != 1)
-                                            Profil
+                                        Profil
                                         @else
-                                            Daftar Admin
+                                        Daftar Admin
                                         @endif
                                     </span>
                                 </a>
-                            </li>                            
+                            </li>
                             <li>
                                 <a href="{{ url('laravel-filemanager') }}"
                                     class="flex items-center gap-3 p-2 text-gray-200 hover:bg-gray-700 rounded-lg w-full text-left"
@@ -217,6 +239,13 @@
                                            {{ request()->routeIs('back.export.index') ? 'bg-gray-700' : '' }}">
                                     <i class="fa-solid fa-file-export text-gray-400 w-[24px] text-center shrink-0"></i>
                                     <span class="truncate">Rekap Data</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="{{ route('back.server.stats') }}" class="flex items-center gap-3 p-2 text-gray-200 hover:bg-gray-700 rounded-lg w-full text-left 
+                                           {{ request()->routeIs('back.server.stats') ? 'bg-gray-700' : '' }}">
+                                    <i class="fa-solid fa-server text-gray-400 w-[24px] text-center shrink-0"></i>
+                                    <span class="truncate">Server Manager</span>
                                 </a>
                             </li>
                     </li>
@@ -247,13 +276,17 @@
             <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
                 <div>
                     <h3 class="text-2xl font-semibold">SLAVUSworks</h3>
-                    <p class="text-xl text-justify">An Productive Community Circle, Specializes in hardware, software, programming, and engineering solutions, delivering innovative and reliable technology for businesses and community.</p>
+                    <p class="text-xl text-justify">A solid community circle that stays grindin’ in hardware, software,
+                        coding, and engineering, serving up innovative, trustworthy tech for the people and the
+                        businesses.</p>
                 </div>
                 <div>
-                    <h3 class="text-2xl font-bold">Web Control Panel <small class="font-light">v2.1</small></h3>
+                    <h3 class="text-2xl font-bold">Web Control Panel <small class="font-light">v2.2</small></h3>
                     <div class="mapouter">
                         <div class="gmap_canvas">
-                            <p class="text-xl text-justify">Simple, precise, and fast. Streamlines management with clarity and efficiency, ensuring seamless control and secure access for effortless administration. By SLAVUSworks Project with ⸜(｡˃ ᵕ ˂ )⸝♡.</p>
+                            <p class="text-xl text-justify">Simple, sharp, and fast. Keeps everything running clean and
+                                smooth, giving you clear control and locked-down access for effortless management. with
+                                ⸜(｡˃ ᵕ ˂ )⸝♡.</p>
                         </div>
                     </div>
                 </div>
@@ -261,21 +294,25 @@
                     <h3 class="text-2xl font-semibold">Font Pack by</h3>
                     <p class="text-6xl font-bold text-right">+Jakarta Sans</p>
                     <h3 class="text-2xl font-semibold">Made With</h3>
-                    <p class="text-xl text-right">Laravel v{{ Illuminate\Foundation\Application::VERSION }} (PHP v{{ PHP_VERSION }})</p>
+                    <p class="text-xl text-right">Laravel v{{ Illuminate\Foundation\Application::VERSION }} (PHP
+                        v{{ PHP_VERSION }})</p>
                     <p class="text-xl text-right">{{ exec('npm list tailwindcss | grep tailwindcss') }}</p>
                 </div>
             </div>
 
             <div class="flex justify-end items-center mt-8">
-                <p class="text-sm text-right">HL-Web App N Booking System v2.12.4<br>
-                    <small class="text-sm">Made & maintained by 
-                        <a href="https://github.com/SLAVUSworks" target="_blank" rel="noopener noreferrer" class="text-blue-400">SLAVUSworks</a>
-                        with 
-                        <a href="https://github.com/terukaze1939" target="_blank" rel="noopener noreferrer" class="text-blue-400">Terukaze</a>
+                <p class="text-sm text-right">HL-Web App N Booking System v2.13.5<br>
+                    <small class="text-sm">Made & maintained by
+                        <a href="https://github.com/SLAVUSworks" target="_blank" rel="noopener noreferrer"
+                            class="text-blue-400">SLAVUSworks</a>
+                        with
+                        <a href="https://github.com/terukaze1939" target="_blank" rel="noopener noreferrer"
+                            class="text-blue-400">Terukaze</a>
                     </small>
                 </p>
-                <img src="https://github.com/SLAVUSworks/HL-Web-ICON/blob/master/slavusworks.png?raw=true" 
-                     alt="SLAVUSworks" class="w-12 h-12 ml-2">
+                <img onclick="showDigimark()"
+                    src="https://github.com/SLAVUSworks/HL-Web-ICON/blob/master/slavusworks.png?raw=true"
+                    alt="SLAVUSworks" class="w-12 h-12 ml-2">
             </div>
         </div>
     </footer>
@@ -292,6 +329,18 @@
     <script src="{{ asset('js/admin.js') }}"></script>
 
     @yield('scripts')
+
+    @include('back.layouts.digimark')
+    <script>
+        function showDigimark() {
+            document.getElementById("digimarkModal").classList.remove("hidden");
+
+            lazyLoadDigimark();
+
+            showSlide(currentSlide);
+        }
+
+    </script>
 </body>
 
 </html>

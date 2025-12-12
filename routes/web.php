@@ -13,6 +13,8 @@ use App\Http\Controllers\Back\RegistrasiController as BackRegistrasiController;
 use App\Http\Controllers\Back\ArticleController;
 use App\Http\Controllers\Back\ContactPageController;
 use App\Http\Controllers\Back\ExportController;
+use App\Http\Controllers\Back\ServerStatsController;
+use App\Http\Controllers\Back\DataResetController;
 
 use App\Http\Controllers\Front\ArticleController as FrontArticleController;
 use App\Http\Controllers\Front\MenuController as FrontMenuController;
@@ -103,6 +105,11 @@ Route::middleware('auth')->group(function () {
         Route::get('/export', [ExportController::class, 'showExportPage'])->name('export.index')->middleware('role:1'); 
         Route::get('/registrasi-export', [ExportController::class, 'exportCsv'])->name('export.csv')->middleware('role:1');
         Route::get('/advance-export', [ExportController::class, 'advanceExport'])->name('export.advance')->middleware('role:1');
+
+        Route::get('/server-stats', [ServerStatsController::class, 'index'])->name('server.stats');;
+        Route::get('/server-stats/data', [ServerStatsController::class, 'stats'])->name('server.stats.data');
+
+        Route::post('/back/reset-db', [DataResetController::class, 'resetDB'])->name('resetdb')->middleware('role:1');
     });
 
     Route::group(['prefix' => 'laravel-filemanager', 'middleware' => ['web', 'auth']], function () {

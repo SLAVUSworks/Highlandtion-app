@@ -57,7 +57,7 @@ class ExportController extends Controller
             'updated_at' => 'Diperbarui',
         ];
     
-        $fileName = 'registrasi_data.csv';
+        $fileName = 'export_data_pendaftar_' . date('Y-m-d_H-i-s') . '.csv';
     
         $headers = [
             'Content-Type' => 'text/csv',
@@ -102,12 +102,15 @@ class ExportController extends Controller
     
         return response()->stream($callback, 200, $headers);
     }
-    
-    
+        
     public function advanceExport(Request $request)
     {
         $groupBy = $request->query('groupBy', 'kategori');
-        return Excel::download(new AdvanceExport($groupBy), 'Advance_Export.xlsx');
+
+        return Excel::download(
+            new AdvanceExport($groupBy),
+            'advance_export_' . date('Y-m-d_H-i-s') . '.xlsx'
+        );
     }
 }
 

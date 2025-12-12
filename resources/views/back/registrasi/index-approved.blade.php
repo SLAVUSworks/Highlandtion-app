@@ -5,7 +5,7 @@
 @section('content')
 
 <div class="container mx-auto px-4 py-6">
-    <h1 class="text-2xl font-bold mb-4">Index Kartu Peserta</h1>
+    <h1 class="text-2xl font-bold mb-4">Kartu Peserta</h1>
 
     <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6">
         <div class="bg-blue-100 border border-blue-300 rounded-lg p-4">

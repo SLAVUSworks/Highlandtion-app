@@ -134,11 +134,29 @@
                 value="{{ $registrasi->menu->menuCategory->name }} - {{ $registrasi->menu->mata_pelajaran }} - {{ $registrasi->menu->tingkat }}" disabled
                 class="w-full px-4 py-2 border border-red-300 rounded-lg bg-red-100">
         </div>
+        <div class="mb-4">
+            <label for="menu_id" class="block text-gray-700 font-bold mb-2">Waktu Mendaftar</label>
+            <input type="text" id="menu_id" name="menu_id"
+                value="{{ \Carbon\Carbon::parse($registrasi->created_at)->translatedFormat('d F Y H:i:s') }}"
+                disabled class="w-full px-4 py-2 border border-red-300 rounded-lg bg-red-100">
+        </div>
+        <div class="mb-4">
+            <label for="menu_id" class="block text-gray-700 font-bold mb-2">Waktu Ditolak</label>
+            <input type="text" id="menu_id" name="menu_id"
+                value="{{ \Carbon\Carbon::parse($registrasi->updated_at)->translatedFormat('d F Y H:i:s') }}"
+                disabled class="w-full px-4 py-2 border border-red-300 rounded-lg bg-red-100">
+        </div>
         @else
         <div class="mb-4">
             <label for="menu_id" class="block text-gray-700 font-bold mb-2">Menu</label>
             <input type="text" id="menu_id" name="menu_id"
                 value="{{ $registrasi->menu->menuCategory->name }} - {{ $registrasi->menu->mata_pelajaran }} - {{ $registrasi->menu->tingkat }}"
+                disabled class="w-full px-4 py-2 border border-gray-300 rounded-lg bg-gray-100">
+        </div>
+        <div class="mb-4">
+            <label for="menu_id" class="block text-gray-700 font-bold mb-2">Waktu Mendaftar</label>
+            <input type="text" id="menu_id" name="menu_id"
+                value="{{ \Carbon\Carbon::parse($registrasi->created_at)->translatedFormat('d F Y H:i:s') }}"
                 disabled class="w-full px-4 py-2 border border-gray-300 rounded-lg bg-gray-100">
         </div>
         @endif

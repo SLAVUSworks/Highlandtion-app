@@ -46,8 +46,8 @@
         @yield('content')
     </section>
 
-    <footer class="bg-gray-800 text-white py-8 rounded-t-3xl" data-aos="fade-up">
-        <div class="container mx-auto">
+    <footer class="bg-gray-800 text-white py-8" data-aos="fade-up">
+        <div class="container p-5 mx-auto">
             <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
                 <div>
                     <h3 class="text-2xl font-semibold">{{ $config['app_name'] }}</h3>
@@ -65,7 +65,7 @@
                 </div>
                 <div>
                     <h3 class="text-2xl font-semibold">Kontak</h3>
-                    <p class="text-xl">{{ $config['footer-contact'] }}</p>
+                    <p class="text-xl">{!! $config['footer-contact'] !!}</p>
                 </div>
             </div>
 
@@ -79,7 +79,7 @@
             </div>
 
             <div class="flex justify-end items-center mt-8">
-                <p class="text-sm text-right">HL-Web App n Booking System v2.12<br>
+                <p class="text-sm text-right">HL-Web App n Booking System v2.13<br>
                     <small class="text-base">Made & maintained by 
                         <a href="https://github.com/SLAVUSworks" target="_blank" rel="noopener noreferrer" class="text-blue-400">SLAVUSworks</a>
                     </small>

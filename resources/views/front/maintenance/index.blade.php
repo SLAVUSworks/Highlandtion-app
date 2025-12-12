@@ -17,7 +17,7 @@
         <img src="https://media1.tenor.com/m/NvTh_ZMUNM4AAAAC/kobayashi-kobayashi-dragon-maid.gif" 
              alt="Bocchi The Rock" 
              class="mx-auto h-48 rounded-lg">
-        <h1 class="text-4xl font-bold text-yellow-900 mt-4">⚠️ Website dalam Perbaikan</h1>
+        <h1 class="text-4xl font-bold text-yellow-900 mt-4">Website dalam Perbaikan</h1>
         <p class="text-lg text-gray-600 mt-2">Kami sedang melakukan pemeliharaan sistem. Silakan kembali lagi nanti.</p>
     </div>
 </body>

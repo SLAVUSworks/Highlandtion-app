@@ -53,6 +53,26 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     }
 
+    function timeAgo(timestamp) {
+        const now = new Date();
+        const then = new Date(timestamp);
+        const seconds = Math.floor((now - then) / 1000);
+
+        if (seconds < 60) return `${seconds} detik lalu`;
+        const minutes = Math.floor(seconds / 60);
+        if (minutes < 60) return `${minutes} menit lalu`;
+        const hours = Math.floor(minutes / 60);
+        if (hours < 24) return `${hours} jam lalu`;
+        const days = Math.floor(hours / 24);
+        if (days < 7) return `${days} hari lalu`;
+        const weeks = Math.floor(days / 7);
+        if (weeks < 4) return `${weeks} minggu lalu`;
+        const months = Math.floor(days / 30);
+        if (months < 12) return `${months} bulan lalu`;
+        const years = Math.floor(days / 365);
+        return `${years} tahun lalu`;
+    }
+
     function fetchNotifications() {
         fetch(window.appRoutes.fetchNotifications)
             .then(response => response.json())
@@ -69,10 +89,17 @@ document.addEventListener("DOMContentLoaded", function () {
                     const displayedNotifications = data.slice(0, 10);
                     
                     displayedNotifications.forEach(reg => {
-                        notifContent.innerHTML += `<div class="p-2 border-b">
-                            <p class="text-sm font-bold">${truncateText(reg.nama, 25)}</p>
-                            <p class="text-xs text-gray-500">${truncateText(reg.asal_sekolah, 25)}</p>
-                        </div>`;
+                        notifContent.innerHTML += `
+                            <div class="p-2 border-b relative">
+                                <p class="text-sm font-bold">${truncateText(reg.nama, 25)}</p>
+                                <p class="text-xs text-gray-500">${truncateText(reg.asal_sekolah, 25)}</p>
+
+                                <!-- timestamp pojok kanan bawah -->
+                                <span class="absolute bottom-1 right-2 text-[10px] text-gray-400">
+                                    ${timeAgo(reg.created_at)}
+                                </span>
+                            </div>
+                        `;
                     });
     
                     if (data.length > 10) {
