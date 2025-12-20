@@ -101,5 +101,13 @@ class TemplateProvider extends ServiceProvider
 
             $view->with('config', $config);
         });
+
+        View::composer('errors.layouts.base', function($view){
+            $configKeys = ['app_favicon'];
+            
+            $config = Config::whereIn('name', $configKeys)->pluck('value', 'name');
+
+            $view->with('config', $config);
+        });
     }
 }
