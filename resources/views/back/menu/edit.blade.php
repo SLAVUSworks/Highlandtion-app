@@ -22,7 +22,7 @@
         @csrf
         @method('PUT')
         <div class="mb-4">
-            <label for="mata_pelajaran" class="block text-sm font-medium text-gray-700">Bidang/Mata Pelajaran</label>
+            <label for="mata_pelajaran" class="block text-sm font-medium text-gray-700">Event</label>
             <input type="text" class="mt-1 p-2 block w-full border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500" name="mata_pelajaran" id="mata_pelajaran" value="{{ $menu->mata_pelajaran }}" required>
         </div>
         <div class="mb-4">
@@ -54,7 +54,7 @@
             <div class="relative">
                 <span class="absolute inset-y-0 left-0 pl-3 flex items-center text-gray-500">Rp</span>
                 <input type="text" class="mt-1 block w-full pl-10 border-gray-300 rounded-md shadow-sm p-2" id="harga" value="{{ number_format($menu->harga, 0, ',', '.') }}" required>
-                <input type="hidden" name="harga" id="hargaHidden" value="{{ $menu->harga }}"> <!-- Hidden input -->
+                <input type="hidden" name="harga" id="hargaHidden" value="{{ $menu->harga }}">
             </div>
             
             <script>
@@ -63,14 +63,14 @@
                     const hiddenInput = document.getElementById("hargaHidden");
             
                     priceInput.addEventListener("input", function () {
-                        let value = priceInput.value.replace(/\D/g, ""); // Remove non-numeric characters
-                        let formattedValue = new Intl.NumberFormat("id-ID").format(value); // Format with dots
+                        let value = priceInput.value.replace(/\D/g, "");
+                        let formattedValue = new Intl.NumberFormat("id-ID").format(value); 
                         priceInput.value = formattedValue;
                     });
             
                     priceInput.addEventListener("blur", function () {
-                        let cleanValue = priceInput.value.replace(/\D/g, ""); // Remove "Rp" and dots
-                        hiddenInput.value = cleanValue; // Store as integer
+                        let cleanValue = priceInput.value.replace(/\D/g, ""); 
+                        hiddenInput.value = cleanValue; 
                     });
                 });
             </script>            
@@ -94,7 +94,7 @@
             <input type="file" class="mt-1 p-2 block w-full border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500" name="thumbnail" id="thumbnail">
         </div>
         <div class="mb-4">
-            <label for="status" class="block text-sm font-medium text-gray-700">Status</label>
+            <label for="status" class="block text-sm font-medium text-gray-700">Status Pendaftaran</label>
             <select class="mt-1 p-2 block w-full border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500" 
                 name="status" id="status" required>
                 <option value="buka" {{ $menu->status == 'buka' ? 'selected' : '' }}>Menerima</option>

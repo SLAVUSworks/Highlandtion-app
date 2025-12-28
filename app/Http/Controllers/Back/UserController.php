@@ -39,7 +39,7 @@ class UserController extends Controller
         $data = $request->validated();
         
         $request->validate([
-            'avatar' => 'nullable|image|max:512',
+            'avatar' => 'nullable|image|max:2048',
         ]);
 
         if ($request->hasFile('avatar')) {
@@ -52,9 +52,61 @@ class UserController extends Controller
                 return back()->withErrors(['avatar' => 'The avatar must be an image (JPEG, JPG, PNG, GIF).'])->withInput();
             }
             
-            $avatarPath = $avatar->store('avatars', 'public');
-            $data['avatar'] = $avatarPath;
+            $filename = 'avatars/' . uniqid() . '_' . time() . '.jpg';
+            $fullPath = storage_path('app/public/' . $filename);
+            
+            $directory = dirname($fullPath);
+            if (!is_dir($directory)) {
+                mkdir($directory, 0755, true);
+            }
+            
+            $imagePath = $avatar->getRealPath();
+            list($width, $height, $type) = getimagesize($imagePath);
+            
+            $source = match($type) {
+                IMAGETYPE_JPEG => imagecreatefromjpeg($imagePath),
+                IMAGETYPE_PNG => imagecreatefrompng($imagePath),
+                IMAGETYPE_GIF => imagecreatefromgif($imagePath),
+                IMAGETYPE_WEBP => imagecreatefromwebp($imagePath),
+                default => imagecreatefromjpeg($imagePath)
+            };
+            
+            $targetSize = 300;
+            $thumb = imagecreatetruecolor($targetSize, $targetSize);
+            
+            $white = imagecolorallocate($thumb, 255, 255, 255);
+            imagefilledrectangle($thumb, 0, 0, $targetSize, $targetSize, $white);
+            
+            $sourceAspect = $width / $height;
+            
+            if ($sourceAspect > 1) {
+                $newWidth = (int)($height * 1);
+                $newHeight = $height;
+                $srcX = (int)(($width - $newWidth) / 2);
+                $srcY = 0;
+            } else {
+                $newWidth = $width;
+                $newHeight = (int)($width * 1);
+                $srcX = 0;
+                $srcY = (int)(($height - $newHeight) / 2);
+            }
+            
+            imagecopyresampled(
+                $thumb, $source,
+                0, 0,
+                $srcX, $srcY,
+                $targetSize, $targetSize,
+                $newWidth, $newHeight
+            );
+            
+            imagejpeg($thumb, $fullPath, 95);
+            
+            imagedestroy($source);
+            imagedestroy($thumb);
+            
+            $data['avatar'] = $filename;
         }
+
 
         if ($request->has('password') && $request->input('password') != '') {
             $data['password'] = bcrypt($data['password']);

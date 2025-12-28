@@ -30,7 +30,7 @@ class AdvanceExport implements WithMultipleSheets
                 case 'kategori':
                     return $item->menu?->menuCategory?->name ?? 'Tanpa Kategori';
                 case 'mata_pelajaran':
-                    return $item->menu?->mata_pelajaran ?? 'Tanpa Mata Pelajaran';
+                    return $item->menu?->mata_pelajaran ?? 'Tanpa Event';
                 case 'tingkat':
                     return $item->menu?->tingkat ?? 'Tanpa Tingkat';
                 case 'status':

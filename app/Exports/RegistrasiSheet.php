@@ -27,7 +27,7 @@ class RegistrasiSheet implements FromCollection, WithTitle, WithHeadings
                 'Asal Sekolah' => $item->asal_sekolah,
                 'Nomor HP' => $item->nomor_hp,
                 'Kategori' => $item->menu?->menuCategory?->name ?? '-',
-                'Mata Pelajaran' => $item->menu?->mata_pelajaran ?? '-',
+                'Event' => $item->menu?->mata_pelajaran ?? '-',
                 'Tingkat' => $item->menu?->tingkat ?? '-',
                 'Ruangan' => $item->menu?->ruangan->isEmpty() ? '-' : $item->menu->ruangan->first()->nama_ruangan,
                 'Status' => $item->status,
@@ -41,7 +41,7 @@ class RegistrasiSheet implements FromCollection, WithTitle, WithHeadings
     public function headings(): array
     {
         return [
-            'No', 'ID', 'Nama', 'Asal Sekolah', 'Nomor HP', 'Kategori', 'Mata Pelajaran',
+            'No', 'ID', 'Nama', 'Asal Sekolah', 'Nomor HP', 'Kategori', 'Event',
             'Tingkat', 'Ruangan', 'Status', 'Kode Registrasi', 'Didaftarkan', 'Diperbarui'
         ];
     }

@@ -6,7 +6,7 @@
 <div class="container mx-auto p-6">
     <h1 class="text-2xl font-bold mb-4">Daftar Event</h1>
     <a href="{{ route('back.menu.create') }}" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg mb-4 inline-block">
-        Tambah Event/Menu
+        Tambah Event
     </a>
     @if ($errors->any())
         <script>
@@ -39,7 +39,7 @@
                     <th class="px-4 py-2 text-left">No</th>
                     <th class="px-4 py-2 text-left">Icon</th>
                     <th class="px-4 py-2 text-left">Thumbnail</th>
-                    <th class="px-4 py-2 text-left">Mata Pelajaran</th>
+                    <th class="px-4 py-2 text-left">Event</th>
                     <th class="px-4 py-2 text-left">Tingkat</th>
                     <th class="px-4 py-2 text-left">Kategori</th>
                     <th class="px-4 py-2 text-left">Harga</th>

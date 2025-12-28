@@ -48,7 +48,7 @@ class ExportController extends Controller
             'asal_sekolah' => 'Asal Sekolah',
             'nomor_hp' => 'Nomor HP',
             'menu.menu_category.name' => 'Kategori',
-            'menu.mata_pelajaran' => 'Mata Pelajaran',
+            'menu.mata_pelajaran' => 'Event',
             'menu.tingkat' => 'Tingkat',
             'menu.ruangan' => 'Ruangan',
             'status' => 'Status',

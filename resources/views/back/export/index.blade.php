@@ -167,7 +167,7 @@ document.getElementById('resetDBButton').addEventListener('click', function() {
                 html:
                     "Semua riwayat data dari:<br>" +
                     "<b>Kategori</b><br>" +
-                    "<b>Menu</b><br>" +
+                    "<b>Event</b><br>" +
                     "<b>Ruangan</b><br>" +
                     "<b>Pendaftar</b><br>" +
                     "Akan dihapus dan dikembalikan ke kondisi awal.<br><br>" +
@@ -203,13 +203,13 @@ document.getElementById('resetDBButton').addEventListener('click', function() {
                 <label><input type="checkbox" name="columns[]" value="asal_sekolah" checked> Asal Sekolah</label>
                 <label><input type="checkbox" name="columns[]" value="nomor_hp"> Nomor HP</label>
                 <label><input type="checkbox" name="columns[]" value="menu.menu_category.name"> Kategori</label>
-                <label><input type="checkbox" name="columns[]" value="menu.mata_pelajaran"> Mata Pelajaran</label>
+                <label><input type="checkbox" name="columns[]" value="menu.mata_pelajaran"> Event</label>
                 <label><input type="checkbox" name="columns[]" value="menu.tingkat"> Tingkat</label>
                 <label><input type="checkbox" name="columns[]" value="menu.ruangan"> Ruangan</label>
                 <label><input type="checkbox" name="columns[]" value="status"> Status</label>
                 <label><input type="checkbox" name="columns[]" value="registration_code"> Kode Registrasi</label>
-                <label><input type="checkbox" name="columns[]" value="created_at"> Didaftarkan</label>
-                <label><input type="checkbox" name="columns[]" value="updated_at"> Diperbarui</label>
+                <label><input type="checkbox" name="columns[]" value="created_at"> Tanggal Daftar</label>
+                <label><input type="checkbox" name="columns[]" value="updated_at"> Tanggal Diperbarui</label>
             </div>
 
             <div class="flex justify-end mt-4">
@@ -231,7 +231,7 @@ document.getElementById('resetDBButton').addEventListener('click', function() {
             <select id="groupBy" name="groupBy" class="w-full p-2 border rounded">
                 <option value="ruangan">Ruangan</option>
                 <option value="kategori">Kategori</option>
-                <option value="mata_pelajaran">Mata Pelajaran</option>
+                <option value="mata_pelajaran">Event</option>
                 <option value="tingkat">Tingkat</option>
                 <option value="status">Status</option>
             </select>

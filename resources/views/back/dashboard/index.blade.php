@@ -9,12 +9,12 @@
             <div class="p-4 bg-white shadow rounded">
             <h2 class="text-xl font-semibold">Total Kuota</h2>
             <p>Ruangan: <span id="ruanganKuota">{{ $ruanganKuota }}</span></p>
-            <p>Bidang: <span id="menuKuota">{{ $menuKuota }}</span></p>
+            <p>Event: <span id="menuKuota">{{ $menuKuota }}</span></p>
             </div>
             <div class="p-4 bg-white shadow rounded">
             <h2 class="text-xl font-semibold">Sisa Kuota</h2>
             <p>Ruangan: <span id="sisaRuanganKuota">{{ $sisaKuotaRuangan }}</span></p>
-            <p>Bidang: <span id="sisaMenuKuota">{{ $sisaKuotaMenu }}</span></p>
+            <p>Event: <span id="sisaMenuKuota">{{ $sisaKuotaMenu }}</span></p>
             </div>
             <div class="bg-white shadow rounded-lg p-4">
                 <h2 class="text-lg font-bold">Total Pendaftar</h2>
@@ -55,7 +55,7 @@
         </div>
 
         <div class="p-4 bg-white shadow rounded">
-            <h2 class="text-xl font-semibold">Kuota Perlombaan</h2>
+            <h2 class="text-xl font-semibold">Kuota Event</h2>
             <div class="overflow-x-auto bg-white shadow-md rounded-lg mt-2">
             <table class="w-full border-collapse">
                 <thead>

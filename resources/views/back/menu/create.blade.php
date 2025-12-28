@@ -8,7 +8,7 @@
     <form action="{{ route('back.menu.store') }}" method="POST" enctype="multipart/form-data">
         @csrf
         <div class="mb-4">
-            <label for="mata_pelajaran" class="block text-gray-700">Bidang/Mata Pelajaran</label>
+            <label for="mata_pelajaran" class="block text-gray-700">Event</label>
             <input type="text" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm p-2" name="mata_pelajaran" id="mata_pelajaran" required>
         </div>
         <div class="mb-4">
@@ -85,7 +85,7 @@
             <input type="file" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm p-2" name="thumbnail" id="thumbnail" required>
         </div>
         <div class="mb-4">
-            <label for="status" class="block text-gray-700">Pendaftaran</label>
+            <label for="status" class="block text-gray-700">Status Pendaftaran</label>
             <select class="mt-1 block w-full border-gray-300 rounded-md shadow-sm p-2" name="status" id="status" required>
             <option value="buka">Menerima</option>
             <option value="tutup">Ditutup</option>
