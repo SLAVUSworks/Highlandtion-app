@@ -26,7 +26,7 @@
         <div class="container mx-auto flex justify-between items-center">
             <a id="top-title" href="/" class="text-white text-lg font-semibold flex items-center space-x-2">
                 <img src="{{ $config['app_favicon'] }}" alt="Logo" class="w-8 mr-2">
-                <span>{{ $config['app_name'] }} - IP: {{ request()->ip() }}</span>
+                <span>{{ $config['app_name'] }}</span>
             </a>            
             <button id="menu-toggle" class="md:hidden text-gray-300 hover:text-white focus:outline-none">
                 <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -84,7 +84,7 @@
                         <a href="https://github.com/SLAVUSworks" target="_blank" rel="noopener noreferrer" class="text-blue-400">SLAVUSworks</a>
                     </small>
                 </p>
-                <img src="https://github.com/SLAVUSworks/HL-Web-ICON/blob/master/slavusworks.png?raw=true" 
+                <img src="{{ asset('digimark/slavusworks.png') }}" 
                      alt="SLAVUSworks" class="w-12 h-12 ml-2">
             </div>
         </div>

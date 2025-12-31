@@ -112,7 +112,7 @@ Route::middleware('auth')->group(function () {
         Route::post('/back/reset-db', [DataResetController::class, 'resetDB'])->name('resetdb')->middleware('role:1');
     });
 
-    Route::group(['prefix' => 'laravel-filemanager', 'middleware' => ['web', 'auth']], function () {
+    Route::group(['prefix' => 'laravel-filemanager', 'middleware' => ['web', 'auth', 'role:1,2']], function () {
         \UniSharp\LaravelFilemanager\Lfm::routes();
 
     Route::get('back/storage/{path}', function ($path) {

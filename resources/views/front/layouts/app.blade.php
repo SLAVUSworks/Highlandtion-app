@@ -95,7 +95,7 @@
                         <a href="https://github.com/SLAVUSworks" target="_blank" rel="noopener noreferrer" class="text-blue-400">SLAVUSworks</a>
                     </small>
                 </p>
-                <img src="https://github.com/SLAVUSworks/HL-Web-ICON/blob/master/slavusworks.png?raw=true" 
+                <img src="{{ asset('digimark/slavusworks.png') }}" 
                      alt="SLAVUSworks" class="w-12 h-12 ml-2">
             </div>
         </div>
