@@ -23,7 +23,7 @@
             </div>
             <div class="relative overflow-hidden">
                 <h3 class="text-2xl font-bold relative z-10">
-                    Web Control Panel <small class="font-light">v2.3</small>
+                    Web Control Panel <small class="font-light">v2.4</small>
                 </h3>
 
                 <p class="text-xl text-justify relative z-10">
@@ -47,7 +47,7 @@
         </div>
 
         <div class="flex justify-end items-center mt-8">
-            <p class="text-sm text-right">HL-Web App N Booking System v2.13.8<br>
+            <p class="text-sm text-right">HL-Web App N Booking System v2.14.9<br>
                 <small class="text-sm">Made & maintained by
                     <a href="https://github.com/SLAVUSworks" target="_blank" rel="noopener noreferrer"
                         class="text-black">SLAVUSworks</a>

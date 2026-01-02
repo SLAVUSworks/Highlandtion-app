@@ -4,7 +4,7 @@
         <i class="fas fa-cog text-[#FFFFFF] text-2xl"></i>
         <h1 class="text-lg font-bold text-[#FFFFFF] leading-tight">
             {{ $config['app_name'] }}<br>
-            <span class="text-l">Web Control Panel</span> <span class="text-xs font-thin">v2.3</span>
+            <span class="text-l">Web Control Panel</span> <span class="text-xs font-thin">v2.4</span>
         </h1>
     </a>
 
