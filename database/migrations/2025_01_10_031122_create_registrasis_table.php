@@ -12,13 +12,14 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('registrasis', function (Blueprint $table) {
-            $table->uuid('id')->primary();
+            $table->unsignedInteger('nomor_urut')->autoIncrement()->primary();
+            $table->uuid('id')->unique();
             $table->string('nama');
             $table->string('asal_sekolah');
             $table->string('email');
             $table->string('nomor_hp');
             $table->string('bukti_transfer');
-            $table->foreignId('menu_id')->constrained('menus')->onDelete('cascade');
+            $table->foreignId('menu_id')->constrained('menus')->onDelete('restrict');
             $table->foreignId('ruangan_id')->nullable()->constrained('ruangans')->onDelete('cascade');
             $table->enum('status', ['pending', 'approved', 'rejected'])->default('pending');
             $table->string('registration_code')->nullable();

@@ -3,56 +3,88 @@
 namespace App\Http\Controllers\Back;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
+use App\Models\Registrasi;
 use App\Models\Ruangan;
 use App\Models\Menu;
-use App\Models\Registrasi;
 use Illuminate\Support\Facades\DB;
-
 
 class DashboardController extends Controller
 {
-    /**
-     * Count all kuota for Ruangan and Menu.
-     *
-     * @return \Illuminate\Http\JsonResponse
-     */
-    
     public function index()
     {
-        $totalPendaftar = Registrasi::count();
+        $totalPendaftar    = Registrasi::count();
         $totalDiverifikasi = Registrasi::where('status', 'approved')->count();
-        $terakhirDiupdateReg = Registrasi::orderBy('created_at', 'desc')->first();
-        $terakhirDiupdateVer = Registrasi::orderBy('updated_at', 'desc')->first();
+
+        $terakhirRegistrasi = Registrasi::latest('created_at')->first();
+        $terakhirVerifikasi = Registrasi::latest('updated_at')->first();
+
+
+        $chartRaw = Registrasi::selectRaw("
+                CASE
+                    WHEN status = 'pending' THEN DATE(created_at)
+                    ELSE DATE(updated_at)
+                END as tanggal,
+                status,
+                COUNT(*) as jumlah
+            ")
+            ->groupBy('tanggal', 'status')
+            ->orderBy('tanggal')
+            ->get()
+            ->groupBy('tanggal');
+
+        $labels   = $chartRaw->keys()->values();
+        $pending  = [];
+        $approved = [];
+        $rejected = [];
+
+        foreach ($chartRaw as $items) {
+            $pending[]  = $items->firstWhere('status', 'pending')->jumlah  ?? 0;
+            $approved[] = $items->firstWhere('status', 'approved')->jumlah ?? 0;
+            $rejected[] = $items->firstWhere('status', 'rejected')->jumlah ?? 0;
+        }
+
 
         $ruanganKuota = Ruangan::sum('kuota');
-        $menuKuota = Menu::sum('kuota');
-        $sisaKuotaRuangan = Ruangan::sum('kuota') - DB::table('registrasis')->where('status', 'approved')->count('ruangan_id');
-        $sisaKuotaMenu = Menu::sum('kuota') - DB::table('registrasis')->where('status', 'approved')->count('menu_id');
-        $kuotaPerRuangan = Ruangan::select('id', 'nama_ruangan as name', 'kuota', 'kuota_now')->get()->map(function ($item) {
-            if ($item->kuota_now == null) {
-                $item->kuota_now = 0;
-            }
-            return $item;
-        });
-        $kuotaPerMenu = Menu::select('id', 'mata_pelajaran as name', 'tingkat', 'kuota', 'kuota_now')->get()->map(function ($item) {
-            if ($item->kuota_now == null) {
-                $item->kuota_now = 0;
-            }
-            return $item;
-        });
-    
-        return view('back.dashboard.index', [
-            'totalPendaftar' => $totalPendaftar,
-            'totalDiverifikasi' => $totalDiverifikasi,
-            'ruanganKuota' => $ruanganKuota,
-            'menuKuota' => $menuKuota,
-            'sisaKuotaRuangan' => $sisaKuotaRuangan,
-            'sisaKuotaMenu' => $sisaKuotaMenu,
-            'kuotaPerRuangan' => $kuotaPerRuangan,
-            'kuotaPerMenu' => $kuotaPerMenu,
-            'terakhirDiupdateReg' => $terakhirDiupdateReg ? $terakhirDiupdateReg->created_at->format('Y-m-d H:i') : 'N/A',
-            'terakhirDiupdateVer' => $terakhirDiupdateVer ? $terakhirDiupdateVer->updated_at->format('Y-m-d H:i') : 'N/A',
+        $menuKuota    = Menu::sum('kuota');
+
+        $approvedCount = Registrasi::where('status', 'approved')->count();
+
+        $sisaKuotaRuangan = $ruanganKuota - $approvedCount;
+        $sisaKuotaMenu    = $menuKuota - $approvedCount;
+
+        $kuotaPerRuangan = Ruangan::select(
+                'id',
+                'nama_ruangan as name',
+                'kuota',
+                DB::raw('COALESCE(kuota_now, 0) as kuota_now')
+            )->get();
+
+        $kuotaPerMenu = Menu::select(
+                'id',
+                'mata_pelajaran as name',
+                'tingkat',
+                'status',
+                'kuota',
+                DB::raw('COALESCE(kuota_now, 0) as kuota_now')
+            )->get();
+
+
+        return view('back.dashboard.index', compact(
+            'totalPendaftar',
+            'totalDiverifikasi',
+            'ruanganKuota',
+            'menuKuota',
+            'sisaKuotaRuangan',
+            'sisaKuotaMenu',
+            'kuotaPerRuangan',
+            'kuotaPerMenu',
+            'labels',
+            'pending',
+            'approved',
+            'rejected',
+        ))->with([
+            'terakhirDiupdateReg' => optional($terakhirRegistrasi)->created_at?->format('Y-m-d H:i') ?? 'N/A',
+            'terakhirDiupdateVer' => optional($terakhirVerifikasi)->updated_at?->format('Y-m-d H:i') ?? 'N/A',
         ]);
-    }    
+    }
 }

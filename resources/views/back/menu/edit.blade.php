@@ -1,6 +1,6 @@
 @extends('back.layouts.app')
 
-@section('title', 'Edit Menu')
+@section('title', 'Edit Event')
 
 @section('content')
 
@@ -16,93 +16,103 @@
 @endforeach
 @endif
 
-<div class="container mx-auto px-4 py-6">
-    <h1 class="text-2xl font-bold mb-6">Edit Menu</h1>
-    <form action="{{ route('back.menu.update', $menu) }}" method="POST" enctype="multipart/form-data">
-        @csrf
-        @method('PUT')
-        <div class="mb-4">
-            <label for="mata_pelajaran" class="block text-sm font-medium text-gray-700">Event</label>
-            <input type="text" class="mt-1 p-2 block w-full border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500" name="mata_pelajaran" id="mata_pelajaran" value="{{ $menu->mata_pelajaran }}" required>
-        </div>
-        <div class="mb-4">
-            <label for="deskripsi" class="block text-sm font-medium text-gray-700">Deskripsi</label>
-            <textarea class="mt-1 p-2 block w-full border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500" name="deskripsi" id="deskripsi" required>{{ $menu->deskripsi }}</textarea>
-        </div>
-        <div class="mb-4">
-            <label for="menu_category_id" class="block text-gray-700">Kategori Menu</label>
-            <select class="mt-1 block w-full border-gray-300 rounded-md shadow-sm p-2" name="menu_category_id" id="menu_category_id" required>
-                <option value="" disabled>Pilih Kategori</option>
-                @foreach($menuCategories as $category)
-                    <option value="{{ $category->id }}" 
-                        {{ old('menu_category_id', $menu->menu_category_id) == $category->id ? 'selected' : '' }}>
-                        {{ $category->name }}
-                    </option>
-                @endforeach
-            </select>
-        </div> 
-        <div class="mb-4">
-            <label for="tingkat" class="block text-sm font-medium text-gray-700">Tingkat</label>
-            <select class="mt-1 p-2 block w-full border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500" name="tingkat" id="tingkat" required>
-            <option value="SD" {{ $menu->tingkat == 'SD' ? 'selected' : '' }}>SD</option>
-            <option value="SMP/MTs" {{ $menu->tingkat == 'SMP/MTs' ? 'selected' : '' }}>SMP/MTs</option>
-            <option value="SMA/MA" {{ $menu->tingkat == 'SMA/MA' ? 'selected' : '' }}>SMA/MA</option>
-            </select>
-        </div>
-        <div class="mb-4">
-            <label for="harga" class="block text-sm font-medium text-gray-700">Harga</label>
-            <div class="relative">
-                <span class="absolute inset-y-0 left-0 pl-3 flex items-center text-gray-500">Rp</span>
-                <input type="text" class="mt-1 block w-full pl-10 border-gray-300 rounded-md shadow-sm p-2" id="harga" value="{{ number_format($menu->harga, 0, ',', '.') }}" required>
-                <input type="hidden" name="harga" id="hargaHidden" value="{{ $menu->harga }}">
+<div class="container mx-auto">
+    <div class="mb-6 rounded-lg bg-white/60 backdrop-blur px-6 py-4 shadow-sm border border-gray-200">
+        <h1 class="flex items-center gap-3 text-3xl font-semibold text-gray-800">
+            <span class="h-8 w-1.5 rounded-full bg-teal-500"></span>
+            Edit Event
+        </h1>
+        <p class="mt-1 text-sm text-gray-500">
+            Ubah detail informasi event
+        </p>
+    </div>
+    <div class="mt-4 rounded-lg bg-white p-5 shadow-sm border border-gray-100">
+        <form action="{{ route('back.menu.update', $menu) }}" method="POST" enctype="multipart/form-data">
+            @csrf
+            @method('PUT')
+            <div class="mb-4">
+                <label for="mata_pelajaran" class="block text-sm font-medium text-gray-700">Event</label>
+                <input type="text" class="w-full px-4 py-2 border rounded-lg focus:ring focus:ring-blue-300" name="mata_pelajaran" id="mata_pelajaran" value="{{ $menu->mata_pelajaran }}" required>
             </div>
-            
-            <script>
-                document.addEventListener("DOMContentLoaded", function () {
-                    const priceInput = document.getElementById("harga");
-                    const hiddenInput = document.getElementById("hargaHidden");
-            
-                    priceInput.addEventListener("input", function () {
-                        let value = priceInput.value.replace(/\D/g, "");
-                        let formattedValue = new Intl.NumberFormat("id-ID").format(value); 
-                        priceInput.value = formattedValue;
+            <div class="mb-4">
+                <label for="deskripsi" class="block text-sm font-medium text-gray-700">Deskripsi</label>
+                <textarea class="w-full px-4 py-2 border rounded-lg focus:ring focus:ring-blue-300" name="deskripsi" id="deskripsi" required>{{ $menu->deskripsi }}</textarea>
+            </div>
+            <div class="mb-4">
+                <label for="menu_category_id" class="block text-gray-700">Kategori Menu</label>
+                <select class="mt-1 block w-full border-gray-300 rounded-md shadow-sm p-2" name="menu_category_id" id="menu_category_id" required>
+                    <option value="" disabled>Pilih Kategori</option>
+                    @foreach($menuCategories as $category)
+                        <option value="{{ $category->id }}" 
+                            {{ old('menu_category_id', $menu->menu_category_id) == $category->id ? 'selected' : '' }}>
+                            {{ $category->name }}
+                        </option>
+                    @endforeach
+                </select>
+            </div> 
+            <div class="mb-4">
+                <label for="tingkat" class="block text-sm font-medium text-gray-700">Tingkat</label>
+                <select class="w-full px-4 py-2 border rounded-lg focus:ring focus:ring-blue-300" name="tingkat" id="tingkat" required>
+                <option value="SD" {{ $menu->tingkat == 'SD' ? 'selected' : '' }}>SD</option>
+                <option value="SMP/MTs" {{ $menu->tingkat == 'SMP/MTs' ? 'selected' : '' }}>SMP/MTs</option>
+                <option value="SMA/MA" {{ $menu->tingkat == 'SMA/MA' ? 'selected' : '' }}>SMA/MA</option>
+                </select>
+            </div>
+            <div class="mb-4">
+                <label for="harga" class="block text-sm font-medium text-gray-700">Harga</label>
+                <div class="relative">
+                    <span class="absolute inset-y-0 left-0 pl-3 flex items-center text-gray-500">Rp</span>
+                    <input type="text" class="mt-1 block w-full pl-10 border-gray-300 rounded-md shadow-sm p-2" id="harga" value="{{ number_format($menu->harga, 0, ',', '.') }}" required>
+                    <input type="hidden" name="harga" id="hargaHidden" value="{{ $menu->harga }}">
+                </div>
+                
+                <script>
+                    document.addEventListener("DOMContentLoaded", function () {
+                        const priceInput = document.getElementById("harga");
+                        const hiddenInput = document.getElementById("hargaHidden");
+                
+                        priceInput.addEventListener("input", function () {
+                            let value = priceInput.value.replace(/\D/g, "");
+                            let formattedValue = new Intl.NumberFormat("id-ID").format(value); 
+                            priceInput.value = formattedValue;
+                        });
+                
+                        priceInput.addEventListener("blur", function () {
+                            let cleanValue = priceInput.value.replace(/\D/g, ""); 
+                            hiddenInput.value = cleanValue; 
+                        });
                     });
-            
-                    priceInput.addEventListener("blur", function () {
-                        let cleanValue = priceInput.value.replace(/\D/g, ""); 
-                        hiddenInput.value = cleanValue; 
-                    });
-                });
-            </script>            
-        </div>
-        <div class="mb-4">
-            <label for="kuota" class="block text-sm font-medium text-gray-700">Kuota</label>
-            <input type="number" class="mt-1 p-2 block w-full border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500" name="kuota" id="kuota" value="{{ $menu->kuota }}" required>
-        </div>
-        <div class="mb-4">
-            <label for="icon" class="block text-sm font-medium text-gray-700">Icon</label>
-            @if ($menu->icon)
-            <img src="{{ asset('storage/' . $menu->icon) }}" alt="Current Icon" class="my-2 w-24 h-24 object-cover" />
-            @endif
-            <input type="file" class="mt-1 p-2 block w-full border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500" name="icon" id="icon">
-        </div>
-        <div class="mb-4">
-            <label for="thumbnail" class="block text-sm font-medium text-gray-700">Thumbnail</label>
-            @if ($menu->thumbnail)
-            <img src="{{ asset('storage/' . $menu->thumbnail) }}" alt="Current Thumbnail" class="my-2 w-24 h-24 object-cover" />
-            @endif
-            <input type="file" class="mt-1 p-2 block w-full border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500" name="thumbnail" id="thumbnail">
-        </div>
-        <div class="mb-4">
-            <label for="status" class="block text-sm font-medium text-gray-700">Status Pendaftaran</label>
-            <select class="mt-1 p-2 block w-full border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500" 
-                name="status" id="status" required>
-                <option value="buka" {{ $menu->status == 'buka' ? 'selected' : '' }}>Menerima</option>
-                <option value="tutup" {{ $menu->status == 'tutup' ? 'selected' : '' }}>Ditutup</option>
-            </select>
-        </div>        
-        <button type="submit" class="px-4 py-2 bg-indigo-600 text-white rounded-md shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">Update</button>
-    </form>
+                </script>            
+            </div>
+            <div class="mb-4">
+                <label for="kuota" class="block text-sm font-medium text-gray-700">Kuota</label>
+                <input type="number" class="w-full px-4 py-2 border rounded-lg focus:ring focus:ring-blue-300" name="kuota" id="kuota" value="{{ $menu->kuota }}" required>
+            </div>
+            <div class="mb-4">
+                <label for="icon" class="block text-sm font-medium text-gray-700">Icon</label>
+                @if ($menu->icon)
+                <img src="{{ asset('storage/' . $menu->icon) }}" alt="Current Icon" class="my-2 w-24 h-24 object-cover" />
+                @endif
+                <input type="file" class="w-full px-4 py-2 border rounded-lg focus:ring focus:ring-blue-300" name="icon" id="icon">
+            </div>
+            <div class="mb-4">
+                <label for="thumbnail" class="block text-sm font-medium text-gray-700">Thumbnail</label>
+                @if ($menu->thumbnail)
+                <img src="{{ asset('storage/' . $menu->thumbnail) }}" alt="Current Thumbnail" class="my-2 w-24 h-24 object-cover" />
+                @endif
+                <input type="file" class="w-full px-4 py-2 border rounded-lg focus:ring focus:ring-blue-300" name="thumbnail" id="thumbnail">
+            </div>
+            <div class="mb-4">
+                <label for="status" class="block text-sm font-medium text-gray-700">Status Pendaftaran</label>
+                <select class="w-full px-4 py-2 border rounded-lg focus:ring focus:ring-blue-300" 
+                    name="status" id="status" required>
+                    <option value="buka" {{ $menu->status == 'buka' ? 'selected' : '' }}>Menerima</option>
+                    <option value="tutup" {{ $menu->status == 'tutup' ? 'selected' : '' }}>Ditutup</option>
+                </select>
+            </div>        
+            <button type="submit" class="px-4 py-2 bg-indigo-600 text-white rounded-md shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">Update</button>
+        </form>
+    </div>
 </div>
 <script src="https://cdn.tailwindcss.com"></script>
 @endsection

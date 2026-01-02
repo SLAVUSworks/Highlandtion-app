@@ -1,4 +1,4 @@
-<footer id="nav-dash" class="relative bg-gray-800 text-white py-6 mt-8 z-50" data-aos="fade-up">
+<footer id="nav-dash" class="relative bg-[#4581b2] text-white py-6 mt-8 z-50" data-aos="fade-up">
     <div class="container mx-auto">
         <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
             <div>
@@ -50,10 +50,10 @@
             <p class="text-sm text-right">HL-Web App N Booking System v2.13.8<br>
                 <small class="text-sm">Made & maintained by
                     <a href="https://github.com/SLAVUSworks" target="_blank" rel="noopener noreferrer"
-                        class="text-blue-400">SLAVUSworks</a>
+                        class="text-black">SLAVUSworks</a>
                     with
                     <a href="https://github.com/terukaze1939" target="_blank" rel="noopener noreferrer"
-                        class="text-blue-400">Terukaze</a>
+                        class="text-black">Terukaze</a>
                 </small>
             </p>
             <img onclick="showDigimark()"

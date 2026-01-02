@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\Menu;
 use Illuminate\Support\Facades\Storage;
 use App\Models\MenuCategory;
+use App\Models\Registrasi;
 
 class MenuController extends Controller
 {
@@ -95,13 +96,23 @@ class MenuController extends Controller
         
         $menu->update($data);
 
-        return redirect()->route('back.menu.index')->with('success', 'Menu berhasil diperbarui!');
+        return redirect()->route('back.menu.index')->with('success', 'Event berhasil diperbarui!');
     }
-    
-    public function destroy(Menu $menu)
+
+    public function destroy($id)
     {
+        $menu = Menu::findOrFail($id);
+
+        if ($menu->registrasi()->exists()) {
+            return redirect()
+                ->route('back.menu.index')
+                ->with('error', 'Event tidak dapat dihapus karena sudah ada yang mendaftar pada event ini!');
+        }
+
         $menu->delete();
 
-        return redirect()->route('back.menu.index');
+        return redirect()
+            ->route('back.menu.index')
+            ->with('success', 'Event Berhasil Dihapus!');
     }
 }

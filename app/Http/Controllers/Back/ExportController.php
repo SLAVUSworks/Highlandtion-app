@@ -43,6 +43,7 @@ class ExportController extends Controller
         array_unshift($columns, 'No');
     
         $columnLabels = [
+            'nomor_urut_formatted' => 'Nomor Urut Database',
             'id' => 'ID',
             'nama' => 'Nama',
             'asal_sekolah' => 'Asal Sekolah',

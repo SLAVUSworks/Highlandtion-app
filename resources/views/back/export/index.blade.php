@@ -4,8 +4,6 @@
 
 @section('content')
 
-<h1 class="text-2xl font-bold mb-4">Statistik Pendaftar</h1>
-
 @if ($errors->any())
 @foreach ($errors->all() as $error)
 <script>
@@ -38,29 +36,15 @@ Swal.fire({
 </script>
 @endif
 
-
-<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
-    <div class="bg-white shadow rounded-lg p-4">
-        <h2 class="text-lg font-bold">Total Pendaftar</h2>
-        <p class="text-xl">{{ $totalPendaftar }}</p>
-    </div>
-    <div class="bg-white shadow rounded-lg p-4">
-        <h2 class="text-lg font-bold">Total Diverifikasi</h2>
-        <p class="text-xl">{{ $totalDiverifikasi }}</p>
-    </div>
-    <div class="bg-white shadow rounded-lg p-4">
-        <h2 class="text-lg font-bold">Pendaftar Pertama</h2>
-        <p class="text-sm">{{ $pendaftarPertama }}</p>
-    </div>
-    <div class="bg-white shadow rounded-lg p-4">
-        <h2 class="text-lg font-bold">Terakhir Diperbarui</h2>
-        <p class="text-sm">{{ $terakhirDiupdate }}</p>
-    </div>
+<div class="mb-6 rounded-lg bg-white/60 backdrop-blur px-6 py-4 shadow-sm border border-gray-200">
+    <h1 class="flex items-center gap-3 text-3xl font-semibold text-gray-800">
+        <span class="h-8 w-1.5 rounded-full bg-teal-500"></span>
+        Rekap Data Pendaftaran Peserta
+    </h1>
+    <p class="mt-1 text-sm text-gray-500">
+        Unduh rekapitulasi data pendaftaran peserta dalam format Excel
+    </p>
 </div>
-
-<canvas id="chart" class="w-full mb-6"></canvas>
-
-<h1 class="text-2xl font-bold mb-4">Rekap Data Pendaftar</h1>
 
 <div class="space-y-6">
 
@@ -97,7 +81,15 @@ Swal.fire({
     </div>
 </div>
 
-<h1 class="text-2xl font-bold my-4">Reset Data Event</h1>
+<div class="mb-6 rounded-lg bg-white/60 backdrop-blur px-6 py-4 shadow-sm border border-gray-200 mt-6">
+    <h1 class="flex items-center gap-3 text-3xl font-semibold text-gray-800">
+        <span class="h-8 w-1.5 rounded-full bg-red-500"></span>
+        Reset Data Event
+    </h1>
+    <p class="mt-1 text-sm text-gray-500">
+        Zona bahaya, harap melakukan backup data sebelum melakukan reset database.
+    </p>
+</div>
 
 <div class="space-y-6">
     <div class="p-5 bg-white rounded-lg shadow border border-gray-200 mt-4">
@@ -193,60 +185,144 @@ document.getElementById('resetDBButton').addEventListener('click', function() {
 
 
 {{-- Standard Export --}}
-<div id="exportModal" class="fixed inset-0 bg-gray-800 bg-opacity-50 flex justify-center items-center hidden">
-    <div class="bg-white p-6 rounded-lg shadow-lg w-96">
-        <h2 class="text-xl font-bold mb-4">Pilih Kolom</h2>
-        <form id="exportForm">
-            <div class="grid grid-cols-2 gap-2">
-                <label><input type="checkbox" name="columns[]" value="id" checked> ID</label>
-                <label><input type="checkbox" name="columns[]" value="nama" checked> Nama</label>
-                <label><input type="checkbox" name="columns[]" value="asal_sekolah" checked> Asal Sekolah</label>
-                <label><input type="checkbox" name="columns[]" value="nomor_hp"> Nomor HP</label>
-                <label><input type="checkbox" name="columns[]" value="menu.menu_category.name"> Kategori</label>
-                <label><input type="checkbox" name="columns[]" value="menu.mata_pelajaran"> Event</label>
-                <label><input type="checkbox" name="columns[]" value="menu.tingkat"> Tingkat</label>
-                <label><input type="checkbox" name="columns[]" value="menu.ruangan"> Ruangan</label>
-                <label><input type="checkbox" name="columns[]" value="status"> Status</label>
-                <label><input type="checkbox" name="columns[]" value="registration_code"> Kode Registrasi</label>
-                <label><input type="checkbox" name="columns[]" value="created_at"> Tanggal Daftar</label>
-                <label><input type="checkbox" name="columns[]" value="updated_at"> Tanggal Diperbarui</label>
+<div id="exportModal"
+     class="fixed inset-0 z-50 flex items-center justify-center bg-black/50 hidden">
+    <div class="w-full max-w-lg rounded-md bg-white shadow-2xl">
+        <div class="border-b px-6 py-4">
+            <h2 class="text-lg font-semibold text-gray-800">
+                Pilih Kolom Export
+            </h2>
+            <p class="text-sm text-gray-500">
+                Centang kolom yang ingin disertakan
+            </p>
+        </div>
+        <form id="exportForm" class="px-6 py-5">
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                <label class="flex items-center gap-3 rounded-md border p-3 cursor-pointer
+                              hover:bg-gray-50 transition">
+                    <input type="checkbox" name="columns[]" value="nomor_urut_formatted"
+                           checked
+                           class="h-5 w-5 text-green-600 rounded-lg focus:ring-green-500">
+                    <span class="text-sm font-medium text-gray-700">
+                        Nomor Urut
+                    </span>
+                </label>
+                <label class="flex items-center gap-3 rounded-md border p-3 cursor-pointer hover:bg-gray-50 transition">
+                    <input type="checkbox" name="columns[]" value="id" checked
+                           class="h-5 w-5 text-green-600 rounded-lg focus:ring-green-500">
+                    <span class="text-sm font-medium text-gray-700">ID</span>
+                </label>
+                <label class="flex items-center gap-3 rounded-md border p-3 cursor-pointer hover:bg-gray-50 transition">
+                    <input type="checkbox" name="columns[]" value="nama" checked
+                           class="h-5 w-5 text-green-600 rounded-lg focus:ring-green-500">
+                    <span class="text-sm font-medium text-gray-700">Nama</span>
+                </label>
+                <label class="flex items-center gap-3 rounded-md border p-3 cursor-pointer hover:bg-gray-50 transition">
+                    <input type="checkbox" name="columns[]" value="asal_sekolah" checked
+                           class="h-5 w-5 text-green-600 rounded-lg focus:ring-green-500">
+                    <span class="text-sm font-medium text-gray-700">Asal Sekolah</span>
+                </label>
+                <label class="flex items-center gap-3 rounded-md border p-3 cursor-pointer hover:bg-gray-50 transition">
+                    <input type="checkbox" name="columns[]" value="nomor_hp"
+                           class="h-5 w-5 text-green-600 rounded-lg focus:ring-green-500">
+                    <span class="text-sm font-medium text-gray-700">Nomor HP</span>
+                </label>
+                <label class="flex items-center gap-3 rounded-md border p-3 cursor-pointer hover:bg-gray-50 transition">
+                    <input type="checkbox" name="columns[]" value="menu.menu_category.name"
+                           class="h-5 w-5 text-green-600 rounded-lg focus:ring-green-500">
+                    <span class="text-sm font-medium text-gray-700">Kategori</span>
+                </label>
+                <label class="flex items-center gap-3 rounded-md border p-3 cursor-pointer hover:bg-gray-50 transition">
+                    <input type="checkbox" name="columns[]" value="menu.mata_pelajaran"
+                           class="h-5 w-5 text-green-600 rounded-lg focus:ring-green-500">
+                    <span class="text-sm font-medium text-gray-700">Event</span>
+                </label>
+                <label class="flex items-center gap-3 rounded-md border p-3 cursor-pointer hover:bg-gray-50 transition">
+                    <input type="checkbox" name="columns[]" value="menu.tingkat"
+                           class="h-5 w-5 text-green-600 rounded-lg focus:ring-green-500">
+                    <span class="text-sm font-medium text-gray-700">Tingkat</span>
+                </label>
+                <label class="flex items-center gap-3 rounded-md border p-3 cursor-pointer hover:bg-gray-50 transition">
+                    <input type="checkbox" name="columns[]" value="menu.ruangan"
+                           class="h-5 w-5 text-green-600 rounded-lg focus:ring-green-500">
+                    <span class="text-sm font-medium text-gray-700">Ruangan</span>
+                </label>
+                <label class="flex items-center gap-3 rounded-md border p-3 cursor-pointer hover:bg-gray-50 transition">
+                    <input type="checkbox" name="columns[]" value="status"
+                           class="h-5 w-5 text-green-600 rounded-lg focus:ring-green-500">
+                    <span class="text-sm font-medium text-gray-700">Status</span>
+                </label>
+                <label class="flex items-center gap-3 rounded-md border p-3 cursor-pointer hover:bg-gray-50 transition">
+                    <input type="checkbox" name="columns[]" value="registration_code"
+                           class="h-5 w-5 text-green-600 rounded-lg focus:ring-green-500">
+                    <span class="text-sm font-medium text-gray-700">Kode Registrasi</span>
+                </label>
+                <label class="flex items-center gap-3 rounded-md border p-3 cursor-pointer hover:bg-gray-50 transition">
+                    <input type="checkbox" name="columns[]" value="created_at"
+                           class="h-5 w-5 text-green-600 rounded-lg focus:ring-green-500">
+                    <span class="text-sm font-medium text-gray-700">Tanggal Daftar</span>
+                </label>
+                <label class="flex items-center gap-3 rounded-md border p-3 cursor-pointer hover:bg-gray-50 transition">
+                    <input type="checkbox" name="columns[]" value="updated_at"
+                           class="h-5 w-5 text-green-600 rounded-lg focus:ring-green-500">
+                    <span class="text-sm font-medium text-gray-700">Tanggal Update</span>
+                </label>
             </div>
-
-            <div class="flex justify-end mt-4">
-                <button type="button" id="cancelExport" class="mr-2 bg-gray-400 text-white px-3 py-2 rounded-lg hover:bg-gray-500">Batal</button>
-                <button type="submit" class="bg-green-500 text-white px-3 py-2 rounded-lg hover:bg-green-600">Download CSV</button>
+            <div class="mt-6 flex justify-end gap-3">
+                <button type="button" id="cancelExport"
+                        class="rounded-md border px-4 py-2 text-sm font-medium text-gray-600 hover:bg-gray-100">
+                    Batal
+                </button>
+                <button type="submit"
+                        class="rounded-md bg-green-600 px-5 py-2 text-sm font-semibold text-white hover:bg-green-700">
+                    Download CSV
+                </button>
             </div>
         </form>
     </div>
 </div>
 
 {{-- Advance Export --}}
-<div id="advanceExportModal" class="fixed inset-0 bg-gray-800 bg-opacity-50 flex justify-center items-center hidden">
-    <div class="bg-white p-6 rounded-lg shadow-lg w-96">
-        <h2 class="text-xl font-bold mb-4">Advance Export</h2>
-
-        <form id="advanceExportForm">
-            <label class="block mb-2 font-semibold">Pilih Parameter Pengelompokan</label>
-            <p class="font-thin text-sm mb-2">Data akan dipisah Per-Sheet berdasarkan Parameter dipilih.</p>
-            <select id="groupBy" name="groupBy" class="w-full p-2 border rounded">
-                <option value="ruangan">Ruangan</option>
-                <option value="kategori">Kategori</option>
-                <option value="mata_pelajaran">Event</option>
-                <option value="tingkat">Tingkat</option>
-                <option value="status">Status</option>
-            </select>
-
-            <div class="flex justify-end mt-4">
-                <button type="button" id="cancelAdvanceExport" class="mr-2 bg-gray-400 text-white px-3 py-2 rounded-lg hover:bg-gray-500">
+<div id="advanceExportModal"
+     class="fixed inset-0 z-50 flex items-center justify-center bg-black/50 hidden">
+    <div class="w-full max-w-md rounded-md bg-white shadow-2xl">
+        <div class="border-b px-6 py-4">
+            <h2 class="text-lg font-semibold text-gray-800">
+                Advanced Export
+            </h2>
+            <p class="mt-1 text-sm text-gray-500">
+                Data akan dipisahkan ke beberapa sheet berdasarkan parameter pilihan.
+            </p>
+        </div>
+        <form id="advanceExportForm" class="px-6 py-5 space-y-4">
+            <div>
+                <label for="groupBy" class="block text-sm font-medium text-gray-700 mb-1">
+                    Parameter Pengelompokan
+                </label>
+                <select id="groupBy" name="groupBy"
+                        class="w-full rounded-md border px-3 py-2 text-sm
+                               focus:border-green-500 focus:ring-green-500">
+                    <option value="ruangan">Ruangan</option>
+                    <option value="kategori">Kategori</option>
+                    <option value="mata_pelajaran">Event</option>
+                    <option value="tingkat">Tingkat</option>
+                    <option value="status">Status</option>
+                </select>
+            </div>
+            <div class="flex justify-end gap-3 pt-4">
+                <button type="button" id="cancelAdvanceExport"
+                        class="rounded-md border px-4 py-2 text-sm font-medium text-gray-600 hover:bg-gray-100">
                     Batal
                 </button>
-                <button type="submit" class="bg-green-500 text-white px-3 py-2 rounded-lg hover:bg-green-600">
+                <button type="submit"
+                        class="rounded-md bg-green-600 px-5 py-2 text-sm font-semibold text-white hover:bg-green-700">
                     Download XLSX
                 </button>
             </div>
         </form>
     </div>
 </div>
+
 
 <script>
     $(document).ready(function () {
@@ -317,59 +393,6 @@ document.getElementById('resetDBButton').addEventListener('click', function() {
             modal.addClass("hidden");
         });
     });
-</script>
-
-
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-<script>
-    const labels = @json($pendaftarPerTanggal->pluck('tanggal'));
-    const data = @json($pendaftarPerTanggal->pluck('jumlah'));
-
-    const chartData = {
-        labels: labels,
-        datasets: [{
-            label: 'Jumlah Pendaftar',
-            data: data,
-            backgroundColor: 'rgba(75, 192, 192, 0.2)',
-            borderColor: 'rgba(75, 192, 192, 1)',
-            borderWidth: 1
-        }]
-    };
-
-    const config = {
-        type: 'line',
-        data: chartData,
-        options: {
-            responsive: true,
-            plugins: {
-                legend: {
-                    position: 'top',
-                },
-                title: {
-                    display: true,
-                    text: 'Statistik Pendaftar'
-                }
-            },
-            scales: {
-                x: {
-                    title: {
-                        display: true,
-                        text: 'Tanggal'
-                    }
-                },
-                y: {
-                    title: {
-                        display: true,
-                        text: 'Jumlah Pendaftar'
-                    },
-                    beginAtZero: true
-                }
-            }
-        }
-    };
-
-    const ctx = document.getElementById('chart').getContext('2d');
-    new Chart(ctx, config);
 </script>
 
 @endsection

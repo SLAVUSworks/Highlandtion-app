@@ -8,8 +8,14 @@ use Illuminate\Support\Str;
 
 class Registrasi extends Model
 {
-    public $incrementing = false;
-    protected $keyType = 'string';
+    public $incrementing = true;
+    protected $primaryKey = 'nomor_urut';
+    protected $keyType = 'int';
+
+    public function getNomorUrutFormattedAttribute()
+    {
+        return str_pad($this->nomor_urut, 5, '0', STR_PAD_LEFT);
+    }
 
     protected static function boot()
     {
@@ -19,6 +25,11 @@ class Registrasi extends Model
                 $model->id = (string) Str::uuid();
             }
         });
+    }
+
+    public function getRouteKeyName()
+    {
+        return 'id';
     }
 
     use HasFactory;
@@ -53,25 +64,27 @@ class Registrasi extends Model
 
     protected static function booted()
     {
+        static::creating(function ($model) {
+            if (! $model->id) {
+                $model->id = (string) \Illuminate\Support\Str::uuid();
+            }
+        });
+
         static::saved(function ($registrasi) {
-            // Update kuota menu
             if ($registrasi->menu) {
                 $registrasi->menu->updateKuotaNow();
             }
 
-            // Update kuota ruangan (jika ada)
             if ($registrasi->ruangan) {
                 $registrasi->ruangan->updateKuotaNow();
             }
         });
 
         static::deleted(function ($registrasi) {
-            // Update kuota menu
             if ($registrasi->menu) {
                 $registrasi->menu->updateKuotaNow();
             }
 
-            // Update kuota ruangan (jika ada)
             if ($registrasi->ruangan) {
                 $registrasi->ruangan->updateKuotaNow();
             }

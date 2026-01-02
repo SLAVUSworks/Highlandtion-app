@@ -1,7 +1,7 @@
 @extends('front.layouts.app')
 
 @section('content')
-<div class="container mx-auto px-4">
+<div class="container mx-auto">
     <h1 class="mb-6 mt-6 text-3xl font-extrabold text-gray-900">Daftar Informasi</h1>
     
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -41,7 +41,7 @@
                         </p>
                     </div>
                     <div class="flex items-center mt-2.5">
-                        <span class="bg-blue-100 text-blue-800 text-xs font-semibold mr-2 px-2.5 py-0.5 rounded dark:bg-blue-200 dark:text-blue-800 ml-3">
+                        <span class="bg-blue-100 text-blue-800 text-xs font-semibold mr-2 px-2.5 py-0.5 rounded-lg dark:bg-blue-200 dark:text-blue-800 ml-3">
                             {{ \Carbon\Carbon::parse($article->publish_date)->format('d M Y') }}
                         </span>
                     </div>

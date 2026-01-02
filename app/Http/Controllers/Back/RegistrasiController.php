@@ -20,13 +20,12 @@ class RegistrasiController extends Controller
 {
     public function index()
     {
-        $registrasis = Registrasi::with(['menu', 'ruangan'])->orderBy('created_at','desc')->paginate(100);
+        $registrasis = Registrasi::with(['menu', 'ruangan'])->orderBy('nomor_urut','asc')->paginate(100);
         $menus = Menu::all();
     
         return view('back.registrasi.index', compact('registrasis', 'menus'));
     }    
     
-
     public function getRegistrasiData(Request $request)
     {
         $search = $request->get('search', '');
@@ -34,7 +33,7 @@ class RegistrasiController extends Controller
         $menuId = $request->get('menu', '');
     
         $query = Registrasi::with(['menu.menuCategory'])
-            ->orderBy('created_at','desc')
+            ->orderBy('nomor_urut','asc')
             ->where(function ($q) use ($search) {
                 $q->where('nama', 'like', "%$search%")
                   ->orWhere('asal_sekolah', 'like', "%$search%")
@@ -83,9 +82,8 @@ class RegistrasiController extends Controller
     }
     
 
-    public function edit($id)
+    public function edit(Registrasi $registrasi)
     {
-        $registrasi = Registrasi::findOrFail($id);
         $ruangans = Ruangan::where('menu_id', $registrasi->menu_id)->get();
         return view('back.registrasi.edit', compact('registrasi', 'ruangans'));
     }
@@ -106,10 +104,8 @@ class RegistrasiController extends Controller
         return redirect()->back()->with('success', 'Registrasi berhasil ditambahkan!');
     }
     
-    public function update(Request $request, $id)
+    public function update(Request $request, Registrasi $registrasi)
     {
-        $registrasi = Registrasi::findOrFail($id);
-    
         $validated = $request->validate([
             'ruangan_id' => 'required|exists:ruangans,id',
         ]);
@@ -121,7 +117,7 @@ class RegistrasiController extends Controller
         }
     
         $menu = $registrasi->menu;
-        $uniqueCode = 'HL-' . $registrasi->created_at->format('dm') . $menu->short_code . $validated['ruangan_id'] . $registrasi->updated_at->format('Hi');
+        $uniqueCode = 'HL-' . $registrasi->created_at->format('dm') . $menu->short_code . $validated['ruangan_id'] . $registrasi->nomor_urut_formatted;
     
         $filename = basename($registrasi->bukti_transfer);
         $source_path = "public/" . $registrasi->bukti_transfer;
@@ -139,11 +135,9 @@ class RegistrasiController extends Controller
         return redirect()->route('back.registrasis.card', $registrasi->id)
             ->with('success', 'Registrasi berhasil diverifikasi.');
     }
-    
-    public function reject($id)
+
+    public function reject(Registrasi $registrasi)
     {
-        $registrasi = Registrasi::findOrFail($id);
-    
         $filename = basename($registrasi->bukti_transfer);
         $source_path = "public/" . $registrasi->bukti_transfer;
         $target_path = "public/bukti_transfer/rejected/" . $filename;
@@ -158,10 +152,8 @@ class RegistrasiController extends Controller
             ->with('error', 'Registrasi ditolak.');
     }
 
-    public function restore($id)
+    public function restore(Registrasi $registrasi)
     {
-        $registrasi = Registrasi::findOrFail($id);
-    
         $filename = basename($registrasi->bukti_transfer);
         $source_path = "public/" . $registrasi->bukti_transfer;
         $target_path = "public/bukti_transfer/pending/" . $filename;
@@ -176,10 +168,8 @@ class RegistrasiController extends Controller
         return response()->json(['message' => 'Registrasi berhasil dipulihkan.'], 200);
     }
 
-    public function destroy($id)
+    public function destroy(Registrasi $registrasi)
     {
-        $registrasi = Registrasi::findOrFail($id);
-    
         if (Storage::exists("public/" . $registrasi->bukti_transfer)) {
             Storage::delete("public/" . $registrasi->bukti_transfer);
         }
@@ -189,41 +179,37 @@ class RegistrasiController extends Controller
         return redirect()->route('back.registrasis.index')
             ->with('success', 'Registrasi berhasil dihapus.');
     }
-    
-    public function showCard($id)
-    {
-        $registrasi = Registrasi::with(['menu', 'ruangan'])->findOrFail($id);
 
+    public function showCard(Registrasi $registrasi)
+    {
+        $registrasi->load(['menu', 'ruangan']);
         return view('back.registrasi.card', compact('registrasi'));
     }
 
-    public function saveNote(Request $request, $id)
+    public function saveNote(Request $request, Registrasi $registrasi)
     {
-        $registrasi = Registrasi::findOrFail($id);
-        $registrasi->note = $request->note;
-        $registrasi->save();
-    
+        $registrasi->update([
+            'note' => $request->note,
+        ]);
+
         return redirect()->back()->with('success', 'Catatan berhasil disimpan.');
     }
     
-    public function markAsNotified(Request $request, $id)
+    public function markAsNotified(Request $request, Registrasi $registrasi)
     {
-        $registrasi = Registrasi::findOrFail($id);
-        $registrasi->note = $request->note;
-        $registrasi->is_notified = true;
-        $registrasi->save();
-    
+        $registrasi->update([
+            'note' => $request->note,
+            'is_notified' => true,
+        ]);
+
         return redirect()->back()->with('success', 'Pesan ditandai sebagai sudah dikirim.');
     }
 
-    public function generatePdf($id)
+    public function generatePdf(Registrasi $registrasi)
     {
-        $registrasi = Registrasi::findOrFail($id);
-    
         $htmlContent = view('back.registrasi.pdf', compact('registrasi'))->render();
-        
         $pdf = Pdf::loadHTML($htmlContent);
-    
+
         return $pdf->download("Kartu_Registrasi_{$registrasi->registration_code}.pdf");
     }
 

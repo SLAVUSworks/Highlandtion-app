@@ -13,7 +13,7 @@
 
                 <div class="mb-4">
                     <label for="nickname" class="block mb-2">Nama Pengguna</label>
-                    <input type="text" name="nickname" id="nickname" class="w-full p-2 border rounded @error('nickname') border-red-500 @enderror" value="{{ old('nickname', $item->nickname) }}">
+                    <input type="text" name="nickname" id="nickname" class="w-full p-2 border rounded-lg @error('nickname') border-red-500 @enderror" value="{{ old('nickname', $item->nickname) }}">
                     @error('nickname')
                     <div class="text-red-500 mt-2 text-sm">
                         {{ $message }}
@@ -22,7 +22,7 @@
                 </div>
                 <div class="mb-4">
                     <label for="full_name" class="block mb-2">Nama Lengkap</label>
-                    <input type="text" name="full_name" id="full_name" class="w-full p-2 border rounded @error('full_name') border-red-500 @enderror" value="{{ old('full_name', $item->full_name) }}">
+                    <input type="text" name="full_name" id="full_name" class="w-full p-2 border rounded-lg @error('full_name') border-red-500 @enderror" value="{{ old('full_name', $item->full_name) }}">
                     @error('full_name')
                     <div class="text-red-500 mt-2 text-sm">
                         {{ $message }}
@@ -31,7 +31,7 @@
                 </div>
                 <div class="mb-4">
                     <label for="avatar" class="block mb-2">Foto Profil</label>
-                    <input type="file" name="avatar" id="avatar" class="w-full p-2 border rounded @error('avatar') border-red-500 @enderror" value="{{ old('avatar', $item->avatar) }}">
+                    <input type="file" name="avatar" id="avatar" class="w-full p-2 border rounded-lg @error('avatar') border-red-500 @enderror" value="{{ old('avatar', $item->avatar) }}">
                     @error('avatar')
                     <div class="text-red-500 mt-2 text-sm">
                         {{ $message }}
@@ -40,7 +40,7 @@
                 </div>
                 <div class="mb-4">
                     <label for="email" class="block mb-2">Email</label>
-                    <input type="email" name="email" id="email" class="w-full p-2 border rounded @error('email') border-red-500 @enderror" value="{{ old('email', $item->email) }}">
+                    <input type="email" name="email" id="email" class="w-full p-2 border rounded-lg @error('email') border-red-500 @enderror" value="{{ old('email', $item->email) }}">
                     @error('email')
                     <div class="text-red-500 mt-2 text-sm">
                         {{ $message }}
@@ -49,7 +49,7 @@
                 </div>
                 <div class="mb-4">
                     <label for="password" class="block mb-2">Password</label>
-                    <input type="password" name="password" id="password" class="w-full p-2 border rounded @error('password') border-red-500 @enderror" value="{{ old('password') }}">
+                    <input type="password" name="password" id="password" class="w-full p-2 border rounded-lg @error('password') border-red-500 @enderror" value="{{ old('password') }}">
                     @error('password')
                     <div class="text-red-500 mt-2 text-sm">
                         {{ $message }}
@@ -58,7 +58,7 @@
                 </div>
                 <div class="mb-4">
                     <label for="confirm_password" class="block mb-2">Konfirmasi Password</label>
-                    <input type="password" name="password_confirmation" id="confirm_password" class="w-full p-2 border rounded @error('confirm_password') border-red-500 @enderror" value="{{ old('confirm_password') }}">
+                    <input type="password" name="password_confirmation" id="confirm_password" class="w-full p-2 border rounded-lg @error('confirm_password') border-red-500 @enderror" value="{{ old('confirm_password') }}">
                     @error('confirm_password')
                     <div class="text-red-500 mt-2 text-sm">
                         {{ $message }}
@@ -67,7 +67,7 @@
                 </div>
 
                 <div class="flex justify-end space-x-2">
-                    <button type="button" class="bg-gray-500 text-white px-4 py-2 rounded close-modal" data-bs-target="#modalUpdate{{ $item->id }}">Batal</button>
+                    <button type="button" class="bg-gray-500 text-white px-4 py-2 rounded-lg close-modal" data-bs-target="#modalUpdate{{ $item->id }}">Batal</button>
                     <button type="submit" class="bg-green-500 text-white px-4 py-2 rounded">Ya, Edit!</button>
                 </div>
             </form>

@@ -19,7 +19,7 @@
     <link rel="stylesheet" href="{{ asset('css/admin.css') }}">
 </head>
 
-<body class="bg-gray-100">
+<body class="bg-[#EAF2FB]">
     <div id="app">
         @include('back.layouts.partials.navbar')
 
@@ -37,7 +37,7 @@
             </script>
             @endforeach
             @endif
-            <div class="bg-white p-6 rounded shadow">
+            <div class="p-6 rounded">
                 @yield('content')
             </div>
         </main>

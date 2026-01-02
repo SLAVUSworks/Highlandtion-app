@@ -24,25 +24,65 @@
 </header>
 
 
-<div class="p-5">
-    <div class="flex justify-start">
-        <h2 class="text-2xl font-semibold mb-4">Kategori</h2>
-    </div>
-    <div class="flex flex-wrap gap-2">
-        <button onclick="filterMenus('all')" class="relative inline-flex items-center justify-center p-0.5 mb-2 me-2 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-gray-500 to-gray-700 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-gray-300 dark:focus:ring-gray-800">
-            <span class="relative px-5 py-2.5 transition-all ease-in duration-75 bg-white dark:bg-gray-900 rounded-md group-hover:bg-opacity-0">
-                Semua
+<div class="p-4">
+    <div class="bg-gray-800 border border-gray-700 rounded-lg shadow p-5">
+        <div class="flex items-center justify-between mb-4">
+            <h2 class="text-xl font-semibold text-gray-200">
+                Kategori
+            </h2>
+
+            <span class="text-xs text-gray-300">
+                Pilih Kategori Event
             </span>
-        </button>
-    
-        @foreach ($categories as $category)
-            <button onclick="filterMenus('{{ $category->id }}')" class="relative inline-flex items-center justify-center p-0.5 mb-2 me-2 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-blue-500 to-purple-500 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800">
-                <span class="relative px-5 py-2.5 transition-all ease-in duration-75 bg-white dark:bg-gray-900 rounded-md group-hover:bg-opacity-0">
-                    {{ $category->name }}
-                </span>
+        </div>
+
+        <div class="h-px bg-gray-700 mb-4"></div>
+
+        <div class="flex flex-wrap gap-3">
+            <button
+                onclick="filterMenus('all')"
+                class="flex items-center gap-2 px-4 py-2 rounded-full
+                    bg-gray-800 text-blue-600
+                    border-2 border-blue-500
+                    hover:bg-blue-500 hover:text-white
+                    transition duration-200
+                    shadow-sm">
+                <span class="text-md font-bold">Semua</span>
             </button>
-        @endforeach
-    </div>    
+
+            @foreach ($categories as $category)
+                <button
+                    onclick="filterMenus('{{ $category->id }}')"
+                    class="flex items-center gap-2 px-2 py-2 rounded-full
+                        bg-gray-800 text-blue-600
+                        border-2 border-blue-500
+                        hover:bg-blue-500 hover:text-white
+                        transition duration-200
+                        shadow-sm group">
+
+                    <span
+                        class="w-8 h-8 flex items-center justify-center
+                            rounded-full overflow-hidden
+                            bg-blue-100
+                            group-hover:bg-white
+                            transition">
+                        @if(!empty($category->icon))
+                            <img
+                                src="{{ asset('storage/' . $category->icon) }}"
+                                alt="{{ $category->name }}"
+                                class="w-full h-full object-cover rounded-full">
+                        @else
+                            <i class="fa-solid fa-layer-group text-md text-blue-600"></i>
+                        @endif
+                    </span>
+
+                    <span class="text-md font-bold whitespace-nowrap">
+                        {{ $category->name }}
+                    </span>
+                </button>
+            @endforeach
+        </div>
+    </div>
 </div>
 <div class="mb-4 grid gap-8 sm:grid-cols-2 lg:grid-cols-3 p-3 md:p-4 xl:p-5" id="menu-container">
     @foreach ($menus as $menu)    
@@ -89,7 +129,7 @@
                 </div>
                 <div class="flex items-center mt-2.5">
                     <span class="text-sm dark:text-gray-400 mr-1">Pendaftaran</span>
-                    <span class="text-xs font-semibold mr-2 px-2.5 py-0.5 rounded 
+                    <span class="text-xs font-semibold mr-2 px-2.5 py-0.5 rounded-lg 
                         {{ $menu->status === 'tutup' ? 'bg-gray-300 text-red-700' : 'bg-blue-100 text-blue-800 dark:bg-blue-200 dark:text-blue-800 ml-3' }}">
                         @if ($menu->status === 'buka')
                             Dibuka

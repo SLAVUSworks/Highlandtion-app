@@ -1,8 +1,8 @@
 <nav id="nav-dash"
-    class="fixed top-0 z-50 w-full bg-white shadow flex items-center justify-between px-6 py-3 h-16">
+    class="fixed top-0 z-50 w-full bg-[#6EA6E6] shadow flex items-center justify-between px-6 py-3 h-16">
     <a href="{{ route('back.dashboard.index') }}" class="flex items-center space-x-2">
-        <i class="fas fa-cog text-gray-800 text-2xl"></i>
-        <h1 class="text-lg font-bold text-white leading-tight">
+        <i class="fas fa-cog text-[#FFFFFF] text-2xl"></i>
+        <h1 class="text-lg font-bold text-[#FFFFFF] leading-tight">
             {{ $config['app_name'] }}<br>
             <span class="text-l">Web Control Panel</span> <span class="text-xs font-thin">v2.3</span>
         </h1>
@@ -11,11 +11,11 @@
     <div class="flex items-center space-x-4">
         <div class="relative">
             <button id="notif-button" class="relative focus:outline-none">
-                <i class="fas fa-bell text-gray-800 text-2xl"></i>
+                <i class="fas fa-bell text-[#FFFFFF] text-2xl"></i>
                 <span id="notif-count"
                     class="absolute -top-2 -right-2 bg-red-600 text-white text-xs font-bold rounded-full px-1 hidden">0</span>
             </button>
-            <div id="notif-menu" class="absolute right-0 mt-2 w-64 bg-white rounded shadow-lg hidden">
+            <div id="notif-menu" class="absolute right-0 mt-2 w-64 bg-white rounded-lg shadow-lg hidden">
                 <div id="notif-content" class="p-2 text-sm text-gray-700">
                     <p class="text-gray-500 text-center">Tidak ada notifikasi</p>
                 </div>
@@ -25,7 +25,7 @@
         <div class="relative">
             <button id="user-menu-button" class="focus:outline-none flex items-center gap-2">
                 <img src="{{ url('storage/' . Auth::user()->avatar) }}" alt="Profile Picture"
-                    class="rounded-full w-10 h-10 object-cover ring-2 ring-white shadow-md">
+                    class="rounded-full w-10 h-10 object-cover ring-2 ring-[#FFFFFF] shadow-md">
             </button>
 
             <div id="user-menu"

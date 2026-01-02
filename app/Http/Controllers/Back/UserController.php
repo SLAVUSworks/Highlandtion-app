@@ -107,7 +107,6 @@ class UserController extends Controller
             $data['avatar'] = $filename;
         }
 
-
         if ($request->has('password') && $request->input('password') != '') {
             $data['password'] = bcrypt($data['password']);
         }

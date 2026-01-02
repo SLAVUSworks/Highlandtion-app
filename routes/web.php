@@ -53,7 +53,7 @@ Route::prefix('informasi')->name('front.articles.')->group(function () {
 
 Route::get('/contact', [ContactPageController::class, 'show'])->name('contact.show');
 
-Route::get('/registrasi/{id}/pdf', [BackRegistrasiController::class, 'generatePdf'])->name('registrasis.pdf');
+Route::get('/registrasi/{registrasi}/pdf', [BackRegistrasiController::class, 'generatePdf'])->name('registrasis.pdf');
 
 Route::get('/maintenance', function () {return view('front.maintenance.index');})->name('maintenance');
 Route::get('/closed', function () {return view('front.maintenance.regs-closed');})->name('regs-closed');

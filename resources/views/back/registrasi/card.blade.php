@@ -3,8 +3,16 @@
 @section('title', 'Kartu Registrasi')
 
 @section('content')
-<div class="container mx-auto px-4 py-6">
-    <h1 class="text-2xl font-bold mb-4">Kartu Peserta</h1>
+<div class="container mx-auto">
+    <div class="mb-6 rounded-lg bg-white/60 backdrop-blur px-6 py-4 shadow-sm border border-gray-200">
+        <h1 class="flex items-center gap-3 text-3xl font-semibold text-gray-800">
+            <span class="h-8 w-1.5 rounded-full bg-teal-500"></span>
+            Kartu Registrasi
+        </h1>
+        <p class="mt-1 text-sm text-gray-500">
+            Detail registrasi peserta terverifikasi
+        </p>
+    </div>
     @if (session('error'))
     <script>
         Swal.fire({
@@ -143,44 +151,88 @@
             <p class="mt-2 text-sm text-gray-700"><strong>Catatan:</strong> {{ $registrasi->note }}</p>
         </div>
     
-        <div class="flex flex-col gap-3">
-            <a href="#" data-id="{{ $registrasi->id }}" data-nomor_hp="{{ $registrasi->nomor_hp }}" 
-                data-email="{{ $registrasi->email }}" data-bukti="{{ asset('storage/' . $registrasi->bukti_transfer) }}"
-                class="detail-btn text-center px-4 py-2 bg-purple-500 text-white rounded-md hover:bg-purple-600 transition">
-                Detail
-            </a>            
-            <a href="{{ route('back.registrasis.kirimPesan', $registrasi->id) }}"
-                class="text-center px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 transition">
-                Kirim ke WhatsApp
-            </a>
-            <a target="_blank"
-                href="https://wa.me/{{ preg_replace('/^0/', '62', '62' . ltrim($registrasi->nomor_hp, '0')) }}?text=Halo%2C%0A%0APendaftaran%20Anda%20Telah%20Diverifikasi%20oleh%20Sektretariat%20{{ $config['app_name'] }}%0A%0AAtas%20nama%20{{ $registrasi->nama }}%0AAsal%20sekolah%20{{ $registrasi->asal_sekolah }}%0ATerdaftar%20pada%20{{ $registrasi->menu->mata_pelajaran }}%0ANomor%20Registrasi%20{{ $registrasi->registration_code }}%0A%0AKartu%20dapat%20di%20unduh%20melalui%20{{ route('registrasis.pdf', $registrasi->id) }}%0A%0AKami%20tunggu%20kehadiran%20mu%20~"
-                class="text-center px-4 py-2 bg-green-500 text-white rounded-md hover:bg-green-600 transition">
-                Kirim ke WhatsApp (Manual) 
-            </a>
-            <a href="{{ route('registrasis.pdf', $registrasi->id) }}" target="_blank"
-                class="text-center px-4 py-2 bg-red-500 text-white rounded-md hover:bg-red-600 transition">
-                Tampilkan PDF
-            </a>
-            <a href="{{ route('back.registrasis.index') }}"
-                class="text-center px-4 py-2 bg-gray-500 text-white rounded-md hover:bg-gray-600 transition">
-                Kembali
-            </a>
-        </div>
+        <div class="border border-gray-300 rounded-lg p-6 bg-white">
+
+            <div class="flex flex-col gap-3">
+                <a href="#" data-id="{{ $registrasi->id }}" data-nomor_hp="{{ $registrasi->nomor_hp }}" 
+                    data-email="{{ $registrasi->email }}" data-bukti="{{ asset('storage/' . $registrasi->bukti_transfer) }}"
+                    class="detail-btn text-center px-4 py-2 bg-purple-500 text-white rounded-md hover:bg-purple-600 transition">
+                    Detail
+                </a>            
+                <a href="{{ route('back.registrasis.kirimPesan', $registrasi->id) }}"
+                    class="text-center px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 transition">
+                    Kirim ke WhatsApp
+                </a>
+                <a target="_blank"
+                    href="https://wa.me/{{ preg_replace('/^0/', '62', '62' . ltrim($registrasi->nomor_hp, '0')) }}?text=Halo%2C%0A%0APendaftaran%20Anda%20Telah%20Diverifikasi%20oleh%20Sektretariat%20{{ $config['app_name'] }}%0A%0AAtas%20nama%20{{ $registrasi->nama }}%0AAsal%20sekolah%20{{ $registrasi->asal_sekolah }}%0ATerdaftar%20pada%20{{ $registrasi->menu->mata_pelajaran }}%0ANomor%20Registrasi%20{{ $registrasi->registration_code }}%0A%0AKartu%20dapat%20di%20unduh%20melalui%20{{ route('registrasis.pdf', $registrasi->id) }}%0A%0AKami%20tunggu%20kehadiran%20mu%20~"
+                    class="text-center px-4 py-2 bg-green-500 text-white rounded-md hover:bg-green-600 transition">
+                    Kirim ke WhatsApp (Manual) 
+                </a>
+                <a href="{{ route('registrasis.pdf', $registrasi->id) }}" target="_blank"
+                    class="text-center px-4 py-2 bg-red-500 text-white rounded-md hover:bg-red-600 transition">
+                    Tampilkan PDF
+                </a>
+                <a href="{{ route('back.registrasis.index') }}"
+                    class="text-center px-4 py-2 bg-gray-500 text-white rounded-md hover:bg-gray-600 transition">
+                    Kembali
+                </a>
+            </div>
+        </div>    
     </div>      
 </div>
-<div id="detailModal" class="fixed inset-0 bg-gray-800 bg-opacity-50 hidden flex justify-center items-center">
-    <div class="bg-white p-6 rounded-lg shadow-lg w-200 max-h-[80vh] overflow-y-auto relative">
-        <h2 class="text-xl font-bold mb-4">Detail Registrasi</h2>
-        <p><strong>Nomor HP:</strong> <span id="modalNomorHp"></span></p>
-        <p><strong>Email:</strong> <span id="modalEmail"></span></p>
-        <p><strong>Bukti Transfer:</strong></p>
-        <img id="modalBukti" class="w-full mt-2 rounded-lg shadow" src="" alt="Bukti Transfer">
-        <button id="closeModal" class="mt-4 bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600 transition w-full">
-            Tutup
-        </button>
+<div id="detailModal"
+     class="fixed inset-0 z-50 hidden flex items-center justify-center bg-black/50 backdrop-blur-sm">
+
+    <div class="relative w-full max-w-lg rounded-lg bg-white shadow-2xl">
+
+        <div class="flex items-center justify-between border-b px-6 py-4">
+            <h2 class="text-lg font-semibold text-gray-800">
+                Detail Registrasi
+            </h2>
+            <button id="closeModal"
+                    class="flex h-9 w-9 items-center justify-center rounded-full
+                        text-gray-400 transition
+                        hover:bg-gray-100 hover:text-gray-600">
+                ✕
+            </button>
+        </div>
+
+        <div class="space-y-4 px-6 py-5 max-h-[70vh] overflow-y-auto">
+            <div class="grid gap-4 sm:grid-cols-2">
+                <div class="rounded-lg bg-gray-50 p-3">
+                    <p class="text-xs text-gray-500">Nomor HP</p>
+                    <p id="modalNomorHp" class="font-medium text-gray-800"></p>
+                </div>
+
+                <div class="rounded-lg bg-gray-50 p-3">
+                    <p class="text-xs text-gray-500">Email</p>
+                    <p id="modalEmail" class="font-medium text-gray-800 break-all"></p>
+                </div>
+            </div>
+            <div>
+                <p class="mb-2 text-sm font-medium text-gray-700">
+                    Bukti Transfer
+                </p>
+
+                <div class="overflow-hidden rounded-lg border bg-gray-50">
+                    <img id="modalBukti"
+                         src=""
+                         alt="Bukti Transfer"
+                         class="w-full object-contain transition hover:scale-105 duration-300">
+                </div>
+            </div>
+
+        </div>
+        <div class="border-t px-6 py-4">
+            <button id="closeModal"
+                    class="w-full rounded-lg bg-gray-900 py-2.5 text-sm font-semibold text-white hover:bg-gray-800 transition">
+                Tutup
+            </button>
+        </div>
+
     </div>
 </div>
+
 <script>
     $(document).ready(function () {
         $(".detail-btn").click(function () {

@@ -1,7 +1,7 @@
 @extends('front.layouts.app')
 
 @section('content')
-<div class="container mx-auto px-4 py-6">
+<div class="container mx-auto py-6">
     <div class="flex flex-wrap">
         <!-- Blog entries -->
         <div class="w-full">
@@ -35,7 +35,6 @@
                         @else
                             Verifikator
                         @endif
-                        - Email : {{ $article->user->email }}
                     </p>
                 </div>
             </div>
