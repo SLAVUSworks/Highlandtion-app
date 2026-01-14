@@ -1,5 +1,8 @@
 <!DOCTYPE html>
 @if ($config['app_status'] == 0)
+    <head>
+        @include('front.layouts.meta')
+    </head>
     <script>
         window.location.href = "{{ url('/maintenance') }}";
     </script>
@@ -13,6 +16,8 @@
 
         {{-- LOCAL TAILWIND --}}
         @vite('resources/css/app.css')
+
+        @include('front.layouts.meta')
 
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css">
         <link rel="icon" type="image/x-icon" href="{{ $config['app_favicon'] }}">

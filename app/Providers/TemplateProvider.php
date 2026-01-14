@@ -38,6 +38,14 @@ class TemplateProvider extends ServiceProvider
             $view->with('config', $config);
         });
 
+        View::composer('front.layouts.meta', function($view){
+            $configKeys = ['app_name', 'app_description', 'app_favicon','app_status', 'header-background','header-logo-left','header-logo-right','tagline','footer-contact','footer-mpk-smansa-osis','footer-sponsor','footer-ekskul'];
+            
+            $config = Config::whereIn('name', $configKeys)->pluck('value', 'name');
+
+            $view->with('config', $config);
+        });
+
         View::composer('front.menu.index', function($view){
             $configKeys = ['app_name', 'app_description','app_status','app_favicon', 'header-background','header-logo-left','header-logo-right','typewriter','tagline','footer-contact','footer-mpk-smansa-osis','footer-sponsor','footer-ekskul'];
             
