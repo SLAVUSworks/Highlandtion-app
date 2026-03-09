@@ -71,7 +71,7 @@
 
                 <div class="flex justify-end mt-4">
                     <button type="button" class="bg-gray-500 text-white px-4 py-2 rounded-lg mr-2 close-modal" data-bs-target="#modalCreate">Batal</button>
-                    <button type="submit" class="bg-green-500 text-white px-4 py-2 rounded">Ya, Tambah!</button>
+                    <button type="submit" class="bg-green-500 text-white px-4 py-2 rounded-lg">Ya, Tambah!</button>
                 </div>
             </form>
         </div>

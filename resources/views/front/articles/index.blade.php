@@ -1,60 +1,98 @@
 @extends('front.layouts.app')
 
 @section('content')
-<div class="container mx-auto">
-    <h1 class="mb-6 mt-6 text-3xl font-extrabold text-gray-900">Daftar Informasi</h1>
-    
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+
+<div class="min-h-screen px-4 py-8">
+    <div class="max-w-6xl mx-auto space-y-8">
+
+        {{-- Header --}}
+        <div data-aos="fade-up">
+            <span class="inline-block px-4 py-1 rounded-full bg-primary/10 text-primary text-xs font-bold uppercase tracking-wider mb-3">
+                Informasi
+            </span>
+            <h1 class="text-3xl md:text-4xl font-black text-slate-900 dark:text-white">Daftar Informasi</h1>
+            <p class="text-slate-400 mt-1 text-sm">Berita dan pengumuman terbaru dari panitia</p>
+        </div>
+
+        {{-- Grid --}}
         @forelse ($articles as $article)
-        <div class="bg-white border rounded-lg shadow-md dark:bg-gray-800 dark:border-gray-700" data-aos="fade-up"
-            data-aos-anchor-placement="top-bottom">
-            <div class="p-2 flex justify-center">
-                <a href="{{ route('front.articles.show', $article->slug) }}" class="block w-full h-48">
-                    <img 
-                        class="rounded-lg object-cover w-full h-full"
-                        src="{{ asset('storage/' . $article->img) }}"
-                        alt="{{ $article->title }}"
-                        loading="lazy">
-                </a>
-            </div>
-            
-            <div class="px-4 pb-3">
-                <div>
-                    <a href="{{ route('front.articles.show', $article->slug) }}">
-                        <h5 class="text-xl font-semibold tracking-tight hover:text-violet-800 dark:hover:text-violet-300 text-gray-900 dark:text-white">
-                            {{ $article->title }}
-                        </h5>
+        @if ($loop->first)
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        @endif
+
+            <div class="group overflow-hidden rounded-2xl bg-white dark:bg-slate-900 border border-primary/10 shadow-xl transition-all hover:shadow-2xl hover:shadow-primary/10"
+                 data-aos="fade-up" data-aos-anchor-placement="top-bottom">
+
+                {{-- Thumbnail --}}
+                <div class="relative h-48 w-full overflow-hidden">
+                    <a href="{{ route('front.articles.show', $article->slug) }}" class="block h-full w-full">
+                        <img src="{{ asset('storage/' . $article->img) }}"
+                             alt="{{ $article->title }}"
+                             class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110"
+                             loading="lazy">
                     </a>
-                    <p class="text-gray-600 dark:text-gray-400 text-sm break-words">
-                        {{ Str::limit(strip_tags(html_entity_decode($article->desc)), 100) }}
-                    </p>                                       
-                </div>
-                <div class="mt-2 flex justify-between">
-                    <div class="flex items-center gap-3 py-2">
-                        <img src="{{ asset('storage/'.$article->user->avatar) }}" 
-                            class="object-cover w-12 h-12 rounded-full" alt="thumbnail" loading="lazy">
-                        <p class="text-gray-600 dark:text-gray-300 hover:text-violet-800">
-                            <a href="#" class="text-sm">
-                                <small>Penulis</small> <br>
-                                {{ $article->user->nickname }}
-                            </a>
-                        </p>
-                    </div>
-                    <div class="flex items-center mt-2.5">
-                        <span class="bg-blue-100 text-blue-800 text-xs font-semibold mr-2 px-2.5 py-0.5 rounded-lg dark:bg-blue-200 dark:text-blue-800 ml-3">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent pointer-events-none"></div>
+
+                    {{-- Date badge --}}
+                    <div class="absolute top-3 right-3">
+                        <span class="rounded-lg px-2.5 py-1 text-xs font-bold text-white backdrop-blur-md bg-black/40">
                             {{ \Carbon\Carbon::parse($article->publish_date)->format('d M Y') }}
                         </span>
                     </div>
                 </div>
-            </div>
-        </div>
-        @empty
-        <p class="text-gray-700 dark:text-gray-300">Tidak ada artikel untuk ditampilkan.</p>
-        @endforelse
-    </div>
 
-    <div class="mt-6">
-        {{ $articles->links() }}
+                {{-- Body --}}
+                <div class="p-5 space-y-3">
+
+                    <a href="{{ route('front.articles.show', $article->slug) }}">
+                        <h5 class="text-base font-black text-slate-900 dark:text-white hover:text-primary dark:hover:text-primary transition-colors leading-snug line-clamp-2">
+                            {{ $article->title }}
+                        </h5>
+                    </a>
+
+                    <p class="text-slate-500 dark:text-slate-400 text-sm leading-relaxed line-clamp-3">
+                        {{ Str::limit(strip_tags(html_entity_decode($article->desc)), 100) }}
+                    </p>
+
+                    {{-- Author + Read more --}}
+                    <div class="flex items-center justify-between pt-2 border-t border-slate-100 dark:border-slate-800">
+                        <div class="flex items-center gap-2.5">
+                            <img src="{{ asset('storage/' . $article->user->avatar) }}"
+                                 class="w-8 h-8 rounded-full object-cover border border-primary/10"
+                                 alt="{{ $article->user->nickname }}"
+                                 loading="lazy">
+                            <div>
+                                <p class="text-xs text-slate-400 leading-none">Penulis</p>
+                                <p class="text-xs font-bold text-slate-700 dark:text-slate-300">{{ $article->user->nickname }}</p>
+                            </div>
+                        </div>
+                        <a href="{{ route('front.articles.show', $article->slug) }}"
+                           class="flex items-center gap-1 text-xs font-bold text-primary hover:text-primary-dark transition-colors">
+                            Baca
+                            <span class="material-symbols-outlined text-sm">arrow_forward</span>
+                        </a>
+                    </div>
+
+                </div>
+            </div>
+
+        @if ($loop->last)
+        </div>
+        @endif
+
+        @empty
+        <div class="flex flex-col items-center justify-center py-24 text-center space-y-3">
+            <span class="material-symbols-outlined text-slate-300 dark:text-slate-700" style="font-size: 4rem;">article</span>
+            <p class="text-slate-400 font-semibold">Tidak ada artikel untuk ditampilkan.</p>
+        </div>
+        @endforelse
+
+        {{-- Pagination --}}
+        <div class="pt-4">
+            {{ $articles->links() }}
+        </div>
+
     </div>
 </div>
+
 @endsection

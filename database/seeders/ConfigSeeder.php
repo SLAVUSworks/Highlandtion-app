@@ -35,14 +35,6 @@ class ConfigSeeder extends Seeder
                 'value' => 'https://inilink.localhost/gambar.png',
             ],
             [
-                'name' => 'header-logo-left',
-                'value' => 'https://inilink.localhost/gambar.png',
-            ],
-            [
-                'name' => 'header-logo-right',
-                'value' => 'https://inilink.localhost/gambar.png',
-            ],
-            [
                 'name' => 'tagline',
                 'value' => 'Ini Tagline',
             ],
@@ -92,6 +84,26 @@ class ConfigSeeder extends Seeder
                 'name' => 'logo-bank',
                 'value' => 'https://inilink.localhost/gambar.png',
             ],
+            [
+                'name' => 'primary',
+                'value' => '#ec1b22',
+            ],
+            [
+                'name' => 'primary-dark',
+                'value' => '#a52115',
+            ],
+            [
+                'name' => 'primary-muted',
+                'value' => '#a9433a',
+            ],
+             [
+                'name' => 'primary-deep',
+                'value' => '#8f3c39',
+            ],
+            [
+                'name' => 'primary-light',
+                'value' => '#ff595d',
+            ],    
         ]);
     }
 }

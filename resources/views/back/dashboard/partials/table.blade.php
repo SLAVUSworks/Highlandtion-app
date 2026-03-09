@@ -23,7 +23,7 @@
         <tbody id="ruanganTable">
             @foreach($kuotaPerRuangan as $item)
             <tr class="border-t hover:bg-gray-100 transition">
-                <td class="px-4 py-2">{{ $item->id }}</td>
+                <td class="px-4 py-2">{{ $loop->iteration }}</td>
                 <td class="px-4 py-2">{{ $item->name }}</td>
                 <td class="px-4 py-2">{{ $item->kuota }}</td>
                 <td class="px-4 py-2">{{ $item->kuota_now }}</td>
@@ -59,7 +59,7 @@
         <tbody id="menuTable">
             @foreach($kuotaPerMenu as $item)
             <tr class="border-t hover:bg-gray-100 transition">
-                <td class="px-4 py-2">{{ $item->id }}</td>
+                <td class="px-4 py-2">{{ $loop->iteration }}</td>
                 <td class="px-4 py-2">{{ $item->name }} - {{ $item->tingkat }}</td>
                 <td class="px-4 py-2">
                     <span class="px-2 py-1 rounded-lg text-white text-sm

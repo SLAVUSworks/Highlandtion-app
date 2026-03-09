@@ -68,7 +68,7 @@
 
                 <div class="flex justify-end space-x-2">
                     <button type="button" class="bg-gray-500 text-white px-4 py-2 rounded-lg close-modal" data-bs-target="#modalUpdate{{ $item->id }}">Batal</button>
-                    <button type="submit" class="bg-green-500 text-white px-4 py-2 rounded">Ya, Edit!</button>
+                    <button type="submit" class="bg-green-500 text-white px-4 py-2 rounded-lg">Ya, Edit!</button>
                 </div>
             </form>
         </div>

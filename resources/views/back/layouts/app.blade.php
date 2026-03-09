@@ -6,9 +6,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>@yield('title', 'Admin Panel')</title>
+
+    <!-- CDN Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
 
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
+    <!-- LOCAL Tailwind CSS -->
+    <!-- @vite(['resources/css/app.css', 'resources/js/app.js']) -->
+
+    <!-- Dev Note: Local Tailwind isn't working properly, so I use CDN for now. I will fix this issue later. -->
+    <!-- Last Working version is Tailwind v3 -->
+    <!-- Slavus: 09-03-2026 -->
+
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css"
         integrity="sha512-5Hs3dF2AEPkpNAR7UiOHba+lRSJNeM2ECkwxUIxC1Q/FLycGTbNapWXB4tP889k5T5Ju8fs4b1P5z/iB4nMfSQ=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />

@@ -15,7 +15,8 @@ public function index()
             'app_name', 'app_description', 'app_status', 'app_favicon',
             'header-background', 'header-logo-left', 'header-logo-right',
             'tagline', 'typewriter', 'footer-contact',
-            'nama-bank', 'nomor-rekening', 'nama-pemilik-rekening', 'logo-bank'
+            'nama-bank', 'nomor-rekening', 'nama-pemilik-rekening', 'logo-bank',
+            'primary', 'primary-dark', 'primary-muted', 'primary-deep', 'primary-light'
         ])->get()->keyBy('name')
     ]);
 }
@@ -37,6 +38,11 @@ public function update(Request $request)
         'nomor-rekening'         => 'nullable|string',
         'nama-pemilik-rekening'  => 'nullable|string',
         'logo-bank'              => 'nullable|url',
+        'primary'                => 'nullable|string',
+        'primary-dark'           => 'nullable|string',
+        'primary-muted'          => 'nullable|string',
+        'primary-deep'           => 'nullable|string',
+        'primary-light'          => 'nullable|string',
     ]);
 
     foreach ($data as $key => $value) {

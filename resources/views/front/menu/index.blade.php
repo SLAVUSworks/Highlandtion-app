@@ -1,154 +1,219 @@
 @extends('front.layouts.app')
 
-
 @section('content')
+
 @if(($config['app_status'] ?? 1) == 0)
-    <script>
-        window.location.href = "{{ route('maintenance') }}";
-    </script>
+    <script>window.location.href = "{{ route('maintenance') }}";</script>
 @elseif(($config['app_status'] ?? 1) == 2)
-    <script>
-        window.location.href = "{{ route('regs-closed') }}";
-    </script>
+    <script>window.location.href = "{{ route('regs-closed') }}";</script>
 @else
-<header class="relative h-screen bg-fixed bg-center bg-cover flex flex-col justify-center items-center" style="background-image: url('{{ $config['header-background'] }}');">
-    <div class="absolute top-0 left-0 m-4">
-        <img src="{{ $config['header-logo-left'] }}" alt="Logo 1" class="w-full h-20">
-    </div>
-    <div class="absolute top-0 right-0 m-4">
-        <img src="{{ $config['header-logo-right'] }}" alt="Logo 2" class="w-full h-20">
-    </div>
-    <span class="text-black text-sm max-w-lg mx-auto mb-2 capitalize flex items-center">{{ $config['tagline'] }}</span>
-    <h1 id="app" class="text-white text-4xl md:text-5xl xl:text-6xl font-semibold max-w-8xl mx-auto mb-16 leading-snug text-center"></h1>
-    {!! $config['typewriter'] !!}
-</header>
 
+{{-- =========================================================
+     HERO SECTION
+========================================================= --}}
+<section class="relative overflow-hidden px-6 py-16 md:py-24">
+    <div class="mx-auto max-w-7xl grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
 
-<div class="p-4">
-    <div class="bg-gray-800 border border-gray-700 rounded-lg shadow p-5">
-        <div class="flex items-center justify-between mb-4">
-            <h2 class="text-xl font-semibold text-gray-200">
-                Kategori
-            </h2>
-
-            <span class="text-xs text-gray-300">
-                Pilih Kategori Event
+        {{-- Text --}}
+        <div class="z-10" data-aos="fade-up">
+            <span class="inline-block px-4 py-1 rounded-full bg-primary/10 text-primary text-xs font-bold uppercase tracking-wider mb-6">
+                {{ $config['tagline'] ?? 'Official Platform' }}
             </span>
-        </div>
-
-        <div class="h-px bg-gray-700 mb-4"></div>
-
-        <div class="flex flex-wrap gap-3">
-            <button
-                onclick="filterMenus('all')"
-                class="flex items-center gap-2 px-4 py-2 rounded-full
-                    bg-gray-800 text-blue-600
-                    border-2 border-blue-500
-                    hover:bg-blue-500 hover:text-white
-                    transition duration-200
-                    shadow-sm">
-                <span class="text-md font-bold">Semua</span>
-            </button>
-
-            @foreach ($categories as $category)
-                <button
-                    onclick="filterMenus('{{ $category->id }}')"
-                    class="flex items-center gap-2 px-2 py-2 rounded-full
-                        bg-gray-800 text-blue-600
-                        border-2 border-blue-500
-                        hover:bg-blue-500 hover:text-white
-                        transition duration-200
-                        shadow-sm group">
-
-                    <span
-                        class="w-8 h-8 flex items-center justify-center
-                            rounded-full overflow-hidden
-                            bg-blue-100
-                            group-hover:bg-white
-                            transition">
-                        @if(!empty($category->icon))
-                            <img
-                                src="{{ asset('storage/' . $category->icon) }}"
-                                alt="{{ $category->name }}"
-                                class="w-full h-full object-cover rounded-full">
-                        @else
-                            <i class="fa-solid fa-layer-group text-md text-blue-600"></i>
-                        @endif
-                    </span>
-
-                    <span class="text-md font-bold whitespace-nowrap">
-                        {{ $category->name }}
-                    </span>
-                </button>
-            @endforeach
-        </div>
-    </div>
-</div>
-<div class="mb-4 grid gap-8 sm:grid-cols-2 lg:grid-cols-3 p-3 md:p-4 xl:p-5" id="menu-container">
-    @foreach ($menus as $menu)    
-    <div class="bg-white border rounded-lg shadow-md dark:bg-gray-800 dark:border-gray-700 menu-item" 
-         data-aos="fade-up"
-         data-aos-anchor-placement="top-bottom" 
-         data-category="{{ $menu->menu_category_id }}"
-         data-mata-pelajaran="{{ $menu->mata_pelajaran }}">
-         
-        <div class="p-2 flex justify-center">
-            <a href="{{ route('menu.show', $menu) }}" class="block w-full h-48">
-                <img 
-                    class="rounded-lg object-cover w-full h-full {{ $menu->status === 'tutup' ? 'grayscale' : '' }}" 
-                    src="{{ 'storage/' . $menu->thumbnail }}" 
-                    alt="Thumbnail" 
-                    loading="lazy">
-            </a>
-        </div>
-        
-        <div class="px-4 pb-3">
-            <div>
-                <a href="{{ route('menu.show', $menu) }}">
-                    <h5 class="text-xl font-semibold tracking-tight hover:text-violet-800 dark:hover:text-violet-300 text-gray-900 dark:text-white ">
-                        {{ $menu->mata_pelajaran }}
-                    </h5>
+            <h1 id="app" class="text-5xl md:text-7xl font-black leading-[1.1] tracking-tight mb-6"></h1>
+            {!! $config['typewriter'] !!}
+            <p class="text-lg text-justify text-slate-600 dark:text-slate-400 max-w-lg mb-8">
+                {{ $config['app_description'] }}
+            </p>
+            <div class="flex flex-wrap gap-4">
+                <a href="#events"
+                   class="flex items-center gap-2 rounded-xl bg-primary px-8 py-4 font-bold text-white hover:scale-105 transition-transform">
+                    Eksplor Sekarang
+                    <span class="material-symbols-outlined">arrow_forward</span>
                 </a>
-                <p class="text-gray-600 dark:text-gray-400 text-sm break-all">{{ Str::limit($menu->deskripsi,50),'. . .'  }}</p>
-                <p class="text-gray-800 dark:text-gray-200 text-lg font-semibold">Rp.{{ number_format($menu->harga, 0, ',', '.') }}</p>
-            </div>
-            <div class="mt-2 flex justify-between">
-                <div class="flex gap-3 py-2">
-                    <a href="#">
-                        <img src="{{ asset('storage/' . $menu->icon) }}" 
-                             class="object-cover w-12 h-12 rounded-full" 
-                             alt="mapel-icon" 
-                             loading="lazy">
-                    </a>
-                    <p class="text-gray-600 dark:text-gray-300 hover:text-violet-800 ">
-                        <a href="#" class="text-sm">
-                            <small>Kategori</small> <br>
-                            {{ $menu->menuCategory->name ?? 'Tanpa Kategori' }}
-                        </a>
-                    </p>
-                </div>
-                <div class="flex items-center mt-2.5">
-                    <span class="text-sm dark:text-gray-400 mr-1">Pendaftaran</span>
-                    <span class="text-xs font-semibold mr-2 px-2.5 py-0.5 rounded-lg 
-                        {{ $menu->status === 'tutup' ? 'bg-gray-300 text-red-700' : 'bg-blue-100 text-blue-800 dark:bg-blue-200 dark:text-blue-800 ml-3' }}">
-                        @if ($menu->status === 'buka')
-                            Dibuka
-                        @else
-                            Ditutup
-                        @endif
-                    </span>
-                </div>
+                <a href="{{ route('registrasi.track') }}"
+                   class="flex items-center gap-2 rounded-xl border-2 border-primary/30 px-8 py-4 font-bold hover:bg-primary/5 transition-colors">
+                    Track Registrasi
+                </a>
             </div>
         </div>
+
+        {{-- Visual --}}
+        <div class="relative" data-aos="fade-up" data-aos-delay="200">
+            <div class="absolute -inset-4 bg-primary/20 blur-3xl rounded-full"></div>
+            <div class="relative bg-gradient-to-br from-primary/10 to-transparent p-8 rounded-3xl border border-primary/10 aspect-video flex items-center justify-center"
+                 style="background-image: url('{{ $config['header-background'] }}'); background-size: cover; background-position: center;">
+            </div>
+        </div>
+
     </div>
-    @endforeach
-</div>
+</section>
+
+{{-- =========================================================
+     FILTERS & EVENT GRID
+========================================================= --}}
+<section id="events" class="px-6 py-12 bg-white/50 dark:bg-black/20">
+    <div class="mx-auto max-w-7xl">
+
+        {{-- Header + Category Filter --}}
+        <div class="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-10">
+            <div data-aos="fade-right">
+                <h2 class="text-3xl font-bold mb-2">Event Mendatang</h2>
+                <p class="text-slate-500">Pilih kategori event yang ingin Anda ikuti</p>
+            </div>
+            <div class="flex gap-3 overflow-x-auto pb-2 md:pb-0" data-aos="fade-left">
+                <button
+                    onclick="filterMenus('all')"
+                    id="filter-all"
+                    class="whitespace-nowrap rounded-full bg-primary px-6 py-2 text-sm font-bold text-white transition-colors">
+                    Semua
+                </button>
+                @foreach ($categories as $category)
+                    <button
+                        onclick="filterMenus('{{ $category->id }}')"
+                        id="filter-{{ $category->id }}"
+                        class="whitespace-nowrap rounded-full bg-primary/10 px-4 py-2 text-sm font-semibold hover:bg-primary/20 transition-colors flex items-center gap-2">
+                        @if(!empty($category->icon))
+                            <img src="{{ asset('storage/' . $category->icon) }}"
+                                 alt="{{ $category->name }}"
+                                 class="w-5 h-5 object-cover rounded-full">
+                        @endif
+                        <p class="pr-5">{{ $category->name }}</p>
+                    </button>
+                @endforeach
+            </div>
+        </div>
+
+        {{-- Event Grid --}}
+        <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8" id="menu-container">
+
+            @foreach ($menus as $menu)
+            @php $isClosed = $menu->status === 'tutup'; @endphp
+
+            <div class="group overflow-hidden rounded-2xl bg-white dark:bg-slate-900 border border-primary/10 shadow-xl
+                        {{ $isClosed ? 'opacity-80' : 'transition-all hover:shadow-2xl hover:shadow-primary/10' }}
+                        menu-item"
+                 data-aos="fade-up"
+                 data-aos-anchor-placement="top-bottom"
+                 data-category="{{ $menu->menu_category_id }}"
+                 data-mata-pelajaran="{{ $menu->mata_pelajaran }}">
+
+                {{-- Card Image --}}
+                <div class="relative h-56 w-full bg-slate-200 dark:bg-slate-800">
+
+                    {{-- Background image --}}
+                    <a href="{{ $isClosed ? '#' : route('menu.show', $menu) }}"
+                       class="block h-full w-full">
+                        <div class="h-full w-full bg-cover bg-center transition-transform duration-500 group-hover:scale-110 {{ $isClosed ? 'grayscale' : '' }}"
+                             style="background-image: url('{{ asset('storage/' . $menu->thumbnail) }}')">
+                        </div>
+                    </a>
+
+                    @if($isClosed)
+                        {{-- Closed overlay --}}
+                        <div class="absolute inset-0 bg-slate-900/40"></div>
+                        <div class="absolute top-4 left-4">
+                            <span class="rounded-lg bg-slate-500 px-3 py-1 text-xs font-bold text-white uppercase tracking-wider">
+                                Pendaftaran Ditutup
+                            </span>
+                        </div>
+                    @else
+                        {{-- Open: gradient + title overlay --}}
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent pointer-events-none"></div>
+                        <div class="absolute top-4 left-4">
+                            <span class="rounded-lg bg-primary/90 px-3 py-1 text-xs font-bold text-white uppercase tracking-wider backdrop-blur-md">
+                                Pendaftaran Dibuka
+                            </span>
+                        </div>
+                        <div class="absolute bottom-4 left-4 text-white pointer-events-none">
+                            <span class="text-xs font-medium opacity-80">
+                                {{ $menu->menuCategory->name ?? 'Kategori' }}
+                            </span>
+                            <h3 class="text-xl font-bold">{{ $menu->mata_pelajaran }}</h3>
+                        </div>
+                    @endif
+                </div>
+
+                {{-- Card Body --}}
+                <div class="p-6">
+                    @if($isClosed)
+                        {{-- Ghost state --}}
+                        <h3 class="text-xl font-bold mb-4">{{ $menu->mata_pelajaran }}</h3>
+                        <div class="h-4 w-3/4 bg-slate-100 dark:bg-slate-800 rounded mb-2"></div>
+                        <div class="h-4 w-1/2 bg-slate-100 dark:bg-slate-800 rounded"></div>
+                    @else
+                        {{-- Active state --}}
+                        <div class="mb-6 flex items-center justify-between">
+                            <div class="flex flex-col">
+                                <span class="text-xs text-slate-500 uppercase font-bold tracking-widest">
+                                    Biaya Pendaftaran
+                                </span>
+                                <span class="text-2xl font-black text-primary">
+                                    Rp. {{ number_format($menu->harga, 0, ',', '.') }}
+                                </span>
+                            </div>
+                            <div class="flex h-12 w-12 items-center justify-center rounded-xl bg-primary/5 text-primary overflow-hidden">
+                                @if(!empty($menu->icon))
+                                    <img src="{{ asset('storage/' . $menu->icon) }}"
+                                         alt="{{ $menu->mata_pelajaran }}"
+                                         class="w-8 h-8 object-cover rounded-full">
+                                @else
+                                    <span class="material-symbols-outlined">event</span>
+                                @endif
+                            </div>
+                        </div>
+
+                        <div class="space-y-3 mb-6">
+                            <div class="flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400">
+                                <span class="material-symbols-outlined text-sm">category</span>
+                                <span>{{ $menu->menuCategory->name ?? 'Tanpa Kategori' }}</span>
+                            </div>
+                            @if(!empty($menu->deskripsi))
+                            <div class="flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400">
+                                <span class="material-symbols-outlined text-sm">info</span>
+                                <span>{{ Str::limit($menu->deskripsi, 60) }}</span>
+                            </div>
+                            @endif
+                        </div>
+
+                        <a href="{{ route('menu.show', $menu) }}"
+                           class="block w-full text-center rounded-xl bg-primary py-4 font-bold text-white transition-all hover:opacity-90 active:scale-[0.98]">
+                            Daftar Sekarang
+                        </a>
+                    @endif
+                </div>
+
+            </div>
+            @endforeach
+
+        </div>
+        {{-- END Event Grid --}}
+
+    </div>
+</section>
+
+@endif
+@endsection
+
+@push('scripts')
 <script>
     function filterMenus(categoryId) {
-        document.querySelectorAll('.menu-item').forEach(function (item) {
-            let itemCategory = item.getAttribute('data-category');
+        // Toggle button active styles
+        document.querySelectorAll('[id^="filter-"]').forEach(btn => {
+            btn.classList.remove('bg-primary', 'text-white');
+            btn.classList.add('bg-primary/10');
+        });
+        const activeBtn = document.getElementById(
+            categoryId === 'all' ? 'filter-all' : 'filter-' + categoryId
+        );
+        if (activeBtn) {
+            activeBtn.classList.remove('bg-primary/10');
+            activeBtn.classList.add('bg-primary', 'text-white');
+        }
 
-            if (parseInt(itemCategory) === parseInt(categoryId) || categoryId === 'all') {
+        // Show/hide cards
+        document.querySelectorAll('.menu-item').forEach(item => {
+            const cat = item.getAttribute('data-category');
+            if (categoryId === 'all' || parseInt(cat) === parseInt(categoryId)) {
                 item.style.display = 'block';
                 item.setAttribute('data-aos', 'fade-up');
             } else {
@@ -157,10 +222,7 @@
             }
         });
 
-        if (typeof AOS !== 'undefined') {
-            AOS.refresh();
-        }
+        if (typeof AOS !== 'undefined') AOS.refresh();
     }
 </script>
-@endsection
-@endif
+@endpush

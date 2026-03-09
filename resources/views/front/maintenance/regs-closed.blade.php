@@ -77,7 +77,7 @@
 
     <footer class="absolute bottom-2 w-full text-center z-20">
         <div class="group flex flex-col items-center gap-1 opacity-60 hover:opacity-100 transition">
-            <img src="https://github.com/SLAVUSworks/HL-Web-ICON/blob/master/slavusworks.png?raw=true"
+            <img src="{{ asset('digimark/slavusworks.png') }}"
                 class="w-9 h-9 object-contain group-hover:scale-105 transition">
 
             <p class="text-[10px] sm:text-xs text-blue-600 tracking-wide leading-tight">

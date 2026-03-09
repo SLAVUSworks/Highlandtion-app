@@ -18,7 +18,7 @@
                 </div>
                 <div class="flex justify-end space-x-2">
                     <button type="button"class="bg-gray-500 text-white px-4 py-2 rounded-lg close-modal" data-bs-target="#modalDelete{{ $item->id }}">Batal</button>
-                    <button type="submit" class="bg-red-500 text-white px-4 py-2 rounded">Ya, Hapus!</button>
+                    <button type="submit" class="bg-red-500 text-white px-4 py-2 rounded-lg">Ya, Hapus!</button>
                 </div>
             </form>
         </div>
