@@ -147,7 +147,7 @@
                                 <span class="text-xs text-slate-500 uppercase font-bold tracking-widest">
                                     Biaya Pendaftaran
                                 </span>
-                                <span class="text-2xl font-black text-primary">
+                                <span class="text-2xl font-black">
                                     Rp. {{ number_format($menu->harga, 0, ',', '.') }}
                                 </span>
                             </div>

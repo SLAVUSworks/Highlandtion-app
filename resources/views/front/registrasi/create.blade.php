@@ -25,7 +25,7 @@
                      class="w-14 h-14 rounded-2xl object-cover border border-primary/10 shrink-0">
                 <div>
                     <p class="text-xs text-slate-400 uppercase font-bold tracking-widest">Biaya Pendaftaran</p>
-                    <p class="text-2xl font-black text-primary">Rp. {{ number_format($menu->harga, 0, ',', '.') }}</p>
+                    <p class="text-2xl font-black">Rp. {{ number_format($menu->harga, 0, ',', '.') }}</p>
                 </div>
             </div>
         </div>
