@@ -47,10 +47,11 @@ class DashboardController extends Controller
         $ruanganKuota = Ruangan::sum('kuota');
         $menuKuota    = Menu::sum('kuota');
 
-        $approvedCount = Registrasi::where('status', 'approved')->count();
+        $ruangankuotanowCount = Registrasi::where('status', 'approved')->count();
+        $menukuotanowCount = Registrasi::whereIn('status', ['approved', 'pending'])->count();
 
-        $sisaKuotaRuangan = $ruanganKuota - $approvedCount;
-        $sisaKuotaMenu    = $menuKuota - $approvedCount;
+        $sisaKuotaRuangan = $ruanganKuota - $ruangankuotanowCount;
+        $sisaKuotaMenu    = $menuKuota - $menukuotanowCount;
 
         $kuotaPerRuangan = Ruangan::select(
                 'id',

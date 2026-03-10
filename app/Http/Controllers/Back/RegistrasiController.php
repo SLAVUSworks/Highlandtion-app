@@ -96,8 +96,8 @@ class RegistrasiController extends Controller
             if ($registrasi->ruangan->kuota_now >= $registrasi->ruangan->kuota) {
                 return redirect()->back()->with('error', 'Kuota ruangan sudah penuh!');
             }
-    
-            $registrasi->menu?->updateKuotaNow();
+            
+            // $registrasi->menu?->updateKuotaNow();
             $registrasi->ruangan?->updateKuotaNow();
         }
     
@@ -114,10 +114,6 @@ class RegistrasiController extends Controller
 
         if ($ruangan->kuota_now >= $ruangan->kuota) {
             return redirect()->back()->with('error', 'Kuota ruangan sudah penuh!');
-        }
-
-        if ($registrasi->menu && $registrasi->menu->kuota_now <= 0) {
-            return redirect()->back()->with('error', 'Kuota event sudah penuh, registrasi tidak dapat diverifikasi!');
         }
 
         $menu = $registrasi->menu;

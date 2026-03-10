@@ -70,10 +70,10 @@
                 &copy; {{ date('Y') }} {{ $config['app_name'] }}. All Rights Reserved.
             </p>
             <div class="flex items-center gap-2">
-                <p class="text-xs text-slate-500 text-right">
+                <p class="text-sm text-slate-500 text-right">
                     HL-Web App n Booking System v2.15<br>
                     <small>Made &amp; maintained by
-                        <a href="{{ asset('digimark/slavusworks.png') }}" target="_blank" rel="noopener noreferrer"
+                        <a href="https://github.com/SLAVUSworks" target="_blank" rel="noopener noreferrer"
                             class="text-primary hover:underline">SLAVUSworks</a>
                     </small>
                 </p>
