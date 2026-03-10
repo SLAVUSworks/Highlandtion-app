@@ -12,6 +12,10 @@ class RegistrasiController extends Controller
 {
     public function create(Menu $menu)
     {
+        if ($menu->kuota_now <= 0) {
+            return redirect()->back()->with('error', 'Kuota menu sudah penuh, pendaftaran ditutup!');
+        }
+
         return view('front.registrasi.create', compact('menu'));
     }
 
@@ -26,17 +30,22 @@ class RegistrasiController extends Controller
             'menu_id' => 'required|exists:menus,id',
         ]);
 
+        // Cek kuota menu
+        $menu = Menu::findOrFail($validated['menu_id']);
+        if ($menu->kuota_now <= 0) {
+            return redirect()->back()->with('error', 'Kuota menu sudah penuh, pendaftaran ditutup!');
+        }
+
         $reg = Registrasi::where('nama', $request->nama)
             ->where('email', $request->email)
             ->first();
-    
+
         if ($reg) {
             return redirect()->back()->with(
                 'error', 
                 'Data ini sudah pernah didaftarkan. Jika ragu, silahkan pastikan melalui Panitia.'
             );
         }
-    
 
         $filename = Str::random(30) . "_" . Str::random(30) . "." . $request->file("bukti_transfer")->getClientOriginalExtension();
 
@@ -51,8 +60,9 @@ class RegistrasiController extends Controller
             'menu_id' => $validated['menu_id'],
         ]);
 
+        $registrasi->menu?->updateKuotaNow();
+
         return redirect()->route('registrasi.card', $registrasi)->with('success', 'Pendaftaran berhasil, menunggu verifikasi.');
-        
     }
 
     public function show(Registrasi $registrasi)

@@ -39,6 +39,8 @@ class MenuController extends Controller
         ]);
     
         $data = $request->all();
+
+        $data['kuota_now'] = $request->kuota;
     
         if ($request->hasFile('icon')) {
             $data['icon'] = $request->file('icon')->store('icons', 'public');
@@ -50,7 +52,6 @@ class MenuController extends Controller
     
         Menu::create($data);
         
-    
         return redirect()->route('back.menu.index')->with('success', 'Menu berhasil dibuat!');
     }
 
@@ -75,6 +76,15 @@ class MenuController extends Controller
         ]);
     
         $data = $request->only(['mata_pelajaran', 'tingkat', 'deskripsi', 'menu_category_id', 'status', 'kuota', 'harga']);
+
+        $selisih = $request->kuota - $menu->kuota;
+        $newKuotaNow = $menu->kuota_now + $selisih;
+
+        if ($newKuotaNow < 0) {
+            return redirect()->back()->with('error', 'Kuota tidak dapat dikurangi! Registrasi yang sudah masuk melebihi kuota baru.');
+        }
+
+        $data['kuota_now'] = $newKuotaNow;
 
         if ($request->hasFile('icon')) {
             if ($menu->icon) {

@@ -12,13 +12,22 @@ class MenuController extends Controller
     public function index()
     {
         $categories = MenuCategory::all();
-        $menus = Menu::with('menuCategory')->get();
-         
+        $menus = Menu::with('menuCategory')->get()->map(function ($menu) {
+            if ($menu->kuota_now <= 0) {
+                $menu->status = 'tutup';
+            }
+            return $menu;
+        });
+        
         return view('front.menu.index', compact('menus', 'categories'));
     }
 
     public function show(Menu $menu)
     {
+        if ($menu->kuota_now <= 0) {
+            $menu->status = 'tutup';
+        }
+        
         $category = MenuCategory::all();
         return view('front.menu.show', compact('menu', 'category'));
     }

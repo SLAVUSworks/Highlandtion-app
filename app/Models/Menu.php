@@ -24,7 +24,7 @@ class Menu extends Model
 
     public function updateKuotaNow()
     {
-        $this->kuota_now = $this->kuota - $this->registrasi()->where('status', 'approved')->count();
+        $this->kuota_now = $this->kuota - $this->registrasi()->where('status', ['pending', 'approved'])->count();
         $this->save();
     }
 

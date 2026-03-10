@@ -109,29 +109,33 @@ class RegistrasiController extends Controller
         $validated = $request->validate([
             'ruangan_id' => 'required|exists:ruangans,id',
         ]);
-    
+
         $ruangan = Ruangan::findOrFail($validated['ruangan_id']);
-    
+
         if ($ruangan->kuota_now >= $ruangan->kuota) {
-            return redirect()->back()->with('error', 'Kuota ruangan sudah penuh!');;
+            return redirect()->back()->with('error', 'Kuota ruangan sudah penuh!');
         }
-    
+
+        if ($registrasi->menu && $registrasi->menu->kuota_now <= 0) {
+            return redirect()->back()->with('error', 'Kuota event sudah penuh, registrasi tidak dapat diverifikasi!');
+        }
+
         $menu = $registrasi->menu;
         $uniqueCode = 'HL-' . $registrasi->created_at->format('dm') . $menu->short_code . $validated['ruangan_id'] . $registrasi->nomor_urut_formatted;
-    
+
         $filename = basename($registrasi->bukti_transfer);
         $source_path = "public/" . $registrasi->bukti_transfer;
         $target_path = "public/bukti_transfer/approved/" . $filename;
-    
+
         Storage::move($source_path, $target_path);
-    
+
         $registrasi->update([
             'ruangan_id' => $validated['ruangan_id'],
             'status' => 'approved',
             'registration_code' => $uniqueCode,
             'bukti_transfer' => "bukti_transfer/approved/" . $filename,
         ]);
-    
+
         return redirect()->route('back.registrasis.card', $registrasi->id)
             ->with('success', 'Registrasi berhasil diverifikasi.');
     }

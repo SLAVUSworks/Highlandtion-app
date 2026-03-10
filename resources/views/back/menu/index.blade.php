@@ -48,8 +48,12 @@
                         <td class="px-4 py-2">Rp.{{ number_format($menu->harga, 0, ',', '.') }}</td>
                         <td class="px-4 py-2">
                             <span class="px-2 py-1 text-white text-sm font-semibold rounded-lg 
-                                {{ $menu->status === 'buka' ? 'bg-green-500' : 'bg-red-500' }}">
-                                {{ $menu->status === 'buka' ? 'Menerima' : 'Ditutup' }}
+                                {{ $menu->kuota_now <= 0 
+                                    ? 'bg-red-500 animate-pulse' 
+                                    : ($menu->status === 'buka' ? 'bg-green-500' : 'bg-red-500') }}">
+                                {{ $menu->kuota_now <= 0 
+                                    ? 'Full!' 
+                                    : ($menu->status === 'buka' ? 'Menerima' : 'Ditutup') }}
                             </span>
                         </td>
                         <td class="px-4 py-2 text-center">

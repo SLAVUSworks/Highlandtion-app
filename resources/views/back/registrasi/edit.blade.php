@@ -3,18 +3,6 @@
 @section('title', 'Review Registrasi')
 
 @section('content')
-@if ($errors->any())
-@foreach ($errors->all() as $error)
-<script>
-    Swal.fire({
-        icon: 'error',
-        title: 'Gagal',
-        text: "{{ $error }}",
-    });
-
-</script>
-@endforeach
-@endif
 <div class="container mx-auto">
     <div class="mb-6 rounded-lg bg-white/60 backdrop-blur px-6 py-4 shadow-sm border border-gray-200">
         <h1 class="flex items-center gap-3 text-3xl font-semibold text-gray-800">
@@ -320,6 +308,15 @@
     });
 
 </script>
+@if (session('error'))
+<script>
+    Swal.fire({
+        icon: 'error',
+        title: 'Gagal',
+        text: "{{ session('error') }}",
+    });
+</script>
+@endif
 </div>
 </div>
 @endsection
