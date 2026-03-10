@@ -47,7 +47,7 @@
                     <option value="">Semua Menu</option>
                     @foreach($menus as $menu)
                     <option value="{{ $menu->id }}">{{ $menu->menuCategory->name }} - {{ $menu->mata_pelajaran }} -
-                        {{ $menu->tingkat }}</option>
+                        {{ $menu->tingkat }} ({{ $menu->short_code }})</option>
                     @endforeach
                 </select>
             </div>
@@ -70,7 +70,7 @@
                             <td class="px-4 py-2">{{ $loop->iteration }}</td>
                             <td class="px-4 py-2">{{ $registrasi->nama }}</td>
                             <td class="px-4 py-2">{{ $registrasi->asal_sekolah }}</td>
-                            <td class="px-4 py-2">{{ $registrasi->menu->short_code}}</td>
+                            <td class="px-4 py-2">{{ $registrasi->menu->menuCategory->name }} - {{ $registrasi->menu->short_code}}</td>
                             <td class="px-4 py-2">
                                 <span class="{{ $registrasi->status == 'approved' ? 'text-green-600' : 
                             ($registrasi->status == 'pending' ? 'text-yellow-600' : 'text-red-600') }}">
@@ -240,7 +240,7 @@
                 <td class="px-4 py-2">${(response.pagination.current_page - 1) * response.pagination.per_page + index + 1}</td>
                 <td class="px-4 py-2">${registrasi.nama}</td>
                 <td class="px-4 py-2">${registrasi.asal_sekolah}</td>
-                <td class="px-4 py-2">${registrasi.menu?.short_code}</td>
+                <td class="px-4 py-2">${registrasi.menu?.menu_category?.name} - ${registrasi.menu?.short_code}</td>
                 <td class="px-4 py-2">
                     <span class="${
                         registrasi.status === 'approved' ? 'text-green-600' : 

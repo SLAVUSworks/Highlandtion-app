@@ -15,10 +15,12 @@ use App\Http\Controllers\Back\ContactPageController;
 use App\Http\Controllers\Back\ExportController;
 use App\Http\Controllers\Back\ServerStatsController;
 use App\Http\Controllers\Back\DataResetController;
+use App\Http\Controllers\Back\JuknisController;
 
 use App\Http\Controllers\Front\ArticleController as FrontArticleController;
 use App\Http\Controllers\Front\MenuController as FrontMenuController;
 use App\Http\Controllers\Front\RegistrasiController;
+use App\Http\Controllers\Front\JuknisController as FrontJuknisController;
 
 
 /*
@@ -45,6 +47,11 @@ Route::post('/registrasi', [RegistrasiController::class, 'store'])->name('regist
 Route::get('/registrasi/{registrasi}/card', [RegistrasiController::class, 'show'])->name('registrasi.card'); 
 Route::get('/track', [RegistrasiController::class, 'trackForm'])->name('registrasi.trackForm');
 Route::post('/track', [RegistrasiController::class, 'track'])->name('registrasi.track');
+
+Route::prefix('juknis')->name('front.juknis.')->group(function () {
+    Route::get('/',[FrontJuknisController::class, 'index'])->name('index');
+    Route::get('{juknis}/download',  [FrontJuknisController::class, 'download'])->name('download');
+});
 
 Route::prefix('informasi')->name('front.articles.')->group(function () {
     Route::get('/', [FrontArticleController::class, 'index'])->name('index');
@@ -96,6 +103,8 @@ Route::middleware('auth')->group(function () {
 
         Route::get('/registrasi-data', [BackRegistrasiController::class, 'getRegistrasiData']);
         Route::get('/registrasi-approved-data', [BackRegistrasiController::class, 'getApprovedData']);
+
+        Route::resource('juknis', JuknisController::class)->parameters(['juknis' => 'juknis']);
 
         Route::resource('articles', ArticleController::class)->middleware('role:1,2');
         

@@ -29,7 +29,7 @@
                     </div>
                     <div class="mb-4">
                         <label class="block text-gray-700 font-medium">Upload Icon</label>
-                        <input type="file" name="icon" class="w-full px-4 py-2 border rounded-lg focus:ring focus:ring-blue-300" required>
+                        <input type="file" name="icon" class="w-full text-sm text-gray-600 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-sky-50 file:text-sky-700 hover:file:bg-sky-100 border border-gray-300 rounded-lg cursor-pointer" required>
                     </div>
                     <div class="flex justify-end">
                         <button type="button" onclick="hideCreateModal()" class="bg-gray-500 text-white px-4 py-2 rounded-lg mr-2">
@@ -90,7 +90,7 @@
                 </div>
                 <div class="mb-4">
                     <label class="block text-gray-700 font-medium">Upload Icon</label>
-                    <input type="file" name="icon" class="w-full px-4 py-2 border rounded-lg focus:ring focus:ring-blue-300">
+                    <input type="file" name="icon" class="w-full text-sm text-gray-600 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-sky-50 file:text-sky-700 hover:file:bg-sky-100 border border-gray-300 rounded-lg cursor-pointer">
                 </div>
                 <div class="mb-4">
                     <label class="block text-gray-700 font-medium">Icon Saat Ini</label>

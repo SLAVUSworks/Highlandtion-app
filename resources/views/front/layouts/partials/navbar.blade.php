@@ -14,6 +14,7 @@
         {{-- Desktop Nav --}}
         <nav class="hidden md:flex items-center gap-2">
             <a class="text-sm font-semibold px-3 py-1.5 rounded-lg hover:bg-primary/10 hover:text-primary transition-colors" href="/">Pemesanan Tiket</a>
+            <a class="text-sm font-semibold px-3 py-1.5 rounded-lg hover:bg-primary/10 hover:text-primary transition-colors" href="{{ route('front.juknis.index') }}">Juknis Acara</a>
             <a class="text-sm font-semibold px-3 py-1.5 rounded-lg hover:bg-primary/10 hover:text-primary transition-colors" href="{{ route('registrasi.track') }}">Track Registrasi</a>
             <a class="text-sm font-semibold px-3 py-1.5 rounded-lg hover:bg-primary/10 hover:text-primary transition-colors" href="{{ route('front.articles.index') }}">Informasi</a>
             <a class="text-sm font-semibold px-3 py-1.5 rounded-lg hover:bg-primary/10 hover:text-primary transition-colors" href="{{ route('contact.show') }}">Kontak</a>
@@ -35,6 +36,11 @@
                 href="/">
                     <span class="material-symbols-outlined text-base text-primary/60">confirmation_number</span>
                     Pemesanan Tiket
+                </a>
+                <a class="flex items-center gap-3 px-4 py-3 text-sm font-semibold hover:bg-primary/10 hover:text-primary transition-colors"
+                href="{{ route('front.juknis.index') }}">
+                    <span class="material-symbols-outlined text-base text-primary/60">description</span>
+                    Juknis Acara
                 </a>
                 <a class="flex items-center gap-3 px-4 py-3 text-sm font-semibold hover:bg-primary/10 hover:text-primary transition-colors"
                 href="{{ route('registrasi.track') }}">

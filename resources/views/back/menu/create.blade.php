@@ -87,11 +87,11 @@
             </div>
             <div class="mb-4">
                 <label for="icon" class="block text-gray-700">Icon</label>
-                <input type="file" class="w-full px-4 py-2 border rounded-lg focus:ring focus:ring-blue-300" name="icon" id="icon" required>
+                <input type="file" class="w-full text-sm text-gray-600 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-sky-50 file:text-sky-700 hover:file:bg-sky-100 border border-gray-300 rounded-lg cursor-pointer" name="icon" id="icon" required>
             </div>
             <div class="mb-4">
                 <label for="thumbnail" class="block text-gray-700">Thumbnail</label>
-                <input type="file" class="w-full px-4 py-2 border rounded-lg focus:ring focus:ring-blue-300" name="thumbnail" id="thumbnail" required>
+                <input type="file" class="w-full text-sm text-gray-600 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-sky-50 file:text-sky-700 hover:file:bg-sky-100 border border-gray-300 rounded-lg cursor-pointer" name="thumbnail" id="thumbnail" required>
             </div>
             <div class="mb-4">
                 <label for="status" class="block text-gray-700">Status Pendaftaran</label>

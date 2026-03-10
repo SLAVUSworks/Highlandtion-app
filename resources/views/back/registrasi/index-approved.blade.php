@@ -48,7 +48,8 @@
                 <select id="filter-menu" class="border border-gray-300 rounded-lg px-4 py-2 h-10">
                 <option value="">Semua Menu</option>
                 @foreach($menus as $menu)
-                    <option value="{{ $menu->id }}">{{ $menu->short_code }}</option>
+                    <option value="{{ $menu->id }}">{{ $menu->menuCategory->name }} - {{ $menu->mata_pelajaran }} -
+                        {{ $menu->tingkat }} ({{ $menu->short_code }})</option>
                 @endforeach
                 </select>
             </div>

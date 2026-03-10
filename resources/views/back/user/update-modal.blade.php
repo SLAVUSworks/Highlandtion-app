@@ -31,7 +31,7 @@
                 </div>
                 <div class="mb-4">
                     <label for="avatar" class="block mb-2">Foto Profil</label>
-                    <input type="file" name="avatar" id="avatar" class="w-full p-2 border rounded-lg @error('avatar') border-red-500 @enderror" value="{{ old('avatar', $item->avatar) }}">
+                    <input type="file" name="avatar" id="avatar" class="w-full text-sm text-gray-600 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-sky-50 file:text-sky-700 hover:file:bg-sky-100 border border-gray-300 rounded-lg cursor-pointer @error('avatar') border-red-500 @enderror" value="{{ old('avatar', $item->avatar) }}">
                     @error('avatar')
                     <div class="text-red-500 mt-2 text-sm">
                         {{ $message }}

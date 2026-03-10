@@ -55,19 +55,26 @@ class DashboardController extends Controller
 
         $kuotaPerRuangan = Ruangan::select(
                 'id',
+                'menu_id',
                 'nama_ruangan as name',
                 'kuota',
                 DB::raw('COALESCE(kuota_now, 0) as kuota_now')
-            )->get();
+            )
+            ->with('menu:id,short_code')
+            ->get();
 
         $kuotaPerMenu = Menu::select(
                 'id',
                 'mata_pelajaran as name',
+                'short_code',
+                'menu_category_id',
                 'tingkat',
                 'status',
                 'kuota',
                 DB::raw('COALESCE(kuota_now, 0) as kuota_now')
-            )->get();
+            )
+            ->with('menuCategory:id,name')
+            ->get();
 
 
         return view('back.dashboard.index', compact(

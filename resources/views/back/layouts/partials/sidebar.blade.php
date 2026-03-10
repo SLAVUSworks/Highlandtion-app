@@ -92,18 +92,33 @@
                         </ul>
                     </li>
                     <li>
-                        <a href="{{ route('back.articles.index') }}" class="flex items-center gap-3 p-2 text-gray-200 hover:bg-[#8BB9F0] rounded-lg w-full text-left 
-                                    {{ request()->routeIs('back.articles.index') ? 'bg-[#4F8ED6]' : '' }}">
+                        <button
+                            class="submenu-button flex items-center gap-3 p-2 text-gray-200 hover:bg-[#8BB9F0] rounded-lg w-full text-left">
                             <i class="fa-solid fa-file text-[#FFFFFF] w-[24px] text-center shrink-0"></i>
                             <span class="truncate text-[#FFFFFF]">Informasi</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="{{ route('back.contact.index') }}" class="flex items-center gap-3 p-2 text-gray-200 hover:bg-[#8BB9F0] rounded-lg w-full text-left 
-                                    {{ request()->routeIs('back.contact.index') ? 'bg-[#4F8ED6]' : '' }}">
-                            <i class="fa-solid fa-phone text-[#FFFFFF] w-[24px] text-center shrink-0"></i>
-                            <span class="truncate text-[#FFFFFF]">Kontak</span>
-                        </a>
+                        </button>
+
+                        <ul
+                            class="submenu space-y-1 ml-6 mt-1 {{ request()->routeIs('back.articles.*', 'back.juknis.*', 'back.contact.*') ? '' : 'hidden' }}">
+                            <li>
+                                <a href="{{ route('back.articles.index') }}"
+                                    class="block p-1 text-gray-200 hover:bg-[#8BB9F0] rounded-lg {{ request()->routeIs('back.articles.index') ? 'bg-[#4F8ED6]' : '' }}">
+                                    Artikel
+                                </a>
+                            </li>
+                            <li>
+                                <a href="{{ route('back.juknis.index') }}"
+                                    class="block p-1 text-gray-200 hover:bg-[#8BB9F0] rounded-lg {{ request()->routeIs('back.juknis.index') ? 'bg-[#4F8ED6]' : '' }}">
+                                    Juknis Acara
+                                </a>
+                            </li>
+                            <li>
+                                <a href="{{ route('back.contact.index') }}"
+                                    class="block p-1 text-gray-200 hover:bg-[#8BB9F0] rounded-lg {{ request()->routeIs('back.contact.index') ? 'bg-[#4F8ED6]' : '' }}">
+                                    Kontak
+                                </a>
+                            </li>
+                        </ul>
                     </li>
                 </ul>
             </li>

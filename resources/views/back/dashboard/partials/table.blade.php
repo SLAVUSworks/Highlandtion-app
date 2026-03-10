@@ -17,8 +17,10 @@
                 <th class="px-4 py-2 text-left">No</th>
                 <th class="px-4 py-2 text-left">Name</th>
                 <th class="px-4 py-2 text-left">Tingkat</th>
+                <th class="px-4 py-2 text-left">Kategori</th>
+                <th class="px-4 py-2 text-left">Kode</th>
                 <th class="px-4 py-2 text-left">Status</th>
-                <th class="px-4 py-2 text-left">Kuota</th>
+                <th class="px-4 py-2 text-left">Kuota Sisa</th>
             </tr>
         </thead>
         <tbody id="menuTable">
@@ -27,6 +29,8 @@
                 <td class="px-4 py-2">{{ $loop->iteration }}</td>
                 <td class="px-4 py-2">{{ $item->name }}</td>
                 <td class="px-4 py-2">{{ $item->tingkat }}</td>
+                <td class="px-4 py-2">{{ $item->menuCategory->name ?? '-' }}</td>
+                <td class="px-4 py-2">{{ $item->short_code }}</td>
                 <td class="px-4 py-2">
                     <span class="px-2 py-1 rounded-lg text-white text-sm
                         {{ $item->status === 'buka' ? 'bg-green-600' : 'bg-red-600' }}">
@@ -59,7 +63,8 @@
             <tr class="bg-gray-200 text-gray-700">
                 <th class="px-4 py-2 text-left">No</th>
                 <th class="px-4 py-2 text-left">Name</th>
-                <th class="px-4 py-2 text-left">Kuota</th>
+                <th class="px-4 py-2 text-left">Pengguna</th>
+                <th class="px-4 py-2 text-left">Kuota Terisi</th>
             </tr>
         </thead>
         <tbody id="ruanganTable">
@@ -67,6 +72,7 @@
             <tr class="border-t hover:bg-gray-100 transition">
                 <td class="px-4 py-2">{{ $loop->iteration }}</td>
                 <td class="px-4 py-2">{{ $item->name }}</td>
+                <td class="px-4 py-2">{{ $item->menu->short_code ?? '-' }}</td>
                 <td class="px-4 py-2">{{ $item->kuota_now }}/{{ $item->kuota }}</td>
             </tr>
             @endforeach
