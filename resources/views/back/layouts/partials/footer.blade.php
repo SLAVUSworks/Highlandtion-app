@@ -47,7 +47,7 @@
         </div>
 
         <div class="flex justify-end items-center mt-8">
-            <p class="text-sm text-right">HL-Web App N Booking System v2.15.14<br>
+            <p class="text-sm text-right">HL-Web App N Booking System v2.15.15<br>
                 <small class="text-sm">Made & maintained by
                     <a href="https://github.com/SLAVUSworks" target="_blank" rel="noopener noreferrer"
                         class="text-black">SLAVUSworks</a>

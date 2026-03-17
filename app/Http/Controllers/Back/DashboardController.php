@@ -64,18 +64,59 @@ class DashboardController extends Controller
             ->get();
 
         $kuotaPerMenu = Menu::select(
-                'id',
-                'mata_pelajaran as name',
-                'short_code',
-                'menu_category_id',
-                'tingkat',
-                'status',
-                'kuota',
-                DB::raw('COALESCE(kuota_now, 0) as kuota_now')
+                'menus.id',
+                'menus.mata_pelajaran as name',
+                'menus.short_code',
+                'menus.menu_category_id',
+                'menus.tingkat',
+                'menus.status',
+                'menus.kuota',
+                DB::raw('COALESCE(menus.kuota_now, 0) as kuota_now'),
+                DB::raw("COUNT(CASE WHEN registrasis.status = 'approved' THEN 1 END) as peserta"),
+                DB::raw("SUM(CASE WHEN registrasis.status = 'approved' THEN menus.harga ELSE 0 END) as revenue")
             )
+            ->leftJoin('registrasis', 'registrasis.menu_id', '=', 'menus.id')
             ->with('menuCategory:id,name')
+            ->groupBy(
+                'menus.id',
+                'menus.mata_pelajaran',
+                'menus.short_code',
+                'menus.menu_category_id',
+                'menus.tingkat',
+                'menus.status',
+                'menus.kuota',
+                'menus.kuota_now'
+            )
             ->get();
 
+        $totalRevenue = DB::table('registrasis')
+            ->join('menus', 'registrasis.menu_id', '=', 'menus.id')
+            ->where('registrasis.status', 'approved')
+            ->sum('menus.harga');
+
+        $revenuePending = DB::table('registrasis')
+            ->join('menus', 'registrasis.menu_id', '=', 'menus.id')
+            ->where('registrasis.status', 'pending')
+            ->sum('menus.harga');
+
+        $revenueLast24Hours = DB::table('registrasis')
+            ->join('menus', 'registrasis.menu_id', '=', 'menus.id')
+            ->where('registrasis.status', 'approved')
+            ->where('registrasis.created_at', '>=', now()->subDay())
+            ->sum('menus.harga');
+
+        $maxRevenue = DB::table('menus')
+            ->select(DB::raw('SUM(harga * kuota) as total'))
+            ->value('total');
+
+        $revenuePie = DB::table('registrasis')
+            ->join('menus', 'registrasis.menu_id', '=', 'menus.id')
+            ->select(
+                'registrasis.status',
+                DB::raw('SUM(menus.harga) as total')
+            )
+            ->groupBy('registrasis.status')
+            ->pluck('total','status');
 
         return view('back.dashboard.index', compact(
             'totalPendaftar',
@@ -90,6 +131,11 @@ class DashboardController extends Controller
             'pending',
             'approved',
             'rejected',
+            'totalRevenue',
+            'revenuePending',
+            'revenueLast24Hours',
+            'maxRevenue',
+            'revenuePie'
         ))->with([
             'terakhirDiupdateReg' => optional($terakhirRegistrasi)->created_at?->format('Y-m-d H:i') ?? 'N/A',
             'terakhirDiupdateVer' => optional($terakhirVerifikasi)->updated_at?->format('Y-m-d H:i') ?? 'N/A',

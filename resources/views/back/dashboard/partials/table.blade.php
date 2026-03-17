@@ -16,9 +16,9 @@
             <tr class="bg-gray-200 text-gray-700">
                 <th class="px-4 py-2 text-left">No</th>
                 <th class="px-4 py-2 text-left">Name</th>
-                <th class="px-4 py-2 text-left">Tingkat</th>
                 <th class="px-4 py-2 text-left">Kategori</th>
                 <th class="px-4 py-2 text-left">Kode</th>
+                <th class="px-4 py-2 text-left">Revenue</th>
                 <th class="px-4 py-2 text-left">Status</th>
                 <th class="px-4 py-2 text-left">Kuota Sisa</th>
             </tr>
@@ -28,16 +28,24 @@
             <tr class="border-t hover:bg-gray-100 transition">
                 <td class="px-4 py-2">{{ $loop->iteration }}</td>
                 <td class="px-4 py-2">{{ $item->name }}</td>
-                <td class="px-4 py-2">{{ $item->tingkat }}</td>
                 <td class="px-4 py-2">{{ $item->menuCategory->name ?? '-' }}</td>
                 <td class="px-4 py-2">{{ $item->short_code }}</td>
+                <td class="px-4 py-2">Rp {{ number_format($item->revenue, 0, ',', '.') }}</td>
                 <td class="px-4 py-2">
-                    <span class="px-2 py-1 rounded-lg text-white text-sm
-                        {{ $item->status === 'buka' ? 'bg-green-600' : 'bg-red-600' }}">
-                        {{ $item->status === 'buka' ? 'Menerima' : 'Ditutup' }}
-                    </span>
+                    @if($item->kuota_now <= 0)
+                        <span class="px-2 py-1 rounded-lg text-white text-sm bg-red-600 animate-pulse">
+                            Full !
+                        </span>
+                    @else
+                        <span class="px-2 py-1 rounded-lg text-white text-sm
+                            {{ $item->status === 'buka' ? 'bg-green-600' : 'bg-red-600' }}">
+                            {{ $item->status === 'buka' ? 'Menerima' : 'Ditutup' }}
+                        </span>
+                    @endif
                 </td>
-                <td class="px-4 py-2">{{ $item->kuota_now }}/{{ $item->kuota }}</td>
+                <td class="px-4 py-2">
+                    {{ $item->kuota_now }}/{{ $item->kuota }}
+                </td>
             </tr>
             @endforeach
         </tbody>
